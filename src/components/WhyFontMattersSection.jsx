@@ -2,7 +2,7 @@ import React from 'react';
 
 function WhyFontMattersSection() {
   return (
-    <section className="bg-[#fef4e6] pt-16 md:pt-20 px-4 sm:px-6">
+    <section className="bg-[#fef4e6] md:pt-28 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] items-start">
         {/* Left Column - Content */}
         <div className="space-y-6">
