@@ -3,7 +3,7 @@ import WhyFontMattersSection from './components/WhyFontMattersSection'
 
 function App() {
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
+    <div className="min-h-screen bg-[#fef4e6] text-slate-900">
       {/* Header */}
       <header className="bg-[#152835] text-white shadow-lg relative">
         <div className="w-full px-6 py-6">
