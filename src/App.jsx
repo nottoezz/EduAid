@@ -2,6 +2,12 @@ import Hero from './components/Hero'
 import WhyFontMattersSection from './components/WhyFontMattersSection'
 import FontPackSection from './components/FontPackSection'
 import SeeItInActionCarousel from './components/SeeItInActionCarousel'
+import WhoUsesEduAid from './components/WhoUsesEduAid'
+import PricingLicenses from './components/PricingLicenses'
+import TrustedByEducators from './components/TrustedByEducators'
+import FaqSupport from './components/FaqSupport'
+import FinalCtaFooter from './components/FinalCtaFooter'
+import Footer from './components/Footer'
 
 function App() {
   return (
@@ -69,6 +75,12 @@ function App() {
       <WhyFontMattersSection />
       <FontPackSection />
       <SeeItInActionCarousel />
+      <WhoUsesEduAid />
+      <PricingLicenses />
+      <TrustedByEducators />
+      <FaqSupport />
+      <FinalCtaFooter />
+      <Footer />
     </div>
   );
 }
