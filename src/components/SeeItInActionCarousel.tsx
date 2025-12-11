@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 
 type Slide = {
@@ -78,10 +78,12 @@ export default function SeeItInActionCarousel() {
         <div className="absolute right-[-20px] bottom-0 h-56 w-56 rounded-full bg-[#FDE2CF] blur-3xl opacity-40" />
       </div>
 
-      <div className="mx-auto grid grid-cols-1 items-center gap-20 px-4 lg:px-6 lg:grid-cols-2">
+      <div className="relative mx-auto max-w-screen-xl px-4 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
 
         {/* Left: stacked card carousel */}
         <div className="relative flex h-96 items-center justify-center overflow-hidden sm:h-[28rem] lg:h-[32rem]">
+
           {/* cards */}
           {orderedSlides.map((slide, index) => {
             // circular offset from currentIndex
@@ -107,7 +109,7 @@ export default function SeeItInActionCarousel() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity, x, y, rotate, scale }}
                 transition={{ type: "spring", stiffness: 260, damping: 24 }}
-                className={`absolute flex w-[380px] max-w-full flex-col justify-between rounded-3xl border border-black/10 shadow-lg shadow-black/15 sm:w-[440px] lg:w-[500px] h-[400px] sm:h-[450px] lg:h-[480px] ${toneToBg(
+                className={`absolute flex w-[340px] max-w-full flex-col justify-between rounded-3xl border border-black/10 shadow-lg shadow-black/15 sm:w-[400px] lg:w-[450px] h-[400px] sm:h-[450px] lg:h-[480px] ${toneToBg(
                   slide.tone
                 )}`}
                 style={{ zIndex }}
@@ -141,76 +143,80 @@ export default function SeeItInActionCarousel() {
               </motion.div>
             );
           })}
-
-          {/* left arrow */}
-          <button
-            type="button"
-            onClick={handlePrev}
-            aria-label="Previous worksheet"
-            className="absolute left-8 top-1/2 flex -translate-y-1/2 items-center justify-center rounded-full border border-black/5 bg-black/5 px-2 py-2 text-xs text-black/70 backdrop-blur-sm hover:bg-black/10"
-          >
-            <span className="sr-only">Previous</span>
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 24 24"
-              className="h-4 w-4"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={1.8}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M15 18l-6-6 6-6" />
-            </svg>
-          </button>
-
-          {/* right arrow */}
-          <button
-            type="button"
-            onClick={handleNext}
-            aria-label="Next worksheet"
-            className="absolute right-8 top-1/2 flex -translate-y-1/2 items-center justify-center rounded-full border border-black/5 bg-black/5 px-2 py-2 text-xs text-black/70 backdrop-blur-sm hover:bg-black/10"
-          >
-            <span className="sr-only">Next</span>
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 24 24"
-              className="h-4 w-4"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={1.8}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M9 6l6 6-6 6" />
-            </svg>
-          </button>
         </div>
+
+        {/* Carousel arrows - positioned relative to carousel column */}
+        <button
+          type="button"
+          onClick={handlePrev}
+          aria-label="Previous worksheet"
+          className="absolute left-4 lg:left-8 top-1/2 z-30 flex -translate-y-1/2 items-center justify-center rounded-full border border-black/5 bg-black/5 px-2 py-2 text-xs text-black/70 backdrop-blur-sm hover:bg-black/10"
+        >
+          <span className="sr-only">Previous</span>
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            className="h-4 w-4"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={1.8}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </button>
+
+        <button
+          type="button"
+          onClick={handleNext}
+          aria-label="Next worksheet"
+          className="absolute left-[calc(50%-2rem)] lg:left-[calc(50%-3rem)] top-1/2 z-30 flex -translate-y-1/2 items-center justify-center rounded-full border border-black/5 bg-black/5 px-2 py-2 text-xs text-black/70 backdrop-blur-sm hover:bg-black/10"
+        >
+          <span className="sr-only">Next</span>
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            className="h-4 w-4"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={1.8}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M9 6l6 6-6 6" />
+          </svg>
+        </button>
 
         {/* Right: explanatory text */}
-        <div className="space-y-6">
-          <h2 className="text-4xl font-semibold text-black md:text-5xl">
-            See It in Action
-          </h2>
-          <p className="text-lg text-black/75 md:text-xl leading-relaxed">
-            Browse through real examples of Edu-Aid style worksheets – from
-            Grade R tracing pages to Grade 2 cursive practice – all built with
-            correct South African letterforms.
-          </p>
+        <div className="flex justify-center items-center h-96 sm:h-[28rem] lg:h-[32rem]">
+          <div className="rounded-3xl backdrop-blur-sm border border-white/30 shadow-lg p-8 md:p-10 max-w-lg w-full">
+          <div className="space-y-6">
+            <h2 className="text-4xl font-semibold text-black md:text-5xl">
+              See It in Action
+            </h2>
+            <p className="text-lg text-black/75 md:text-xl leading-relaxed">
+              Browse through real examples of Edu-Aid style worksheets – from
+              Grade R tracing pages to Grade 2 cursive practice – all built with
+              correct South African letterforms.
+            </p>
 
-          <ul className="space-y-3 text-base text-black/80 md:text-lg">
-            <li>• Grade R tracing sheets with clear start and stop points.</li>
-            <li>• Letter-formation arrows for each new sound or letter.</li>
-            <li>• Cursive practice lines for older grades.</li>
-            <li>• Number formation and early maths worksheets.</li>
-          </ul>
+            <ul className="space-y-3 text-base text-black/80 md:text-lg">
+              <li>• Grade R tracing sheets with clear start and stop points.</li>
+              <li>• Letter-formation arrows for each new sound or letter.</li>
+              <li>• Cursive practice lines for older grades.</li>
+              <li>• Number formation and early maths worksheets.</li>
+            </ul>
 
-          <p className="text-base text-black/60 mt-6">
-            Every worksheet can be printed or used on a screen or interactive
-            whiteboard – so you can plug it straight into tomorrow&apos;s
-            lesson.
-          </p>
+            <p className="text-base text-black/60 mt-6">
+              Every worksheet can be printed or used on a screen or interactive
+              whiteboard – so you can plug it straight into tomorrow&apos;s
+              lesson.
+            </p>
+          </div>
+          </div>
         </div>
+      </div>
       </div>
     </section>
   );
