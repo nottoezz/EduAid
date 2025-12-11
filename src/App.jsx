@@ -1,5 +1,6 @@
 import Hero from './components/Hero'
 import WhyFontMattersSection from './components/WhyFontMattersSection'
+import FontPackSection from './components/FontPackSection'
 
 function App() {
   return (
@@ -65,6 +66,7 @@ function App() {
 
       <Hero />
       <WhyFontMattersSection />
+      <FontPackSection />
     </div>
   );
 }
