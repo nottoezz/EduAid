@@ -2,6 +2,10 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import wueTeachersImage from '/WUE-Teachers.png';
+import wueTherapistImage from '/WUE-Therapist.png';
+import wueSchoolsImage from '/WUE-Schools.png';
+import wueHomeschoolImage from '/WUE-Homeschool.png';
 
 type Persona = {
   id: string;
@@ -250,7 +254,7 @@ export default function WhoUsesEduAid() {
               {/* Image */}
               <div className="flex-shrink-0 w-80 h-64 rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 border border-black/10 shadow-lg overflow-hidden">
                 <img
-                  src="/WUE-Teachers.png"
+                  src={wueTeachersImage}
                   alt="Foundation Phase Teachers using Edu-Aid fonts in classroom"
                   className="w-full h-full object-contain"
                 />
@@ -268,7 +272,7 @@ export default function WhoUsesEduAid() {
               {/* Image */}
               <div className="flex-shrink-0 w-80 h-64 rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 border border-black/10 shadow-lg overflow-hidden">
                 <img
-                  src="/WUE-Therapist.png"
+                  src={wueTherapistImage}
                   alt="Remedial and occupational therapists using Edu-Aid fonts"
                   className="w-full h-full object-contain"
                 />
@@ -328,7 +332,7 @@ export default function WhoUsesEduAid() {
               {/* Image */}
               <div className="flex-shrink-0 w-80 h-64 rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 border border-black/10 shadow-lg overflow-hidden">
                 <img
-                  src="/WUE-Schools.png"
+                  src={wueSchoolsImage}
                   alt="Schools and districts implementing Edu-Aid fonts across classrooms"
                   className="w-full h-full object-contain"
                 />
@@ -346,7 +350,7 @@ export default function WhoUsesEduAid() {
               {/* Image */}
               <div className="flex-shrink-0 w-80 h-64 rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 border border-black/10 shadow-lg overflow-hidden">
                 <img
-                  src="/WUE-Homeschool.png"
+                  src={wueHomeschoolImage}
                   alt="Parents and homeschoolers using Edu-Aid fonts at home"
                   className="w-full h-full object-contain"
                 />

@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import logoImage from "/logo.png";
 
 export default function Footer() {
   return (
@@ -14,7 +15,7 @@ export default function Footer() {
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <img
-                src="/logo.png"
+                src={logoImage}
                 alt="Edu-Aid Logo"
                 className="h-8 w-auto"
               />

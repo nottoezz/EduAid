@@ -1,5 +1,6 @@
 import { useState } from "react";
 import HeroBackgroundOrnaments from "./HeroBackgroundOrnaments";
+import studentWritingImage from "/StudentWritingOnLens.png";
 
 function Hero() {
   return (
@@ -96,7 +97,7 @@ function Hero() {
           <div className="flex justify-center lg:justify-end order-1 lg:order-2">
             <div className="w-full max-w-sm lg:max-w-md">
               <img
-                src="/StudentWritingOnLens.png"
+                src={studentWritingImage}
                 alt="Student writing on lens - demonstrating proper handwriting techniques"
                 className="w-full h-auto rounded-2xl"
               />

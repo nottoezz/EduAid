@@ -1,5 +1,9 @@
 import React from "react";
 import FontPackBackgroundOrnaments from "./FontPackBackgroundOrnaments";
+import abstractFigureImage from '/abstract_figure.png';
+import abcSolidImage from '/ABC-solid.png';
+import abcDottedImage from '/ABC-dotted.png';
+import abcDottedArrowsImage from '/ABC-dotted-arrows.png';
 
 function FontPackSection() {
   return (
@@ -111,7 +115,7 @@ function FontPackSection() {
             style={{ gridArea: "1 / 3 / 4 / 4" }}
           >
             <img
-              src="/abstract_figure.png"
+              src={abstractFigureImage}
               alt="Abstract figure illustration"
               className="w-full h-full object-contain rounded-xl"
             />
@@ -123,7 +127,7 @@ function FontPackSection() {
             style={{ gridArea: "2 / 2 / 3 / 3" }}
           >
             <img
-              src="/ABC-solid.png"
+              src={abcSolidImage}
               alt="Solid ABC letters"
               className="w-full h-full object-contain rounded-xl"
             />
@@ -135,7 +139,7 @@ function FontPackSection() {
             style={{ gridArea: "3 / 2 / 4 / 3" }}
           >
             <img
-              src="/ABC-dotted.png"
+              src={abcDottedImage}
               alt="Dotted ABC letters for tracing"
               className="w-full h-full object-contain rounded-xl"
             />
@@ -147,7 +151,7 @@ function FontPackSection() {
             style={{ gridArea: "4 / 2 / 5 / 3" }}
           >
             <img
-              src="/ABC-dotted-arrows.png"
+              src={abcDottedArrowsImage}
               alt="Dotted ABC letters with arrows for guided tracing"
               className="w-full h-full object-contain rounded-xl"
             />
