@@ -71,14 +71,9 @@ export default function SeeItInActionCarousel() {
   };
 
   return (
-    <section className="relative bg-[#fef4e6] py-32 md:py-40">
-      {/* subtle background blobs */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute left-[-40px] top-12 h-40 w-40 rounded-full bg-[#D8F3F0] blur-3xl opacity-50" />
-        <div className="absolute right-[-20px] bottom-0 h-56 w-56 rounded-full bg-[#FDE2CF] blur-3xl opacity-40" />
-      </div>
-
-      <div className="relative mx-auto max-w-screen-xl px-4 lg:px-8">
+    <>
+      <section className="relative bg-[#fef4e6] py-32 md:py-40">
+        <div className="relative mx-auto max-w-screen-xl px-4 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
 
         {/* Left: stacked card carousel */}
@@ -143,50 +138,51 @@ export default function SeeItInActionCarousel() {
               </motion.div>
             );
           })}
+
+          {/* Carousel arrows - anchored left and right */}
+          <button
+            type="button"
+            onClick={handlePrev}
+            aria-label="Previous worksheet"
+            className="absolute left-2 top-1/2 z-30 flex -translate-y-1/2 items-center justify-center rounded-full border border-black/5 bg-black/5 px-2 py-2 text-xs text-black/70 backdrop-blur-sm hover:bg-black/10"
+          >
+            <span className="sr-only">Previous</span>
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              className="h-4 w-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={1.8}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+
+          <button
+            type="button"
+            onClick={handleNext}
+            aria-label="Next worksheet"
+            className="absolute right-2 top-1/2 z-30 flex -translate-y-1/2 items-center justify-center rounded-full border border-black/5 bg-black/5 px-2 py-2 text-xs text-black/70 backdrop-blur-sm hover:bg-black/10"
+          >
+            <span className="sr-only">Next</span>
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              className="h-4 w-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={1.8}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
         </div>
 
-        {/* Carousel arrows - positioned relative to carousel column */}
-        <button
-          type="button"
-          onClick={handlePrev}
-          aria-label="Previous worksheet"
-          className="absolute left-4 lg:left-8 top-1/2 z-30 flex -translate-y-1/2 items-center justify-center rounded-full border border-black/5 bg-black/5 px-2 py-2 text-xs text-black/70 backdrop-blur-sm hover:bg-black/10"
-        >
-          <span className="sr-only">Previous</span>
-          <svg
-            aria-hidden="true"
-            viewBox="0 0 24 24"
-            className="h-4 w-4"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={1.8}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M15 18l-6-6 6-6" />
-          </svg>
-        </button>
-
-        <button
-          type="button"
-          onClick={handleNext}
-          aria-label="Next worksheet"
-          className="absolute left-[calc(50%-2rem)] lg:left-[calc(50%-3rem)] top-1/2 z-30 flex -translate-y-1/2 items-center justify-center rounded-full border border-black/5 bg-black/5 px-2 py-2 text-xs text-black/70 backdrop-blur-sm hover:bg-black/10"
-        >
-          <span className="sr-only">Next</span>
-          <svg
-            aria-hidden="true"
-            viewBox="0 0 24 24"
-            className="h-4 w-4"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={1.8}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M9 6l6 6-6 6" />
-          </svg>
-        </button>
 
         {/* Right: explanatory text */}
         <div className="flex justify-center items-center h-96 sm:h-[28rem] lg:h-[32rem]">
@@ -216,8 +212,9 @@ export default function SeeItInActionCarousel() {
           </div>
           </div>
         </div>
+        </div>
       </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
