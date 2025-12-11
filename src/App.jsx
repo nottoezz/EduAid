@@ -1,17 +1,18 @@
 import Hero from './components/Hero'
+import WhyFontMattersSection from './components/WhyFontMattersSection'
 
 function App() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
       {/* Header */}
-      <header className="bg-[#152835] text-white shadow-lg">
-        <div className="max-w-6xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between gap-6">
-            <div className="flex items-center gap-3">
+      <header className="bg-[#152835] text-white shadow-lg relative">
+        <div className="w-full px-6 py-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
               <img
                 src="/logo.png"
                 alt="Edu-Aid Logo"
-                className="h-10 w-auto"
+                className="h-12 w-auto"
               />
               <div className="hidden sm:block">
                 <p className="text-sm font-semibold tracking-wide uppercase">
@@ -23,34 +24,30 @@ function App() {
               </div>
             </div>
 
-            <nav className="hidden md:flex items-center gap-8 text-sm absolute left-1/2 transform -translate-x-1/2">
+            <nav className="hidden lg:flex items-center gap-8 text-sm absolute left-1/2 transform -translate-x-1/2">
               <a
                 href="#fonts"
-                className="text-[#E5EDF4] hover:text-white transition-colors duration-200 relative group"
+                className="text-[#E5EDF4] hover:text-white transition-colors duration-200 relative group px-3 py-2 rounded-lg hover:bg-white/10"
               >
                 Edu-Fonts
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C88] transition-all duration-300 group-hover:w-full"></span>
               </a>
               <a
                 href="#why"
-                className="text-[#E5EDF4] hover:text-white transition-colors duration-200 relative group"
+                className="text-[#E5EDF4] hover:text-white transition-colors duration-200 relative group px-3 py-2 rounded-lg hover:bg-white/10"
               >
                 Why our font?
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C88] transition-all duration-300 group-hover:w-full"></span>
               </a>
               <a
                 href="#order"
-                className="text-[#E5EDF4] hover:text-white transition-colors duration-200 relative group"
+                className="text-[#E5EDF4] hover:text-white transition-colors duration-200 relative group px-3 py-2 rounded-lg hover:bg-white/10"
               >
                 Pricing & Licenses
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C88] transition-all duration-300 group-hover:w-full"></span>
               </a>
               <a
                 href="#contact"
-                className="text-[#E5EDF4] hover:text-white transition-colors duration-200 relative group"
+                className="text-[#E5EDF4] hover:text-white transition-colors duration-200 relative group px-3 py-2 rounded-lg hover:bg-white/10"
               >
                 Contact
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF8C88] transition-all duration-300 group-hover:w-full"></span>
               </a>
             </nav>
 
@@ -60,9 +57,14 @@ function App() {
             </div>
           </div>
         </div>
+
+        {/* Rounded bottom edge */}
+        <div className="absolute bottom-0 left-0 right-0 h-4 bg-[#152835] rounded-b-[32px]"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-4 bg-[#fef4e6] rounded-b-[32px] -z-10"></div>
       </header>
 
       <Hero />
+      <WhyFontMattersSection />
     </div>
   );
 }

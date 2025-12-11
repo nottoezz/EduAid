@@ -5,7 +5,7 @@ function Hero() {
   return (
     <section
       role="banner"
-      className="bg-[#fef4e6] py-16 md:py-24 relative overflow-hidden"
+      className="bg-[#fef4e6] pt-16 md:pt-24 pb-32 md:pb-40 relative overflow-hidden"
       aria-labelledby="hero-heading"
     >
       <HeroBackgroundOrnaments />

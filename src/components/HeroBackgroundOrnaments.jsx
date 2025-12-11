@@ -8,15 +8,15 @@ function HeroBackgroundOrnaments() {
     >
       {/* Flowing abstract lines from bottom-left to top-right */}
       <path
-        d="M -10 85 Q 20 70 40 85 T 60 75 T 80 85 T 105 25"
+        d="M -10 80 Q 20 65 40 80 T 60 70 T 80 80 T 105 20"
         className="stroke-[#E8DFD2] stroke-6 fill-none"
       />
       <path
-        d="M -30 90 Q 22 75 42 90 T 62 90 T 82 79 T 105 10"
+        d="M -30 85 Q 22 70 42 85 T 62 85 T 82 74 T 105 5"
         className="stroke-[#74C0E3] stroke-5 fill-none"
       />
       <path
-        d="M -5 95 Q 25 80 45 95 T 65 85 T 85 95 T 105 50"
+        d="M -5 90 Q 25 75 45 90 T 65 82 T 85 75 T 105 45"
         className="stroke-[#FF9F80] stroke-7 fill-none"
       />
 
