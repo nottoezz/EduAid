@@ -5,7 +5,7 @@ function Hero() {
   return (
     <section
       role="banner"
-      className="bg-[#fef4e6] pt-16 md:pt-24 pb-32 md:pb-40 relative overflow-hidden"
+      className="bg-[#fef4e6] pt-24 md:pt-24 pb-32 md:pb-40 relative overflow-hidden"
       aria-labelledby="hero-heading"
     >
       <HeroBackgroundOrnaments />
@@ -33,7 +33,7 @@ function Hero() {
             </div>
 
             {/* Main content card */}
-            <div className="relative w-full max-w-full z-10">
+            <div className="relative w-full max-w-full z-10 ml-4 lg:ml-32">
               {/* Card background with gradient */}
               <div className="relative bg-white/95 backdrop-blur-sm rounded-[32px] p-8 md:p-10 lg:p-12 shadow-[0_18px_40px_rgba(0,0,0,0.05)] border border-[#E8DFD2]">
                 {/* Accent line */}
