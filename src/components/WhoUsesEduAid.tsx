@@ -18,7 +18,7 @@ const personas: Persona[] = [
     id: "teachers",
     label: "Foundation Phase Teachers",
     headline: "Create consistent worksheets for your whole grade.",
-    description: "Create consistent worksheets for your whole grade.",
+    description: "Save hours of design time with professionally crafted fonts that match CAPS requirements. Create beautiful, consistent worksheets for your entire grade with print, tracing, and cursive options that develop fine motor skills systematically.",
     cta: "How we help teachers →",
     tone: "peach",
     icon: "teacher",
@@ -26,8 +26,8 @@ const personas: Persona[] = [
   {
     id: "therapists",
     label: "Remedial / OT / Speech Therapists",
-    headline: "Support fine motor skills and letter formation in therapy sessions.",
-    description: "Support fine motor skills and letter formation in therapy sessions.",
+    headline: "Accelerate handwriting progress in therapy sessions.",
+    description: "Target specific letter formations and fine motor challenges with our therapeutic tracing fonts. Help learners with dyslexia, dysgraphia, or developmental delays build confidence through structured, multi-sensory handwriting practice.",
     cta: "How we help therapists →",
     tone: "mint",
     icon: "therapist",
@@ -36,7 +36,7 @@ const personas: Persona[] = [
     id: "schools",
     label: "Schools & Districts",
     headline: "Standardise handwriting across all classes and grades.",
-    description: "Standardise handwriting across all classes and grades.",
+    description: "Ensure every teacher uses the same, CAPS-aligned letterforms. Our comprehensive font pack supports your whole school from Grade R tracing dots to Grade 3 cursive, creating a seamless progression that builds on previous learning.",
     cta: "How we help schools →",
     tone: "cream",
     icon: "school",
@@ -45,7 +45,7 @@ const personas: Persona[] = [
     id: "parents",
     label: "Parents & Homeschoolers",
     headline: "Match what learners see at school, at home.",
-    description: "Match what learners see at school, at home.",
+    description: "Bridge the gap between school and home learning. Use the same fonts and worksheets your child encounters at school for homework, practice, and reinforcement. Perfect for homeschooling families following CAPS curriculum.",
     cta: "How we help families →",
     tone: "softOrange",
     icon: "parent",
@@ -55,15 +55,15 @@ const personas: Persona[] = [
 function toneToBg(tone: Persona["tone"]): string {
   switch (tone) {
     case "peach":
-      return "bg-[#FFE5E5]"; // soft coral
+      return "bg-[#F6B5A8]"; // rich coral/pink
     case "mint":
-      return "bg-[#E6F7F7]"; // soft teal
+      return "bg-[#D8F3F0]"; // rich teal
     case "cream":
-      return "bg-[#FEF3E6]"; // soft cream
+      return "bg-[#EADBC4]"; // warm cream
     case "softOrange":
-      return "bg-[#FFF4E5]"; // soft orange
+      return "bg-[#FDE2CF]"; // rich apricot
     default:
-      return "bg-[#FEF3E6]";
+      return "bg-[#EADBC4]";
   }
 }
 
@@ -156,34 +156,163 @@ export default function WhoUsesEduAid() {
           </p>
         </div>
 
-        {/* Personas */}
-        <div className="flex gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] snap-x snap-mandatory pb-4 -mx-6 px-6 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:px-0 lg:grid-cols-4 lg:gap-7">
-          {personas.map((persona) => (
+        {/* Personas - Staggered Layout */}
+        <div className="space-y-20">
+          {/* Persona 1: Combined Card on Left */}
+          <div className="flex justify-start -ml-8">
             <motion.div
-              key={persona.id}
               whileHover={{ y: -4, scale: 1.02 }}
               transition={{ type: "spring", stiffness: 260, damping: 22 }}
-              className="flex w-72 shrink-0 snap-center flex-col rounded-3xl border border-black/5 bg-white/70 p-5 shadow-sm shadow-black/5 backdrop-blur-sm md:w-full md:snap-align-none"
+              className={`flex gap-6 max-w-4xl rounded-3xl border border-black/5 ${toneToBg(personas[0].tone)} p-8 shadow-sm shadow-black/5 backdrop-blur-sm`}
             >
-              {/* Icon and Label */}
-              <div className="mb-4 flex items-center gap-3">
-                <div className={`flex h-10 w-10 items-center justify-center rounded-full ${toneToBg(persona.tone)}`}>
-                  <PersonaIcon icon={persona.icon} />
+              {/* Text Content */}
+              <div className="flex-1 min-w-0">
+                {/* Icon and Label */}
+                <div className="mb-4 flex items-center gap-3">
+                  <div className={`flex h-12 w-12 items-center justify-center rounded-full ${toneToBg(personas[0].tone)}`}>
+                    <PersonaIcon icon={personas[0].icon} />
+                  </div>
+                  <h3 className="text-xl font-semibold text-[#16130F]">{personas[0].label}</h3>
                 </div>
-                <h3 className="text-sm font-semibold text-[#16130F]">{persona.label}</h3>
+
+                {/* Description */}
+                <p className="mb-6 flex-1 text-base text-[#6B7280] leading-relaxed">
+                  {personas[0].description}
+                </p>
+
+                {/* CTA */}
+                <button className="text-left text-base text-[#2563EB] hover:underline font-medium">
+                  {personas[0].cta}
+                </button>
               </div>
 
-              {/* Description */}
-              <p className="mb-4 flex-1 text-sm text-[#6B7280] leading-relaxed">
-                {persona.description}
-              </p>
-
-              {/* CTA */}
-              <button className="text-left text-sm text-[#2563EB] hover:underline">
-                {persona.cta}
-              </button>
+              {/* Image */}
+              <div className="flex-shrink-0 w-80 h-64 rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 border border-black/10 shadow-lg overflow-hidden">
+                <img
+                  src="/WUE-Teachers.png"
+                  alt="Foundation Phase Teachers using Edu-Aid fonts in classroom"
+                  className="w-full h-full object-contain"
+                />
+              </div>
             </motion.div>
-          ))}
+          </div>
+
+          {/* Persona 2: Combined Card on Right */}
+          <div className="flex justify-end -mr-8">
+            <motion.div
+              whileHover={{ y: -4, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 260, damping: 22 }}
+              className={`flex gap-6 max-w-4xl rounded-3xl border border-black/5 ${toneToBg(personas[1].tone)} p-8 shadow-sm shadow-black/5 backdrop-blur-sm`}
+            >
+              {/* Image */}
+              <div className="flex-shrink-0 w-80 h-64 rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 border border-black/10 shadow-lg overflow-hidden">
+                <img
+                  src="/WUE-Therapist.png"
+                  alt="Remedial and occupational therapists using Edu-Aid fonts"
+                  className="w-full h-full object-contain"
+                />
+              </div>
+
+              {/* Text Content */}
+              <div className="flex-1 min-w-0">
+                {/* Icon and Label */}
+                <div className="mb-4 flex items-center gap-3">
+                  <div className={`flex h-12 w-12 items-center justify-center rounded-full ${toneToBg(personas[1].tone)}`}>
+                    <PersonaIcon icon={personas[1].icon} />
+                  </div>
+                  <h3 className="text-xl font-semibold text-[#16130F]">{personas[1].label}</h3>
+                </div>
+
+                {/* Description */}
+                <p className="mb-6 flex-1 text-base text-[#6B7280] leading-relaxed">
+                  {personas[1].description}
+                </p>
+
+                {/* CTA */}
+                <button className="text-left text-base text-[#2563EB] hover:underline font-medium">
+                  {personas[1].cta}
+                </button>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Persona 3: Combined Card on Left */}
+          <div className="flex justify-start -ml-8">
+            <motion.div
+              whileHover={{ y: -4, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 260, damping: 22 }}
+              className={`flex gap-6 max-w-4xl rounded-3xl border border-black/5 ${toneToBg(personas[2].tone)} p-8 shadow-sm shadow-black/5 backdrop-blur-sm`}
+            >
+              {/* Text Content */}
+              <div className="flex-1 min-w-0">
+                {/* Icon and Label */}
+                <div className="mb-4 flex items-center gap-3">
+                  <div className={`flex h-12 w-12 items-center justify-center rounded-full ${toneToBg(personas[2].tone)}`}>
+                    <PersonaIcon icon={personas[2].icon} />
+                  </div>
+                  <h3 className="text-xl font-semibold text-[#16130F]">{personas[2].label}</h3>
+                </div>
+
+                {/* Description */}
+                <p className="mb-6 flex-1 text-base text-[#6B7280] leading-relaxed">
+                  {personas[2].description}
+                </p>
+
+                {/* CTA */}
+                <button className="text-left text-base text-[#2563EB] hover:underline font-medium">
+                  {personas[2].cta}
+                </button>
+              </div>
+
+              {/* Image */}
+              <div className="flex-shrink-0 w-80 h-64 rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 border border-black/10 shadow-lg overflow-hidden">
+                <img
+                  src="/WUE-Schools.png"
+                  alt="Schools and districts implementing Edu-Aid fonts across classrooms"
+                  className="w-full h-full object-contain"
+                />
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Persona 4: Combined Card on Right */}
+          <div className="flex justify-end -mr-8">
+            <motion.div
+              whileHover={{ y: -4, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 260, damping: 22 }}
+              className={`flex gap-6 max-w-4xl rounded-3xl border border-black/5 ${toneToBg(personas[3].tone)} p-8 shadow-sm shadow-black/5 backdrop-blur-sm`}
+            >
+              {/* Image */}
+              <div className="flex-shrink-0 w-80 h-64 rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 border border-black/10 shadow-lg overflow-hidden">
+                <img
+                  src="/WUE-Homeschool.png"
+                  alt="Parents and homeschoolers using Edu-Aid fonts at home"
+                  className="w-full h-full object-contain"
+                />
+              </div>
+
+              {/* Text Content */}
+              <div className="flex-1 min-w-0">
+                {/* Icon and Label */}
+                <div className="mb-4 flex items-center gap-3">
+                  <div className={`flex h-12 w-12 items-center justify-center rounded-full ${toneToBg(personas[3].tone)}`}>
+                    <PersonaIcon icon={personas[3].icon} />
+                  </div>
+                  <h3 className="text-xl font-semibold text-[#16130F]">{personas[3].label}</h3>
+                </div>
+
+                {/* Description */}
+                <p className="mb-6 flex-1 text-base text-[#6B7280] leading-relaxed">
+                  {personas[3].description}
+                </p>
+
+                {/* CTA */}
+                <button className="text-left text-base text-[#2563EB] hover:underline font-medium">
+                  {personas[3].cta}
+                </button>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>
