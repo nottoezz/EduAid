@@ -143,7 +143,66 @@ function PersonaIcon({ icon, className = "" }: PersonaIconProps) {
 
 export default function WhoUsesEduAid() {
   return (
-    <section className="bg-[#fef4e6] py-24 md:py-32">
+    <section className="relative bg-[#fef4e6] py-24 md:py-32 z-100">
+      {/* Background decorative lines */}
+      <svg
+        className="pointer-events-none absolute inset-0 -z-10 w-full h-full"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        {/* Top layer - Lemon */}
+        <path
+          d="
+            M 100 35
+            C 80 45, 55 30, 35 50
+            S 75 70, 80 85
+            S 35 95, 0 95
+          "
+          className="fill-none stroke-[#E7E9A0] [stroke-width:2.5] [stroke-linecap:round] [stroke-linejoin:round] opacity-100"
+        />
+        {/* Mint-Green layer */}
+        <path
+          d="
+            M 105 30
+            C 85 50, 50 20, 30 40
+            S 80 60, 85 80
+            S 30 90, 0 90
+          "
+          className="fill-none stroke-[#7EDC89] [stroke-width:4] [stroke-linecap:round] [stroke-linejoin:round] opacity-100"
+        />
+        {/* Coral layer */}
+        <path
+          d="
+            M 115 3
+            C 100 65, 35 5, 15 25
+            S 95 45, 100 65
+            S 15 75, -5 75
+          "
+          className="fill-none stroke-[#FF9F80] [stroke-width:2] [stroke-linecap:round] [stroke-linejoin:round] opacity-100"
+        />
+        {/* Bright Blue layer */}
+        <path
+          d="
+            M 105 0
+            C 90 55, 45 15, 25 35
+            S 85 55, 90 75
+            S 25 85, -5 85
+          "
+          className="fill-none stroke-[#00A4FF] [stroke-width:3] [stroke-linecap:round] [stroke-linejoin:round] opacity-100"
+        />
+        {/* Deep Teal layer - bottom */}
+        <path
+          d="
+            M 110 0
+            C 95 60, 40 10, 20 30
+            S 90 50, 95 70
+            S 20 80, 0 80
+          "
+          className="fill-none stroke-[#00827A] [stroke-width:5] [stroke-linecap:round] [stroke-linejoin:round] opacity-100"
+        />
+      </svg>
+
       <div className="mx-auto max-w-6xl px-6">
         {/* Header */}
         <div className="mb-12 text-center md:mb-16">
