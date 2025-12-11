@@ -1,10 +1,11 @@
 import Hero from './components/Hero'
 import WhyFontMattersSection from './components/WhyFontMattersSection'
 import FontPackSection from './components/FontPackSection'
+import SeeItInActionCarousel from './components/SeeItInActionCarousel'
 
 function App() {
   return (
-    <div className="min-h-screen bg-[#fef4e6] text-slate-900">
+    <div className="min-h-screen bg-[#fef4e6] text-slate-900 overflow-x-hidden">
       {/* Header */}
       <header className="bg-[#152835] text-white shadow-lg relative">
         <div className="w-full px-6 py-6">
@@ -67,6 +68,7 @@ function App() {
       <Hero />
       <WhyFontMattersSection />
       <FontPackSection />
+      <SeeItInActionCarousel />
     </div>
   );
 }
