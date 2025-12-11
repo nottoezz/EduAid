@@ -143,7 +143,7 @@ function PersonaIcon({ icon, className = "" }: PersonaIconProps) {
 
 export default function WhoUsesEduAid() {
   return (
-    <section className="relative bg-[#fef4e6] py-24 md:py-32 z-100">
+    <section className="relative bg-[#fef4e6] py-24 pb-48 z-100">
       {/* Background decorative lines */}
       <svg
         className="pointer-events-none absolute inset-0 -z-10 w-full h-full"
@@ -205,14 +205,16 @@ export default function WhoUsesEduAid() {
 
       <div className="mx-auto max-w-6xl px-6">
         {/* Header */}
-        <div className="mb-12 text-center md:mb-16">
-          <h2 className="mb-4 text-2xl font-extrabold text-[#16130F] md:text-3xl">
-            Who Uses Edu-Aid?
-          </h2>
-          <p className="mx-auto max-w-2xl text-sm text-[#6B7280] md:text-base">
-            Built for teachers, therapists, schools, and parents who want to make handwriting instruction
-            consistent, effective, and stress-free.
-          </p>
+        <div className="mb-12 text-center md:mb-16 -mt-8 pb-24">
+          <div className="inline-block bg-white/90 backdrop-blur-sm rounded-2xl px-8 py-6 shadow-lg border border-white/20">
+            <h2 className="mb-3 text-3xl font-black text-[#16130F] md:text-4xl lg:text-5xl">
+              Who Uses Edu-Aid?
+            </h2>
+            <p className="mx-auto max-w-2xl text-base text-[#6B7280] md:text-lg leading-relaxed">
+              Built for teachers, therapists, schools, and parents who want to make handwriting instruction
+              consistent, effective, and stress-free.
+            </p>
+          </div>
         </div>
 
         {/* Personas - Staggered Layout */}
