@@ -59,10 +59,11 @@ export default function Hero() {
                   </button>
 
                   <button
+                    onClick={() => window.location.hash = '#download'}
                     className="bg-transparent border-2 border-[#8BD889] text-[#218738] hover:bg-[#F5FFF5] font-semibold py-3 px-6 rounded-full transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#8BD889] focus:ring-offset-2 focus:ring-offset-white"
-                    aria-label="Access worksheets and resources"
+                    aria-label="Download trial font"
                   >
-                    Worksheets & Resources
+                    Try Trial Font
                   </button>
                 </div>
 

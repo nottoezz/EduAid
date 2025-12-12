@@ -166,7 +166,10 @@ export default function WhoUsesEduAidSection() {
                 </p>
 
                 {/* CTA */}
-                <button className={`text-left text-base hover:underline font-medium ${toneStyles(personas[0].tone).accent}`}>
+                <button
+                  onClick={() => window.location.hash = `#help-${personas[0].id}`}
+                  className={`text-left text-base hover:underline font-medium ${toneStyles(personas[0].tone).accent}`}
+                >
                   {personas[0].cta}
                 </button>
               </div>
@@ -214,7 +217,10 @@ export default function WhoUsesEduAidSection() {
                 </p>
 
                 {/* CTA */}
-                <button className={`text-left text-base hover:underline font-medium ${toneStyles(personas[0].tone).accent}`}>
+                <button
+                  onClick={() => window.location.hash = `#help-${personas[1].id}`}
+                  className={`text-left text-base hover:underline font-medium ${toneStyles(personas[0].tone).accent}`}
+                >
                   {personas[1].cta}
                 </button>
               </div>
@@ -244,7 +250,10 @@ export default function WhoUsesEduAidSection() {
                 </p>
 
                 {/* CTA */}
-                <button className={`text-left text-base hover:underline font-medium ${toneStyles(personas[0].tone).accent}`}>
+                <button
+                  onClick={() => window.location.hash = `#help-${personas[2].id}`}
+                  className={`text-left text-base hover:underline font-medium ${toneStyles(personas[0].tone).accent}`}
+                >
                   {personas[2].cta}
                 </button>
               </div>
@@ -292,7 +301,10 @@ export default function WhoUsesEduAidSection() {
                 </p>
 
                 {/* CTA */}
-                <button className={`text-left text-base hover:underline font-medium ${toneStyles(personas[0].tone).accent}`}>
+                <button
+                  onClick={() => window.location.hash = `#help-${personas[3].id}`}
+                  className={`text-left text-base hover:underline font-medium ${toneStyles(personas[0].tone).accent}`}
+                >
                   {personas[3].cta}
                 </button>
               </div>

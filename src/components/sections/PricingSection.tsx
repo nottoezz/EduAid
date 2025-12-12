@@ -279,6 +279,18 @@ export default function PricingSection() {
             </p>
           </div>
         </div>
+
+        {/* License page link */}
+        <div className="mt-16 text-center">
+          <a
+            href="/Edu‑font-License.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center rounded-full bg-white/90 backdrop-blur-sm px-6 py-3 text-sm font-medium text-[#16130F] shadow-sm hover:bg-white hover:shadow-md transition-all duration-200 border border-white/30"
+          >
+            View full license terms →
+          </a>
+        </div>
       </div>
 
       {/* Bottom wavy blend line */}

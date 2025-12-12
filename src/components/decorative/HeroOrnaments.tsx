@@ -1,7 +1,7 @@
 export default function HeroOrnaments() {
   return (
     <svg
-      className="absolute inset-0 w-full h-full pointer-events-none z-10"
+      className="absolute inset-0 w-full h-full pointer-events-none z-10 pt-10"
       viewBox="0 0 100 100"
       preserveAspectRatio="none"
       aria-hidden="true"
