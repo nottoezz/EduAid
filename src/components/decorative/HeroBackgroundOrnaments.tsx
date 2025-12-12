@@ -1,4 +1,4 @@
-function HeroBackgroundOrnaments() {
+export default function HeroBackgroundOrnaments() {
   return (
     <svg
       className="absolute inset-0 w-full h-full pointer-events-none z-10"
@@ -19,9 +19,7 @@ function HeroBackgroundOrnaments() {
         d="M -5 90 Q 25 75 45 90 T 65 82 T 85 75 T 105 45"
         className="stroke-[#FF9F80] stroke-7 fill-none"
       />
-
     </svg>
-  )
+  );
 }
 
-export default HeroBackgroundOrnaments

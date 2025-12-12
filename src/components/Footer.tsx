@@ -1,6 +1,3 @@
-"use client";
-
-import React from "react";
 import logoImage from "/logo.png";
 
 export default function Footer() {
@@ -117,7 +114,7 @@ export default function Footer() {
               <a href="/terms" className="hover:text-[#E5EDF4]/80 transition-colors">
                 Terms of Service
               </a>
-              <a href="/licensing" className="hover:text-[#E5EDF4]/80 transition-colors">
+              <a href="/Edu‑font-License.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-[#E5EDF4]/80 transition-colors">
                 Licensing
               </a>
             </div>

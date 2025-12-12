@@ -1,8 +1,7 @@
-import { useState } from "react";
-import HeroBackgroundOrnaments from "./HeroBackgroundOrnaments";
+import HeroBackgroundOrnaments from "./decorative/HeroBackgroundOrnaments";
 import studentWritingImage from "/StudentWritingOnLens.png";
 
-function Hero() {
+export default function Hero() {
   return (
     <section
       role="banner"
@@ -109,4 +108,3 @@ function Hero() {
   );
 }
 
-export default Hero;

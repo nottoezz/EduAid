@@ -1,8 +1,6 @@
-"use client";
-
 import { useState, useEffect } from 'react';
 
-function Header() {
+export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -16,11 +14,11 @@ function Header() {
   }, []);
 
   return (
-      <header className={`transition-all duration-700 ease-out text-[#16130F] fixed top-0 left-0 right-0 z-30 ${
-        isScrolled
-          ? 'bg-white/70 backdrop-blur-lg shadow-xl rounded-2xl mx-4 mt-4'
-          : 'bg-[#fef4e6]/95 backdrop-blur-sm rounded-none'
-      }`}>
+    <header className={`transition-all duration-700 ease-out text-[#16130F] fixed top-0 left-0 right-0 z-30 ${
+      isScrolled
+        ? 'bg-white/70 backdrop-blur-lg shadow-xl rounded-2xl mx-4 mt-4'
+        : 'bg-[#fef4e6]/95 backdrop-blur-sm rounded-none'
+    }`}>
       <div className="px-6 py-6">
         <div className="flex items-center justify-between max-w-7xl mx-auto">
           <div className="flex items-center">
@@ -99,4 +97,3 @@ function Header() {
   );
 }
 
-export default Header;

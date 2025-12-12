@@ -1,7 +1,5 @@
-"use client";
-
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useState } from "react";
+import { useState } from "react";
 
 type FaqItem = {
   id: string;

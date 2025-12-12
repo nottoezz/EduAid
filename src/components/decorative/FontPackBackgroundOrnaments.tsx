@@ -1,4 +1,4 @@
-function FontPackBackgroundOrnaments() {
+export default function FontPackBackgroundOrnaments() {
   return (
     <svg
       className="absolute inset-0 w-full h-full pointer-events-none z-10"
@@ -17,11 +17,9 @@ function FontPackBackgroundOrnaments() {
       />
       <path
         d="M -5 42 Q 18 34 38 54 T 58 44 T 78 60 T 93 50 T 105 32"
-        className="stroke-[#FF8C88] stroke-7 fill-none"
+        className="stroke-[#FF9F80] stroke-7 fill-none"
       />
-
     </svg>
-  )
+  );
 }
 
-export default FontPackBackgroundOrnaments

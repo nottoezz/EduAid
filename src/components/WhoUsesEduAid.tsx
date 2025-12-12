@@ -1,7 +1,5 @@
-"use client";
-
-import React from "react";
 import { motion } from "framer-motion";
+import WhoUsesEduAidBackgroundOrnaments from "./decorative/WhoUsesEduAidBackgroundOrnaments";
 import wueTeachersImage from '/WUE-Teachers.png';
 import wueTherapistImage from '/WUE-Therapist.png';
 import wueSchoolsImage from '/WUE-Schools.png';
@@ -10,10 +8,9 @@ import wueHomeschoolImage from '/WUE-Homeschool.png';
 type Persona = {
   id: string;
   label: string;
-  headline: string;
   description: string;
   cta: string;
-  tone: "peach" | "mint" | "cream" | "softOrange";
+  tone: "peach";
   icon: "teacher" | "therapist" | "school" | "parent";
 };
 
@@ -21,7 +18,6 @@ const personas: Persona[] = [
   {
     id: "teachers",
     label: "Foundation Phase Teachers",
-    headline: "Create consistent worksheets for your whole grade.",
     description: "Save hours of design time with professionally crafted fonts that match CAPS requirements. Create beautiful, consistent worksheets for your entire grade with print, tracing, and cursive options that develop fine motor skills systematically.",
     cta: "How we help teachers →",
     tone: "peach",
@@ -30,61 +26,41 @@ const personas: Persona[] = [
   {
     id: "therapists",
     label: "Remedial / OT / Speech Therapists",
-    headline: "Accelerate handwriting progress in therapy sessions.",
     description: "Target specific letter formations and fine motor challenges with our therapeutic tracing fonts. Help learners with dyslexia, dysgraphia, or developmental delays build confidence through structured, multi-sensory handwriting practice.",
     cta: "How we help therapists →",
-    tone: "mint",
+    tone: "peach",
     icon: "therapist",
   },
   {
     id: "schools",
     label: "Schools & Districts",
-    headline: "Standardise handwriting across all classes and grades.",
     description: "Ensure every teacher uses the same, CAPS-aligned letterforms. Our comprehensive font pack supports your whole school from Grade R tracing dots to Grade 3 cursive, creating a seamless progression that builds on previous learning.",
     cta: "How we help schools →",
-    tone: "cream",
+    tone: "peach",
     icon: "school",
   },
   {
     id: "parents",
     label: "Parents & Homeschoolers",
-    headline: "Match what learners see at school, at home.",
     description: "Bridge the gap between school and home learning. Use the same fonts and worksheets your child encounters at school for homework, practice, and reinforcement. Perfect for homeschooling families following CAPS curriculum.",
     cta: "How we help families →",
-    tone: "softOrange",
+    tone: "peach",
     icon: "parent",
   },
 ];
 
-function toneToBg(tone: Persona["tone"]): string {
-  switch (tone) {
-    case "peach":
-      return "bg-[#F6B5A8]"; // rich coral/pink
-    case "mint":
-      return "bg-[#D8F3F0]"; // rich teal
-    case "cream":
-      return "bg-[#EADBC4]"; // warm cream
-    case "softOrange":
-      return "bg-[#FDE2CF]"; // rich apricot
-    default:
-      return "bg-[#EADBC4]";
-  }
+function toneStyles(tone: Persona["tone"]) {
+  // Only peach tone is used, but keeping structure for potential future use
+      return {
+        card: "bg-[#FFF1EE]",         // soft peach
+        icon: "bg-[#FFD5CC]",         // stronger peach
+        accent: "text-[#C2412D]",      // warm red/orange
+        border: "border-[#F7C7BE]",
+      };
 }
 
-function toneToAccent(tone: Persona["tone"]): string {
-  switch (tone) {
-    case "peach":
-      return "bg-[#FF8C88]";
-    case "mint":
-      return "bg-[#4EC5C1]";
-    case "cream":
-      return "bg-[#E8DFD2]";
-    case "softOrange":
-      return "bg-[#F59E0B]";
-    default:
-      return "bg-[#E8DFD2]";
-  }
-}
+
+
 
 interface PersonaIconProps {
   icon: Persona["icon"];
@@ -147,65 +123,9 @@ function PersonaIcon({ icon, className = "" }: PersonaIconProps) {
 
 export default function WhoUsesEduAid() {
   return (
-    <section className="relative bg-[#fef4e6] py-24 pb-48 z-100">
+    <section className="relative bg-[#fef4e6] py-24 pb-48 z-10">
       {/* Background decorative lines */}
-      <svg
-        className="pointer-events-none absolute inset-0 -z-10 w-full h-full"
-        viewBox="0 0 100 100"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
-        {/* Top layer - Lemon */}
-        <path
-          d="
-            M 100 35
-            C 80 45, 55 30, 35 50
-            S 75 70, 80 85
-            S 35 95, 0 95
-          "
-          className="fill-none stroke-[#E7E9A0] [stroke-width:2.5] [stroke-linecap:round] [stroke-linejoin:round] opacity-100"
-        />
-        {/* Mint-Green layer */}
-        <path
-          d="
-            M 105 30
-            C 85 50, 50 20, 30 40
-            S 80 60, 85 80
-            S 30 90, 0 90
-          "
-          className="fill-none stroke-[#7EDC89] [stroke-width:4] [stroke-linecap:round] [stroke-linejoin:round] opacity-100"
-        />
-        {/* Coral layer */}
-        <path
-          d="
-            M 115 3
-            C 100 65, 35 5, 15 25
-            S 95 45, 100 65
-            S 15 75, -5 75
-          "
-          className="fill-none stroke-[#FF9F80] [stroke-width:2] [stroke-linecap:round] [stroke-linejoin:round] opacity-100"
-        />
-        {/* Bright Blue layer */}
-        <path
-          d="
-            M 105 0
-            C 90 55, 45 15, 25 35
-            S 85 55, 90 75
-            S 25 85, -5 85
-          "
-          className="fill-none stroke-[#00A4FF] [stroke-width:3] [stroke-linecap:round] [stroke-linejoin:round] opacity-100"
-        />
-        {/* Deep Teal layer - bottom */}
-        <path
-          d="
-            M 110 0
-            C 95 60, 40 10, 20 30
-            S 90 50, 95 70
-            S 20 80, 0 80
-          "
-          className="fill-none stroke-[#00827A] [stroke-width:5] [stroke-linecap:round] [stroke-linejoin:round] opacity-100"
-        />
-      </svg>
+      <WhoUsesEduAidBackgroundOrnaments />
 
       <div className="mx-auto max-w-6xl px-6">
         {/* Header */}
@@ -228,13 +148,13 @@ export default function WhoUsesEduAid() {
             <motion.div
               whileHover={{ y: -4, scale: 1.02 }}
               transition={{ type: "spring", stiffness: 260, damping: 22 }}
-              className={`flex gap-6 max-w-4xl rounded-3xl border border-black/5 ${toneToBg(personas[0].tone)} p-8 shadow-sm shadow-black/5 backdrop-blur-sm`}
+              className={`flex gap-6 max-w-4xl rounded-3xl ${toneStyles(personas[0].tone).border} bg-white/80 p-8 shadow-sm shadow-black/5 backdrop-blur`}
             >
               {/* Text Content */}
               <div className="flex-1 min-w-0">
                 {/* Icon and Label */}
                 <div className="mb-4 flex items-center gap-3">
-                  <div className={`flex h-12 w-12 items-center justify-center rounded-full ${toneToBg(personas[0].tone)}`}>
+                  <div className={`flex h-12 w-12 items-center justify-center rounded-full ${toneStyles(personas[0].tone).icon}`}>
                     <PersonaIcon icon={personas[0].icon} />
                   </div>
                   <h3 className="text-xl font-semibold text-[#16130F]">{personas[0].label}</h3>
@@ -246,13 +166,13 @@ export default function WhoUsesEduAid() {
                 </p>
 
                 {/* CTA */}
-                <button className="text-left text-base text-[#2563EB] hover:underline font-medium">
+                <button className={`text-left text-base hover:underline font-medium ${toneStyles(personas[0].tone).accent}`}>
                   {personas[0].cta}
                 </button>
               </div>
 
               {/* Image */}
-              <div className="flex-shrink-0 w-80 h-64 rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 border border-black/10 shadow-lg overflow-hidden">
+              <div className="flex-shrink-0 w-80 h-64 rounded-2xl bg-white border border-black/10 shadow-lg overflow-hidden">
                 <img
                   src={wueTeachersImage}
                   alt="Foundation Phase Teachers using Edu-Aid fonts in classroom"
@@ -267,10 +187,10 @@ export default function WhoUsesEduAid() {
             <motion.div
               whileHover={{ y: -4, scale: 1.02 }}
               transition={{ type: "spring", stiffness: 260, damping: 22 }}
-              className={`flex gap-6 max-w-4xl rounded-3xl border border-black/5 ${toneToBg(personas[1].tone)} p-8 shadow-sm shadow-black/5 backdrop-blur-sm`}
+              className={`flex gap-6 max-w-4xl rounded-3xl ${toneStyles(personas[0].tone).border} bg-white/80 p-8 shadow-sm shadow-black/5 backdrop-blur`}
             >
               {/* Image */}
-              <div className="flex-shrink-0 w-80 h-64 rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 border border-black/10 shadow-lg overflow-hidden">
+              <div className="flex-shrink-0 w-80 h-64 rounded-2xl bg-white border border-black/10 shadow-lg overflow-hidden">
                 <img
                   src={wueTherapistImage}
                   alt="Remedial and occupational therapists using Edu-Aid fonts"
@@ -282,7 +202,7 @@ export default function WhoUsesEduAid() {
               <div className="flex-1 min-w-0">
                 {/* Icon and Label */}
                 <div className="mb-4 flex items-center gap-3">
-                  <div className={`flex h-12 w-12 items-center justify-center rounded-full ${toneToBg(personas[1].tone)}`}>
+                  <div className={`flex h-12 w-12 items-center justify-center rounded-full ${toneStyles(personas[0].tone).icon}`}>
                     <PersonaIcon icon={personas[1].icon} />
                   </div>
                   <h3 className="text-xl font-semibold text-[#16130F]">{personas[1].label}</h3>
@@ -294,7 +214,7 @@ export default function WhoUsesEduAid() {
                 </p>
 
                 {/* CTA */}
-                <button className="text-left text-base text-[#2563EB] hover:underline font-medium">
+                <button className={`text-left text-base hover:underline font-medium ${toneStyles(personas[0].tone).accent}`}>
                   {personas[1].cta}
                 </button>
               </div>
@@ -306,13 +226,13 @@ export default function WhoUsesEduAid() {
             <motion.div
               whileHover={{ y: -4, scale: 1.02 }}
               transition={{ type: "spring", stiffness: 260, damping: 22 }}
-              className={`flex gap-6 max-w-4xl rounded-3xl border border-black/5 ${toneToBg(personas[2].tone)} p-8 shadow-sm shadow-black/5 backdrop-blur-sm`}
+              className={`flex gap-6 max-w-4xl rounded-3xl ${toneStyles(personas[0].tone).border} bg-white/80 p-8 shadow-sm shadow-black/5 backdrop-blur`}
             >
               {/* Text Content */}
               <div className="flex-1 min-w-0">
                 {/* Icon and Label */}
                 <div className="mb-4 flex items-center gap-3">
-                  <div className={`flex h-12 w-12 items-center justify-center rounded-full ${toneToBg(personas[2].tone)}`}>
+                  <div className={`flex h-12 w-12 items-center justify-center rounded-full ${toneStyles(personas[0].tone).icon}`}>
                     <PersonaIcon icon={personas[2].icon} />
                   </div>
                   <h3 className="text-xl font-semibold text-[#16130F]">{personas[2].label}</h3>
@@ -324,13 +244,13 @@ export default function WhoUsesEduAid() {
                 </p>
 
                 {/* CTA */}
-                <button className="text-left text-base text-[#2563EB] hover:underline font-medium">
+                <button className={`text-left text-base hover:underline font-medium ${toneStyles(personas[0].tone).accent}`}>
                   {personas[2].cta}
                 </button>
               </div>
 
               {/* Image */}
-              <div className="flex-shrink-0 w-80 h-64 rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 border border-black/10 shadow-lg overflow-hidden">
+              <div className="flex-shrink-0 w-80 h-64 rounded-2xl bg-white border border-black/10 shadow-lg overflow-hidden">
                 <img
                   src={wueSchoolsImage}
                   alt="Schools and districts implementing Edu-Aid fonts across classrooms"
@@ -345,10 +265,10 @@ export default function WhoUsesEduAid() {
             <motion.div
               whileHover={{ y: -4, scale: 1.02 }}
               transition={{ type: "spring", stiffness: 260, damping: 22 }}
-              className={`flex gap-6 max-w-4xl rounded-3xl border border-black/5 ${toneToBg(personas[3].tone)} p-8 shadow-sm shadow-black/5 backdrop-blur-sm`}
+              className={`flex gap-6 max-w-4xl rounded-3xl ${toneStyles(personas[0].tone).border} bg-white/80 p-8 shadow-sm shadow-black/5 backdrop-blur`}
             >
               {/* Image */}
-              <div className="flex-shrink-0 w-80 h-64 rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 border border-black/10 shadow-lg overflow-hidden">
+              <div className="flex-shrink-0 w-80 h-64 rounded-2xl bg-white border border-black/10 shadow-lg overflow-hidden">
                 <img
                   src={wueHomeschoolImage}
                   alt="Parents and homeschoolers using Edu-Aid fonts at home"
@@ -360,7 +280,7 @@ export default function WhoUsesEduAid() {
               <div className="flex-1 min-w-0">
                 {/* Icon and Label */}
                 <div className="mb-4 flex items-center gap-3">
-                  <div className={`flex h-12 w-12 items-center justify-center rounded-full ${toneToBg(personas[3].tone)}`}>
+                  <div className={`flex h-12 w-12 items-center justify-center rounded-full ${toneStyles(personas[0].tone).icon}`}>
                     <PersonaIcon icon={personas[3].icon} />
                   </div>
                   <h3 className="text-xl font-semibold text-[#16130F]">{personas[3].label}</h3>
@@ -372,7 +292,7 @@ export default function WhoUsesEduAid() {
                 </p>
 
                 {/* CTA */}
-                <button className="text-left text-base text-[#2563EB] hover:underline font-medium">
+                <button className={`text-left text-base hover:underline font-medium ${toneStyles(personas[0].tone).accent}`}>
                   {personas[3].cta}
                 </button>
               </div>

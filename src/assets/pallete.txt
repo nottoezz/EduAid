@@ -1,0 +1,8 @@
+#FF8C88 - orange
+#4EC5C1 - blue
+#00A4FF - blue
+#E8DFD2 - grey
+#1F9C93 - green
+#7EDC89 - green
+#00827A - teal
+#D8F3F0 - teal

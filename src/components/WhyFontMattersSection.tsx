@@ -1,8 +1,7 @@
-import React from 'react';
 import abcIncorrectImage from '/ABC-Incorect.png';
 import abcEduImage from '/ABC-edu.png';
 
-function WhyFontMattersSection() {
+export default function WhyFontMattersSection() {
   return (
     <section className="bg-[#fef4e6] md:pt-28 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] items-start">
@@ -159,4 +158,3 @@ function WhyFontMattersSection() {
   );
 }
 
-export default WhyFontMattersSection;
