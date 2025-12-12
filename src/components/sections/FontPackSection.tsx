@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import FontPackOrnaments from "./decorative/FontPackOrnaments";
+import FontPackOrnaments from "../decorative/FontPackOrnaments";
 
 import abcSolidImage from "/ABC-solid.png";
 import abcDottedImage from "/ABC-dotted.png";

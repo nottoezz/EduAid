@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import { useRef, useState } from "react";
 
-export default function WhoUsesEduAidBackgroundOrnaments() {
+export default function WhoUsesEduAidOrnaments() {
   const containerRef = useRef(null);
   const [animationCompleted, setAnimationCompleted] = useState(false);
   const { scrollYProgress } = useScroll({

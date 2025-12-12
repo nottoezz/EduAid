@@ -1,4 +1,4 @@
-import HeroOrnaments from "./decorative/HeroOrnaments";
+import HeroOrnaments from "../decorative/HeroOrnaments";
 import studentWritingImage from "/StudentWritingOnLens.png";
 
 export default function Hero() {

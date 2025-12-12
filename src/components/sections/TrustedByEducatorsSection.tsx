@@ -51,7 +51,7 @@ const schools = [
   { name: "Hopeview Primary", color: "#EADBC4" }
 ];
 
-export default function TrustedByEducators() {
+export default function TrustedByEducatorsSection() {
   return (
     <section className="relative bg-[#fef4e6] py-24 md:py-32">
       {/* Background decorative elements */}

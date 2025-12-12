@@ -13,7 +13,7 @@ const faqs: FaqItem[] = [
     id: "multiple-computers",
     question: "Can I use Edu-Aid fonts on multiple computers?",
     answer:
-      "Yes, within your licence. A single-teacher licence is meant for you as an individual and typically covers a few of your own devices (for example your laptop and school computer). School and district licences allow the fonts to be installed on multiple staff machines inside that school or group. Sharing the fonts with friends at other schools is not allowed under the standard licence.",
+      "Yes — within your licence tier. The Individual Educator licence is for one educator (teacher or homeschool parent) and covers your own devices used for teaching and learning. The School licence allows installation and internal sharing across staff devices within one school. If you need district-wide rollout, publishing, or app/SaaS use, you'll need a Commercial & District licence — contact us for a tailored agreement. Sharing font files outside your licence scope is not allowed.",
     color: "#F6B5A8"
   },
   {
@@ -21,33 +21,40 @@ const faqs: FaqItem[] = [
     question:
       "Are the fonts compatible with Word, PowerPoint, Google Docs, Mac and Windows?",
     answer:
-      "Edu-Aid fonts are standard OpenType fonts. They work on both Mac and Windows, and can be used in Word, PowerPoint, Keynote and most other common programs. In Google Docs, you can use them when you generate PDFs or print from a computer where the fonts have been installed. (Google Docs itself doesn't host the font, but your exported documents will keep the correct letterforms.)",
-    color: "#D8F3F0"
+      "Yes. Edu-Aid fonts are standard font files and work on both Mac and Windows. You can use them in Word, PowerPoint, Keynote and most common design/print tools. For Google Docs, the fonts must be installed on the device you're using — your exported PDFs/prints will keep the correct letterforms.",
+    color: "#F8D7A8"
   },
   {
     id: "updates",
-    question: "Are updates included?",
+    question: "Are updates included in my licence?",
     answer:
-      "Yes. Your licence includes updates to the Edu-Aid font pack for the duration of your licence period. When we fix small issues or make improvements to the letterforms or spacing, you'll receive updated font files. If we ever release completely new products or major new packs, those may be offered as an optional add-on.",
+      "Generally, no — the fonts are stable and not expected to be updated regularly. If we ever discover a critical issue (for example a file problem affecting printing), we may provide a replacement file. Any new fonts or major new packs would be released as separate products.",
     color: "#FDE2CF"
+  },
+  {
+    id: "sample",
+    question: "Is there a free sample I can try?",
+    answer:
+      "Yes. You can download a free sample to test compatibility and see the letterforms before purchasing. The sample is for evaluation only and may not be redistributed or used in paid products.",
+    color: "#F0D8E8"
   },
   {
     id: "digital-products",
     question: "Can I use the fonts in digital products I sell?",
     answer:
-      "Classroom worksheets, school materials and internal documents are included in the standard licences. If you want to embed Edu-Aid fonts into commercial digital products that you sell (for example, downloadable worksheet bundles, apps or large online courses), you'll usually need a separate extended licence. Please contact Karen to discuss your specific use case.",
+      "Standard licences cover classroom and learning use (worksheets, school materials, and documents for your learners). If you want to use the fonts in paid products, publishing workflows, or embed them inside an app, website, or SaaS platform, you'll need a Commercial & District licence. Get in touch and we'll quote based on your use case.",
     color: "#EADBC4"
   },
   {
     id: "lost-download",
     question: "What if I lose the download link?",
     answer:
-      "No problem. If you lose your original download email, you can contact Karen with your name and, if applicable, your school details. As long as we can find your purchase, we'll resend your download link so you can reinstall the fonts.",
+      "No stress. Email Karen with your purchase details (name, email used, and your school name if relevant). If we can confirm your licence, we'll help you restore access so you can reinstall.",
     color: "#E7E9A0"
   },
 ];
 
-export default function FaqSupport() {
+export default function FaqSection() {
   const [openId, setOpenId] = useState<string | null>(null);
 
   const toggle = (id: string) => {
@@ -85,7 +92,7 @@ export default function FaqSupport() {
 
         {/* FAQ Cards */}
         <div className="space-y-6">
-          {faqs.map((item, index) => {
+          {faqs.map((item) => {
             const isOpen = openId === item.id;
 
             return (
@@ -106,7 +113,7 @@ export default function FaqSupport() {
                   <h3 className="text-xl font-bold text-[#16130F] pr-4">
                     {item.question}
                   </h3>
-                  <div className="flex-shrink-0">
+                  <div className="shrink-0">
                     <motion.div
                       className="flex h-10 w-10 items-center justify-center rounded-full bg-[#00827A] text-white"
                       animate={{ rotate: isOpen ? 180 : 0 }}
@@ -155,17 +162,33 @@ export default function FaqSupport() {
         <div className="mt-16 text-center">
           <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-white/30 max-w-3xl mx-auto">
             <h3 className="text-2xl font-bold text-[#16130F] mb-4">
-              Still unsure?
+              Need help choosing a licence?
             </h3>
             <p className="text-[#6B7280] mb-6">
-              We're here to help you get the most out of Edu-Aid fonts.
+              Email us for questions about individual or school licences — or request a Commercial & District quote for publishers, apps/SaaS, paid products, or bulk rollouts.
             </p>
-            <a
-              href="mailto:schoolfonts@gmail.com"
-              className="inline-flex items-center justify-center rounded-2xl bg-[#00827A] px-8 py-4 text-lg font-bold text-white shadow-lg hover:bg-[#006B5E] hover:shadow-xl transition-all duration-200"
-            >
-              Email Karen at schoolfonts@gmail.com
-            </a>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <a
+                href="mailto:schoolfonts@gmail.com"
+                className="inline-flex items-center justify-center rounded-2xl bg-[#00827A] px-8 py-4 text-lg font-bold text-white shadow-lg hover:bg-[#006B5E] hover:shadow-xl transition-all duration-200"
+              >
+                Email Karen
+              </a>
+
+              <button
+                type="button"
+                onClick={() =>
+                  document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
+                }
+                className="inline-flex items-center justify-center rounded-2xl border-2 border-[#E7DCCB] bg-white px-8 py-4 text-lg font-bold text-[#16130F] shadow-sm hover:bg-[#FFF8EF] transition-all duration-200"
+              >
+                Get a Commercial quote
+              </button>
+            </div>
+
+            <p className="mt-4 text-sm text-[#6B7280]">
+              We usually respond within 1 business day.
+            </p>
           </div>
         </div>
       </div>

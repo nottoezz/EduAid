@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import SeeItInActionOrnaments from "./decorative/SeeItInActionOrnaments";
+import SeeItInActionOrnaments from "../decorative/SeeItInActionOrnaments";
 
 type Slide = {
   id: number;
@@ -180,7 +180,7 @@ function WorksheetPreview({ slide }: { slide: Slide }) {
   }
 }
 
-export default function SeeItInActionCarousel() {
+export default function SeeItInActionSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const total = slides.length;
 

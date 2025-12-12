@@ -1,4 +1,4 @@
-export default function HeroBackgroundOrnaments() {
+export default function HeroOrnaments() {
   return (
     <svg
       className="absolute inset-0 w-full h-full pointer-events-none z-10"

@@ -1,4 +1,4 @@
-export default function FontPackBackgroundOrnaments() {
+export default function FontPackOrnaments() {
   return (
     <svg
       className="absolute inset-0 w-full h-full pointer-events-none z-10"

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-export default function FinalCtaFooter() {
+export default function FinalCtaSection() {
   return (
     <section className="relative bg-[#fef4e6] py-20 md:py-24">
       {/* subtle background tint / blob */}

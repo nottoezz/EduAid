@@ -1,4 +1,4 @@
-export default function SeeItInActionBackgroundOrnaments() {
+export default function SeeItInActionOrnaments() {
   return (
     <div className="absolute inset-0 w-full h-full overflow-visible z-0">
       <svg

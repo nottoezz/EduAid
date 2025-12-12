@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import WhoUsesEduAidOrnaments from "./decorative/WhoUsesEduAidOrnaments";
+import WhoUsesEduAidOrnaments from "../decorative/WhoUsesEduAidOrnaments";
 import wueTeachersImage from '/WUE-Teachers.png';
 import wueTherapistImage from '/WUE-Therapist.png';
 import wueSchoolsImage from '/WUE-Schools.png';
@@ -121,7 +121,7 @@ function PersonaIcon({ icon, className = "" }: PersonaIconProps) {
   }
 }
 
-export default function WhoUsesEduAid() {
+export default function WhoUsesEduAidSection() {
   return (
     <section className="relative bg-[#fef4e6] py-24 pb-48 z-10">
       {/* Background decorative lines */}

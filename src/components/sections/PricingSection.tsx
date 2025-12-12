@@ -19,7 +19,7 @@ function CheckIcon() {
   );
 }
 
-export default function PricingLicenses() {
+export default function PricingSection() {
   const [billing, setBilling] = useState<Billing>("yearly");
 
   const individualPrice = useMemo(() => {
