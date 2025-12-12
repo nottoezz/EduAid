@@ -159,7 +159,7 @@ export default function FontPackSection() {
                   View Pricing &amp; Licenses
                 </a>
                 <a
-                  href="#sample"
+                  href="#download"
                   className="inline-flex items-center justify-center rounded-2xl bg-[#8BD889] px-4 py-3 text-sm font-semibold text-black hover:opacity-95 transition"
                 >
                   Download Sample Font
