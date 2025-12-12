@@ -42,7 +42,7 @@ export default function PricingSection() {
   };
 
   return (
-    <section className="relative bg-[#E0F2FE] py-24 md:py-32 overflow-hidden">
+    <section id="pricing" className="relative bg-[#E0F2FE] py-24 md:py-32 overflow-hidden">
       {/* Top wavy blend line */}
       <svg className="absolute top-0 left-0 w-full h-16" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
         <path d="M0,30 Q100,60 600,30 T1200,30 V0 H0 Z" fill="#fef4e6" />

@@ -27,8 +27,12 @@ export default function HomePage() {
       <section id="pricing">
         <PricingSection />
       </section>
-      <TrustedByEducatorsSection />
-      <FaqSection />
+      <section id="testimonials">
+        <TrustedByEducatorsSection />
+      </section>
+      <section id="faq">
+        <FaqSection />
+      </section>
       <FinalCtaSection />
       <Footer />
     </div>

@@ -52,8 +52,9 @@ export default function Hero() {
                 {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <button
+                    onClick={() => window.location.href = '/#pricing'}
                     className="bg-[#2CA6FF] hover:bg-[#168DE4] text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#2CA6FF] focus:ring-offset-2 focus:ring-offset-white"
-                    aria-label="Download the teacher-approved fonts"
+                    aria-label="View pricing and licensing options"
                   >
                     Download Fonts
                   </button>
