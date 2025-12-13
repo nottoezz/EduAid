@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 export default function FinalCtaSection() {
   return (
@@ -39,12 +40,12 @@ export default function FinalCtaSection() {
           className="mt-2 flex flex-wrap items-center justify-center gap-3"
         >
           {/* Primary CTA – adjust href as needed */}
-          <a
-            href="#pricing" // or "/pricing" or your download link
+          <Link
+            to="/#pricing"
             className="inline-flex items-center justify-center rounded-full bg-[#1F9C93] px-6 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-[#17867F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#1F9C93]"
           >
             View pricing & licences
-          </a>
+          </Link>
 
           {/* Secondary CTA – sample worksheet */}
           <a

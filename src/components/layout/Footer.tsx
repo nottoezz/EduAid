@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import logoImage from "/logo.png";
 
 export default function Footer() {
@@ -40,18 +41,18 @@ export default function Footer() {
           <div className="space-y-4">
             <h3 className="text-sm font-semibold uppercase tracking-wide">Quick Links</h3>
             <nav className="flex flex-col space-y-2 text-sm">
-              <a href="#fonts" className="text-[#E5EDF4]/80 hover:text-white transition-colors">
+              <Link to="/#fonts" className="text-[#E5EDF4]/80 hover:text-white transition-colors">
                 Edu-Fonts
-              </a>
-              <a href="#why" className="text-[#E5EDF4]/80 hover:text-white transition-colors">
+              </Link>
+              <Link to="/#why" className="text-[#E5EDF4]/80 hover:text-white transition-colors">
                 Why Our Fonts Matter
-              </a>
-              <a href="#pricing" className="text-[#E5EDF4]/80 hover:text-white transition-colors">
+              </Link>
+              <Link to="/#pricing" className="text-[#E5EDF4]/80 hover:text-white transition-colors">
                 Pricing & Licences
-              </a>
-              <a href="#faq" className="text-[#E5EDF4]/80 hover:text-white transition-colors">
+              </Link>
+              <Link to="/#faq" className="text-[#E5EDF4]/80 hover:text-white transition-colors">
                 FAQ & Support
-              </a>
+              </Link>
             </nav>
           </div>
 
@@ -62,9 +63,9 @@ export default function Footer() {
               <a href="/sample-worksheet.pdf" className="text-[#E5EDF4]/80 hover:text-white transition-colors">
                 Sample Worksheet
               </a>
-              <a href="#testimonials" className="text-[#E5EDF4]/80 hover:text-white transition-colors">
+              <Link to="/#testimonials" className="text-[#E5EDF4]/80 hover:text-white transition-colors">
                 Teacher Testimonials
-              </a>
+              </Link>
               <a href="/licensing-guide.pdf" className="text-[#E5EDF4]/80 hover:text-white transition-colors">
                 Licensing Guide
               </a>

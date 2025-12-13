@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
 import FontPackOrnaments from "./decorative/FontPackOrnaments";
 
 import abcSolidImage from "/ABC-solid.png";
@@ -211,12 +212,12 @@ export default function FontPackSection() {
                   >
                     View Pricing &amp; Licenses
                   </a>
-                  <a
-                    href="#download"
+                  <Link
+                    to="/#download"
                     className="inline-flex items-center justify-center rounded-2xl bg-[#8BD889] px-4 py-3 text-sm font-semibold text-black hover:opacity-95 transition"
                   >
                     Download Sample Font
-                  </a>
+                  </Link>
                 </motion.div>
               </motion.div>
             </AnimatePresence>

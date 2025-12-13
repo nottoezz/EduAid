@@ -1,55 +1,48 @@
-import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import HomePage from './components/pages/HomePage';
 import FontDownloadPage from './components/pages/FontDownloadPage';
 import HowWeHelpPage from './components/pages/HowWeHelpPage';
 import AllFontsPage from './components/pages/AllFontsPage';
 
-export default function App() {
-  const [currentPage, setCurrentPage] = useState<'home' | 'download' | 'help' | 'all-fonts'>('home');
+// Component to handle scrolling to sections on the home page
+function ScrollToSection() {
+  const location = useLocation();
 
   useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash;
-      if (hash === '#download') {
-        setCurrentPage('download');
-      } else if (hash.startsWith('#help')) {
-        setCurrentPage('help');
-      } else if (hash === '#all-fonts') {
-        setCurrentPage('all-fonts');
-      } else {
-        setCurrentPage('home');
-        // Handle section scrolling on home page after a small delay
-        if (hash && hash !== '#') {
-          setTimeout(() => {
-            const element = document.getElementById(hash.substring(1));
-            if (element) {
-              element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-          }, 100);
+    // Handle section scrolling on home page
+    if (location.pathname === '/' && location.hash) {
+      setTimeout(() => {
+        const element = document.getElementById(location.hash.substring(1));
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-      }
-    };
+      }, 100);
+    }
+  }, [location]);
 
-    // Check initial hash
-    handleHashChange();
+  return null;
+}
 
-    // Listen for hash changes
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
+function AppContent() {
+  return (
+    <>
+      <ScrollToSection />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/download" element={<FontDownloadPage />} />
+        <Route path="/help" element={<HowWeHelpPage />} />
+        <Route path="/all-fonts" element={<AllFontsPage />} />
+      </Routes>
+    </>
+  );
+}
 
-  if (currentPage === 'download') {
-    return <FontDownloadPage />;
-  }
-
-  if (currentPage === 'help') {
-    return <HowWeHelpPage />;
-  }
-
-  if (currentPage === 'all-fonts') {
-    return <AllFontsPage />;
-  }
-
-  return <HomePage />;
+export default function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
+  );
 }
 

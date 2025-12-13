@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { Link } from "react-router-dom";
 import Footer from "../layout/Footer";
 
 // Import font images
@@ -61,12 +62,6 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 export default function AllFontsPage() {
   const reduce = useReducedMotion();
-
-  const handleBackToHome = () => {
-    // Simple + reliable: go back if possible, otherwise go home
-    if (window.history.length > 1) window.history.back();
-    else window.location.href = "/#";
-  };
 
   const fontCollections: FontCollection[] = [
     {
@@ -172,15 +167,15 @@ export default function AllFontsPage() {
       <header className="fixed top-0 z-50 w-full bg-[#fef4e6]/90 backdrop-blur-md border-b border-black/5">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
-            <button
-              onClick={handleBackToHome}
+            <Link
+              to="/"
               className="flex items-center gap-2 text-sm font-medium text-black/70 hover:text-black transition"
             >
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
               Back to Home
-            </button>
+            </Link>
 
             <div className="relative text-center leading-none">
               <span className="text-xl sm:text-2xl font-black text-[#16130F] tracking-tight">
@@ -191,12 +186,12 @@ export default function AllFontsPage() {
               </span>
             </div>
 
-            <button
-              onClick={() => (window.location.href = "/#pricing")}
+            <Link
+              to="/#pricing"
               className="hidden sm:inline-flex items-center justify-center rounded-2xl bg-[#2CA6FF] px-4 py-2 text-sm font-semibold text-black hover:opacity-95 transition shadow-sm shadow-black/10"
             >
               View Pricing
-            </button>
+            </Link>
           </div>
         </div>
       </header>
@@ -239,7 +234,7 @@ export default function AllFontsPage() {
                 </div>
 
                 <div className="grid gap-6">
-                  {collection.fonts.map((font, fontIndex) => {
+                  {collection.fonts.map((font) => {
                     const isCore = font.type === "Core Structure";
 
                     return (
@@ -280,12 +275,12 @@ export default function AllFontsPage() {
 
                             {!isCore && (
                               <div className="sm:pt-1">
-                                <button
-                                  onClick={() => (window.location.href = "/#pricing")}
+                                <Link
+                                  to="/#pricing"
                                   className="inline-flex items-center justify-center rounded-2xl bg-[#2CA6FF] px-4 py-3 text-sm font-semibold text-black hover:opacity-95 transition shadow-sm shadow-black/10"
                                 >
                                   View Pricing &amp; Licenses
-                                </button>
+                                </Link>
                                 <p className="mt-2 text-[11px] text-black/45 text-center sm:text-left">
                                   Included in licensing plans
                                 </p>
@@ -349,18 +344,18 @@ export default function AllFontsPage() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <button
-                onClick={() => (window.location.href = "/#pricing")}
+              <Link
+                to="/#pricing"
                 className="inline-flex items-center justify-center rounded-2xl bg-[#2CA6FF] px-8 py-3 text-sm font-semibold text-black hover:opacity-95 transition shadow-sm shadow-black/10"
               >
                 View Pricing Options
-              </button>
-              <button
-                onClick={() => (window.location.href = "/#download")}
+              </Link>
+              <Link
+                to="/#download"
                 className="inline-flex items-center justify-center rounded-2xl border border-black/10 bg-white/70 px-8 py-3 text-sm font-semibold text-black/75 hover:bg-white transition shadow-sm"
               >
                 Try Trial Font
-              </button>
+              </Link>
             </div>
           </motion.section>
         </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 type NavItem = { label: string; href: string; note?: string };
@@ -130,7 +131,7 @@ export default function Header() {
         <div className="px-4 sm:px-6 py-4">
           <div className="flex items-center justify-between max-w-7xl mx-auto">
             {/* Brand */}
-            <a href="/#" className="flex items-center gap-3 group">
+            <Link to="/" className="flex items-center gap-3 group">
               <div className="relative leading-none">
                 <span className="text-xl sm:text-2xl font-black tracking-tight">
                   EDU-FONT
@@ -143,7 +144,7 @@ export default function Header() {
               <span className="hidden md:inline text-xs text-black/45 group-hover:text-black/60 transition">
                 CAPS-aligned letter formation
               </span>
-            </a>
+            </Link>
 
             {/* Desktop nav */}
             <nav className="hidden lg:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
@@ -186,22 +187,47 @@ export default function Header() {
                             </div>
 
                             <div className="mt-3 space-y-1">
-                              {g.items.map((it) => (
-                                <a
-                                  key={it.href + it.label}
-                                  href={it.href}
-                                  className="block rounded-2xl px-3 py-2 hover:bg-black/5 transition"
-                                >
-                                  <div className="text-sm font-semibold text-[#16130F]">
-                                    {it.label}
-                                  </div>
-                                  {it.note && (
-                                    <div className="text-[11px] text-black/45 mt-0.5">
-                                      {it.note}
-                                    </div>
-                                  )}
-                                </a>
-                              ))}
+                              {g.items.map((it) => {
+                                // Use Link for internal routes, anchor for external/PDF links or hash links
+                                const isInternalRoute = it.href.startsWith('/') && !it.href.includes('.') && !it.href.includes('#');
+
+                                if (isInternalRoute) {
+                                  return (
+                                    <Link
+                                      key={it.href + it.label}
+                                      to={it.href}
+                                      className="block rounded-2xl px-3 py-2 hover:bg-black/5 transition"
+                                    >
+                                      <div className="text-sm font-semibold text-[#16130F]">
+                                        {it.label}
+                                      </div>
+                                      {it.note && (
+                                        <div className="text-[11px] text-black/45 mt-0.5">
+                                          {it.note}
+                                        </div>
+                                      )}
+                                    </Link>
+                                  );
+                                } else {
+                                  return (
+                                    <a
+                                      key={it.href + it.label}
+                                      href={it.href}
+                                      className="block rounded-2xl px-3 py-2 hover:bg-black/5 transition"
+                                      {...(it.href.includes('.pdf') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                                    >
+                                      <div className="text-sm font-semibold text-[#16130F]">
+                                        {it.label}
+                                      </div>
+                                      {it.note && (
+                                        <div className="text-[11px] text-black/45 mt-0.5">
+                                          {it.note}
+                                        </div>
+                                      )}
+                                    </a>
+                                  );
+                                }
+                              })}
                             </div>
                           </div>
                         ))}
@@ -210,27 +236,27 @@ export default function Header() {
                       <div className="flex items-center justify-between px-5 py-4 border-t border-black/5 bg-[#fef4e6]/60">
                         <div className="text-xs text-black/55">
                           Need help choosing?{" "}
-                          <a
-                            href="/help"
+                          <Link
+                            to="/help"
                             className="font-semibold text-[#00827A] hover:underline"
                           >
                             See how we help
-                          </a>
+                          </Link>
                           .
                         </div>
                         <div className="flex items-center gap-2">
-                          <a
-                            href="/all-fonts"
+                          <Link
+                            to="/all-fonts"
                             className="rounded-2xl bg-white/70 border border-black/10 px-4 py-2 text-xs font-semibold hover:bg-white transition"
                           >
                             View all fonts
-                          </a>
-                          <a
-                            href="/#pricing"
+                          </Link>
+                          <Link
+                            to="/#pricing"
                             className="rounded-2xl bg-[#2CA6FF] px-4 py-2 text-xs font-semibold text-black hover:opacity-95 transition shadow-sm shadow-black/10"
                           >
                             Pricing
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </motion.div>
@@ -239,37 +265,59 @@ export default function Header() {
               </div>
 
               {/* Primary anchors (simple + fast) */}
-              {primaryNav.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  className={cx(
-                    "px-4 py-2 rounded-xl text-sm font-semibold transition",
-                    isScrolled
-                      ? "hover:bg-[#fef4e6]/60 hover:text-[#00827A]"
-                      : "hover:bg-white/60 hover:text-[#00827A]"
-                  )}
-                >
-                  {item.label}
-                </a>
-              ))}
+              {primaryNav.map((item) => {
+                // Use Link for hash links, anchor for external links like mailto
+                const isHashLink = item.href.includes('#');
+
+                if (isHashLink) {
+                  return (
+                    <Link
+                      key={item.href}
+                      to={item.href}
+                      className={cx(
+                        "px-4 py-2 rounded-xl text-sm font-semibold transition",
+                        isScrolled
+                          ? "hover:bg-[#fef4e6]/60 hover:text-[#00827A]"
+                          : "hover:bg-white/60 hover:text-[#00827A]"
+                      )}
+                    >
+                      {item.label}
+                    </Link>
+                  );
+                } else {
+                  return (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      className={cx(
+                        "px-4 py-2 rounded-xl text-sm font-semibold transition",
+                        isScrolled
+                          ? "hover:bg-[#fef4e6]/60 hover:text-[#00827A]"
+                          : "hover:bg-white/60 hover:text-[#00827A]"
+                      )}
+                    >
+                      {item.label}
+                    </a>
+                  );
+                }
+              })}
             </nav>
 
             {/* Right CTAs */}
             <div className="flex items-center gap-2 sm:gap-3">
-              <a
-                href="/all-fonts"
+              <Link
+                to="/all-fonts"
                 className="hidden sm:inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-[#16130F] bg-white/70 backdrop-blur-sm border border-black/10 rounded-xl hover:bg-white hover:shadow-sm transition"
               >
                 All Fonts
-              </a>
+              </Link>
 
-              <a
-                href="/#pricing"
+              <Link
+                to="/#pricing"
                 className="hidden sm:inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-[#16130F] bg-white/80 backdrop-blur-sm border border-[#E8DFD2] rounded-xl hover:bg-white hover:shadow-sm transition"
               >
                 Get Font
-              </a>
+              </Link>
 
               <a
                 href="mailto:schoolfonts@gmail.com"
@@ -304,47 +352,65 @@ export default function Header() {
               >
                 <div className="p-4">
                   <div className="grid gap-2">
-                    {primaryNav.map((item) => (
-                      <a
-                        key={item.href}
-                        href={item.href}
-                        onClick={() => setOpen(null)}
-                        className="rounded-2xl px-4 py-3 bg-white/70 border border-black/10 text-sm font-semibold text-[#16130F] hover:bg-white transition"
-                      >
-                        {item.label}
-                      </a>
-                    ))}
-                    <a
-                      href="/help"
+                    {primaryNav.map((item) => {
+                      // Use Link for hash links, anchor for external links like mailto
+                      const isHashLink = item.href.includes('#');
+
+                      if (isHashLink) {
+                        return (
+                          <Link
+                            key={item.href}
+                            to={item.href}
+                            onClick={() => setOpen(null)}
+                            className="rounded-2xl px-4 py-3 bg-white/70 border border-black/10 text-sm font-semibold text-[#16130F] hover:bg-white transition"
+                          >
+                            {item.label}
+                          </Link>
+                        );
+                      } else {
+                        return (
+                          <a
+                            key={item.href}
+                            href={item.href}
+                            onClick={() => setOpen(null)}
+                            className="rounded-2xl px-4 py-3 bg-white/70 border border-black/10 text-sm font-semibold text-[#16130F] hover:bg-white transition"
+                          >
+                            {item.label}
+                          </a>
+                        );
+                      }
+                    })}
+                    <Link
+                      to="/help"
                       onClick={() => setOpen(null)}
                       className="rounded-2xl px-4 py-3 bg-white/70 border border-black/10 text-sm font-semibold text-[#16130F] hover:bg-white transition"
                     >
                       How We Help
-                    </a>
-                    <a
-                      href="/all-fonts"
+                    </Link>
+                    <Link
+                      to="/all-fonts"
                       onClick={() => setOpen(null)}
                       className="rounded-2xl px-4 py-3 bg-white/70 border border-black/10 text-sm font-semibold text-[#16130F] hover:bg-white transition"
                     >
                       All Available Fonts
-                    </a>
+                    </Link>
                   </div>
 
                   <div className="mt-3 grid grid-cols-2 gap-2">
-                    <a
-                      href="/#pricing"
+                    <Link
+                      to="/#pricing"
                       onClick={() => setOpen(null)}
                       className="inline-flex items-center justify-center rounded-2xl bg-[#2CA6FF] px-4 py-3 text-sm font-semibold text-black hover:opacity-95 transition shadow-sm shadow-black/10"
                     >
                       Pricing
-                    </a>
-                    <a
-                      href="/#download"
+                    </Link>
+                    <Link
+                      to="/#download"
                       onClick={() => setOpen(null)}
                       className="inline-flex items-center justify-center rounded-2xl bg-white/70 border border-black/10 px-4 py-3 text-sm font-semibold text-black/70 hover:bg-white transition"
                     >
                       Trial Download
-                    </a>
+                    </Link>
                   </div>
 
                   <div className="mt-3 text-[11px] text-black/45">
