@@ -4,8 +4,21 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
-type NavItem = { label: string; href: string; note?: string };
+type NavItem = { label: string; href: string; note?: string; isPdf?: boolean };
 type NavGroup = { title: string; items: NavItem[] };
+
+// Function to handle PDF link clicks to avoid React Router interception
+const handlePdfClick = (filename: string, e: React.MouseEvent) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  // Construct the correct URL - Vite serves public files from root
+  const baseUrl = import.meta.env.BASE_URL || '/';
+  const pdfUrl = `${baseUrl}${filename}`.replace(/\/\//g, '/'); // Remove double slashes
+  
+  // Use window.open for reliable PDF opening
+  window.open(pdfUrl, '_blank', 'noopener,noreferrer');
+};
 
 function cx(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ");
@@ -58,16 +71,16 @@ export default function Header() {
         items: [
           { label: "How We Help", href: "/help", note: "Teachers • Therapists • Schools • Parents" },
           { label: "All Available Fonts", href: "/all-fonts", note: "Full catalog + variants" },
-          { label: "Trial Download", href: "/#download", note: "Get a sample font" },
+          { label: "Trial Download", href: "/download", note: "Get a sample font" },
         ],
       },
       {
         title: "Resources",
         items: [
-          { label: "License PDF", href: "/Edu-font-License.pdf", note: "Terms & usage" },
-          { label: "Sample Worksheet", href: "/sample-worksheet.pdf", note: "Classroom-ready example" },
-          { label: "Licensing Guide", href: "/licensing-guide.pdf", note: "Detailed breakdown" },
-          { label: "Installation Guide", href: "/font-installation.pdf", note: "Windows / Mac" },
+          { label: "License PDF", href: "Edu‑font-License.pdf", note: "Terms & usage", isPdf: true },
+          { label: "Sample Worksheet", href: "sample-worksheet.pdf", note: "Classroom-ready example", isPdf: true },
+          { label: "Licensing Guide", href: "licensing-guide.pdf", note: "Detailed breakdown", isPdf: true },
+          { label: "Installation Guide", href: "font-installation.pdf", note: "Windows / Mac", isPdf: true },
         ],
       },
     ],
@@ -209,23 +222,44 @@ export default function Header() {
                                     </Link>
                                   );
                                 } else {
-                                  return (
-                                    <a
-                                      key={it.href + it.label}
-                                      href={it.href}
-                                      className="block rounded-2xl px-3 py-2 hover:bg-black/5 transition"
-                                      {...(it.href.includes('.pdf') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                                    >
-                                      <div className="text-sm font-semibold text-[#16130F]">
-                                        {it.label}
-                                      </div>
-                                      {it.note && (
-                                        <div className="text-[11px] text-black/45 mt-0.5">
-                                          {it.note}
+                                  // Special handling for PDF links to avoid React Router interception
+                                  if (it.isPdf) {
+                                    return (
+                                      <button
+                                        key={it.href + it.label}
+                                        onClick={(e) => handlePdfClick(it.href, e)}
+                                        className="block rounded-2xl px-3 py-2 hover:bg-black/5 transition text-left w-full"
+                                        type="button"
+                                      >
+                                        <div className="text-sm font-semibold text-[#16130F]">
+                                          {it.label}
                                         </div>
-                                      )}
-                                    </a>
-                                  );
+                                        {it.note && (
+                                          <div className="text-[11px] text-black/45 mt-0.5">
+                                            {it.note}
+                                          </div>
+                                        )}
+                                      </button>
+                                    );
+                                  } else {
+                                    return (
+                                      <a
+                                        key={it.href + it.label}
+                                        href={it.href}
+                                        className="block rounded-2xl px-3 py-2 hover:bg-black/5 transition"
+                                        {...(it.href.includes('.pdf') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                                      >
+                                        <div className="text-sm font-semibold text-[#16130F]">
+                                          {it.label}
+                                        </div>
+                                        {it.note && (
+                                          <div className="text-[11px] text-black/45 mt-0.5">
+                                            {it.note}
+                                          </div>
+                                        )}
+                                      </a>
+                                    );
+                                  }
                                 }
                               })}
                             </div>
@@ -415,13 +449,21 @@ export default function Header() {
 
                   <div className="mt-3 text-[11px] text-black/45">
                     Resources:{" "}
-                    <a className="font-semibold text-[#00827A] hover:underline" href="/Edu-font-License.pdf">
+                    <button
+                      className="font-semibold text-[#00827A] hover:underline"
+                      onClick={(e) => handlePdfClick("Edu‑font-License.pdf", e)}
+                      type="button"
+                    >
                       License PDF
-                    </a>
+                    </button>
                     {" • "}
-                    <a className="font-semibold text-[#00827A] hover:underline" href="/font-installation.pdf">
+                    <button
+                      className="font-semibold text-[#00827A] hover:underline"
+                      onClick={(e) => handlePdfClick("font-installation.pdf", e)}
+                      type="button"
+                    >
                       Install Guide
-                    </a>
+                    </button>
                   </div>
                 </div>
               </motion.div>

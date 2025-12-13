@@ -1,6 +1,19 @@
 import { Link } from "react-router-dom";
 import logoImage from "/logo.png";
 
+// Function to handle PDF link clicks to avoid React Router interception
+const handlePdfClick = (filename: string, e: React.MouseEvent) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  // Construct the correct URL - Vite serves public files from root
+  const baseUrl = import.meta.env.BASE_URL || '/';
+  const pdfUrl = `${baseUrl}${filename}`.replace(/\/\//g, '/'); // Remove double slashes
+  
+  // Use window.open for reliable PDF opening
+  window.open(pdfUrl, '_blank', 'noopener,noreferrer');
+};
+
 export default function Footer() {
   return (
     <footer className="relative bg-[#152835] text-white">
@@ -60,18 +73,30 @@ export default function Footer() {
           <div className="space-y-4">
             <h3 className="text-sm font-semibold uppercase tracking-wide">Resources</h3>
             <nav className="flex flex-col space-y-2 text-sm">
-              <a href="/sample-worksheet.pdf" className="text-[#E5EDF4]/80 hover:text-white transition-colors">
+              <button
+                onClick={(e) => handlePdfClick("sample-worksheet.pdf", e)}
+                className="text-left text-[#E5EDF4]/80 hover:text-white transition-colors"
+                type="button"
+              >
                 Sample Worksheet
-              </a>
+              </button>
               <Link to="/#testimonials" className="text-[#E5EDF4]/80 hover:text-white transition-colors">
                 Teacher Testimonials
               </Link>
-              <a href="/licensing-guide.pdf" className="text-[#E5EDF4]/80 hover:text-white transition-colors">
+              <button
+                onClick={(e) => handlePdfClick("licensing-guide.pdf", e)}
+                className="text-left text-[#E5EDF4]/80 hover:text-white transition-colors"
+                type="button"
+              >
                 Licensing Guide
-              </a>
-              <a href="/font-installation.pdf" className="text-[#E5EDF4]/80 hover:text-white transition-colors">
+              </button>
+              <button
+                onClick={(e) => handlePdfClick("font-installation.pdf", e)}
+                className="text-left text-[#E5EDF4]/80 hover:text-white transition-colors"
+                type="button"
+              >
                 Installation Guide
-              </a>
+              </button>
             </nav>
           </div>
 
@@ -115,9 +140,13 @@ export default function Footer() {
               <a href="/terms" className="hover:text-[#E5EDF4]/80 transition-colors">
                 Terms of Service
               </a>
-              <a href="/Edu‑font-License.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-[#E5EDF4]/80 transition-colors">
+              <button
+                onClick={(e) => handlePdfClick("Edu‑font-License.pdf", e)}
+                className="hover:text-[#E5EDF4]/80 transition-colors"
+                type="button"
+              >
                 Licensing
-              </a>
+              </button>
             </div>
           </div>
         </div>

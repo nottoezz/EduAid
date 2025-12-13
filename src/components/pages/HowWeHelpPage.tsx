@@ -4,6 +4,12 @@ import { useNavigate } from "react-router-dom";
 import Header from '../layout/Header';
 import Footer from '../layout/Footer';
 
+// Import images as modules
+import teachersImage from '/WUE-Teachers.png';
+import therapistImage from '/WUE-Therapist.png';
+import schoolsImage from '/WUE-Schools.png';
+import homeschoolImage from '/WUE-Homeschool.png';
+
 export default function HowWeHelpPage() {
   const navigate = useNavigate();
 
@@ -121,7 +127,7 @@ export default function HowWeHelpPage() {
 
                 <div className="bg-[#FFF8EF] rounded-2xl p-6">
                   <img
-                    src="/WUE-Teachers.png"
+                    src={teachersImage}
                     alt="Foundation Phase Teachers using Edu-Aid fonts in classroom"
                     className="w-full h-auto rounded-xl shadow-sm"
                   />
@@ -181,7 +187,7 @@ export default function HowWeHelpPage() {
 
                 <div className="bg-[#FFF8EF] rounded-2xl p-6">
                   <img
-                    src="/WUE-Therapist.png"
+                    src={therapistImage}
                     alt="Remedial and occupational therapists using Edu-Aid fonts"
                     className="w-full h-auto rounded-xl shadow-sm"
                   />
@@ -241,7 +247,7 @@ export default function HowWeHelpPage() {
 
                 <div className="bg-[#FFF8EF] rounded-2xl p-6">
                   <img
-                    src="/WUE-Schools.png"
+                    src={schoolsImage}
                     alt="Schools and districts implementing Edu-Aid fonts across classrooms"
                     className="w-full h-auto rounded-xl shadow-sm"
                   />
@@ -301,7 +307,7 @@ export default function HowWeHelpPage() {
 
                 <div className="bg-[#FFF8EF] rounded-2xl p-6">
                   <img
-                    src="/WUE-Homeschool.png"
+                    src={homeschoolImage}
                     alt="Parents and homeschoolers using Edu-Aid fonts at home"
                     className="w-full h-auto rounded-xl shadow-sm"
                   />

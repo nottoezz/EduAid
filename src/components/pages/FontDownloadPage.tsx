@@ -1,6 +1,19 @@
 import { useNavigate } from "react-router-dom";
 import logo from "/logo.png";
 
+// Function to handle PDF link clicks to avoid React Router interception
+const handlePdfClick = (filename: string, e: React.MouseEvent) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  // Construct the correct URL - Vite serves public files from root
+  const baseUrl = import.meta.env.BASE_URL || '/';
+  const pdfUrl = `${baseUrl}${filename}`.replace(/\/\//g, '/'); // Remove double slashes
+  
+  // Use window.open for reliable PDF opening
+  window.open(pdfUrl, '_blank', 'noopener,noreferrer');
+};
+
 export default function FontDownloadPage() {
   const navigate = useNavigate();
 
@@ -85,14 +98,13 @@ export default function FontDownloadPage() {
                       Download Trial Font
                     </button>
 
-                    <a
-                      href="/Edu‑font-License.pdf"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <button
+                      onClick={(e) => handlePdfClick("Edu‑font-License.pdf", e)}
                       className="inline-flex items-center justify-center rounded-2xl border border-black/20 bg-white px-6 py-4 text-lg font-semibold text-black hover:bg-black/5 transition"
+                      type="button"
                     >
                       View Full License & Pricing
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>

@@ -9,6 +9,19 @@ import abcSolidImage from "/ABC-solid.png";
 import abcDottedImage from "/ABC-dotted.png";
 import abcDottedArrowsImage from "/ABC-dotted-arrows.png";
 
+// Function to handle PDF link clicks to avoid React Router interception
+const handlePdfClick = (filename: string, e: React.MouseEvent) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  // Construct the correct URL - Vite serves public files from root
+  const baseUrl = import.meta.env.BASE_URL || '/';
+  const pdfUrl = `${baseUrl}${filename}`.replace(/\/\//g, '/'); // Remove double slashes
+  
+  // Use window.open for reliable PDF opening
+  window.open(pdfUrl, '_blank', 'noopener,noreferrer');
+};
+
 type FontKey = "print" | "tracing" | "guided";
 
 const FONT_ITEMS: Array<{
@@ -204,11 +217,10 @@ export default function FontPackSection() {
                   transition={{ delay: 0.4 }}
                   className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3"
                 >
-                  <a
-                    href="/Edu‑font-License.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <button
+                    onClick={(e) => handlePdfClick("Edu‑font-License.pdf", e)}
                     className="inline-flex items-center justify-center rounded-2xl bg-[#2CA6FF] px-4 py-3 text-sm font-semibold text-black hover:opacity-95 transition"
+                    type="button"
                   >
                     View Pricing &amp; Licenses
                   </a>

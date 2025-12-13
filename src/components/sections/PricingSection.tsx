@@ -1,6 +1,19 @@
 import { motion } from "framer-motion";
 import { useMemo, useState } from "react";
 
+// Function to handle PDF link clicks to avoid React Router interception
+const handlePdfClick = (filename: string, e: React.MouseEvent) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  // Construct the correct URL - Vite serves public files from root
+  const baseUrl = import.meta.env.BASE_URL || '/';
+  const pdfUrl = `${baseUrl}${filename}`.replace(/\/\//g, '/'); // Remove double slashes
+  
+  // Use window.open for reliable PDF opening
+  window.open(pdfUrl, '_blank', 'noopener,noreferrer');
+};
+
 type Licence = "individual" | "school" | "commercial";
 type Billing = "monthly" | "yearly";
 
@@ -282,14 +295,13 @@ export default function PricingSection() {
 
         {/* License page link */}
         <div className="mt-16 text-center">
-          <a
-            href="/Edu‑font-License.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={(e) => handlePdfClick("Edu‑font-License.pdf", e)}
             className="inline-flex items-center justify-center rounded-full bg-white/90 backdrop-blur-sm px-6 py-3 text-sm font-medium text-[#16130F] shadow-sm hover:bg-white hover:shadow-md transition-all duration-200 border border-white/30"
+            type="button"
           >
             View full license terms →
-          </a>
+          </button>
         </div>
       </div>
 

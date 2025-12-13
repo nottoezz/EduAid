@@ -1,6 +1,19 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
+// Function to handle PDF link clicks to avoid React Router interception
+const handlePdfClick = (filename: string, e: React.MouseEvent) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  // Construct the correct URL - Vite serves public files from root
+  const baseUrl = import.meta.env.BASE_URL || '/';
+  const pdfUrl = `${baseUrl}${filename}`.replace(/\/\//g, '/'); // Remove double slashes
+  
+  // Use window.open for reliable PDF opening
+  window.open(pdfUrl, '_blank', 'noopener,noreferrer');
+};
+
 export default function FinalCtaSection() {
   return (
     <section className="relative bg-[#fef4e6] py-20 md:py-24">
@@ -48,12 +61,13 @@ export default function FinalCtaSection() {
           </Link>
 
           {/* Secondary CTA – sample worksheet */}
-          <a
-            href="/sample-worksheet.pdf" // update to your actual sample URL
+          <button
+            onClick={(e) => handlePdfClick("sample-worksheet.pdf", e)} // update to your actual sample URL
             className="inline-flex items-center justify-center rounded-full border border-black/10 bg-white/80 px-6 py-2.5 text-sm font-medium text-[#16130F] hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-black/10"
+            type="button"
           >
             Download a sample worksheet
-          </a>
+          </button>
         </motion.div>
 
         <p className="mt-4 text-xs text-[#16130F]/60">
