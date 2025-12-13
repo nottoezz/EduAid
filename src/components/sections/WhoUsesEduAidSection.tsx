@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import WhoUsesEduAidOrnaments from "../decorative/WhoUsesEduAidOrnaments";
 import wueTeachersImage from '/WUE-Teachers.png';
 import wueTherapistImage from '/WUE-Therapist.png';
@@ -122,6 +123,8 @@ function PersonaIcon({ icon, className = "" }: PersonaIconProps) {
 }
 
 export default function WhoUsesEduAidSection() {
+  const navigate = useNavigate();
+
   return (
     <section className="relative bg-[#fef4e6] py-24 pb-48 z-10">
       {/* Background decorative lines */}
@@ -167,7 +170,7 @@ export default function WhoUsesEduAidSection() {
 
                 {/* CTA */}
                 <button
-                  onClick={() => window.location.hash = `#help-${personas[0].id}`}
+                  onClick={() => navigate(`/help#help-${personas[0].id}`)}
                   className={`text-left text-base hover:underline font-medium ${toneStyles(personas[0].tone).accent}`}
                 >
                   {personas[0].cta}
@@ -218,7 +221,7 @@ export default function WhoUsesEduAidSection() {
 
                 {/* CTA */}
                 <button
-                  onClick={() => window.location.hash = `#help-${personas[1].id}`}
+                  onClick={() => navigate(`/help#help-${personas[1].id}`)}
                   className={`text-left text-base hover:underline font-medium ${toneStyles(personas[0].tone).accent}`}
                 >
                   {personas[1].cta}
@@ -251,7 +254,7 @@ export default function WhoUsesEduAidSection() {
 
                 {/* CTA */}
                 <button
-                  onClick={() => window.location.hash = `#help-${personas[2].id}`}
+                  onClick={() => navigate(`/help#help-${personas[2].id}`)}
                   className={`text-left text-base hover:underline font-medium ${toneStyles(personas[0].tone).accent}`}
                 >
                   {personas[2].cta}
@@ -302,7 +305,7 @@ export default function WhoUsesEduAidSection() {
 
                 {/* CTA */}
                 <button
-                  onClick={() => window.location.hash = `#help-${personas[3].id}`}
+                  onClick={() => navigate(`/help#help-${personas[3].id}`)}
                   className={`text-left text-base hover:underline font-medium ${toneStyles(personas[0].tone).accent}`}
                 >
                   {personas[3].cta}

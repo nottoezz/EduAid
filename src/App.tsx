@@ -11,7 +11,12 @@ function ScrollToSection() {
 
   useEffect(() => {
     // Handle section scrolling on home page
-    if (location.pathname === '/' && location.hash) {
+    // With basename, pathname will be '/EduAid' in production, but we want to scroll on home page
+    const isHomePage = location.pathname === '/' ||
+                      location.pathname === '/EduAid' ||
+                      location.pathname === '/EduAid/';
+
+    if (isHomePage && location.hash) {
       setTimeout(() => {
         const element = document.getElementById(location.hash.substring(1));
         if (element) {
@@ -39,8 +44,11 @@ function AppContent() {
 }
 
 export default function App() {
+  // Use basename for GitHub Pages deployment
+  const basename = process.env.NODE_ENV === 'production' ? '/EduAid' : '';
+
   return (
-    <Router>
+    <Router basename={basename}>
       <AppContent />
     </Router>
   );

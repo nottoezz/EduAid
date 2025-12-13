@@ -1,6 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import logo from "/logo.png";
 
 export default function FontDownloadPage() {
+  const navigate = useNavigate();
+
   const handleDownload = () => {
     const link = document.createElement('a');
     link.href = '/downloads/Edu-Aid Trial Grade 1 Font.ttf';
@@ -10,11 +13,6 @@ export default function FontDownloadPage() {
     document.body.removeChild(link);
   };
 
-  const handleBackToHome = () => {
-    window.location.hash = '';
-    window.location.reload();
-  };
-
   return (
     <div className="min-h-screen bg-[#fef4e6] text-slate-900">
       {/* Header */}
@@ -22,7 +20,7 @@ export default function FontDownloadPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <button
-              onClick={handleBackToHome}
+              onClick={() => navigate('/')}
               className="flex items-center gap-2 text-sm font-medium text-black/70 hover:text-black transition"
             >
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

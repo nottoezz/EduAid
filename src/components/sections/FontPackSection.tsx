@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import FontPackOrnaments from "../decorative/FontPackOrnaments";
 
 import abcSolidImage from "/ABC-solid.png";
@@ -70,6 +71,7 @@ function cx(...classes: Array<string | false | undefined | null>) {
 export default function FontPackSection() {
   const [active, setActive] = React.useState<FontKey>("print");
   const reduce = useReducedMotion();
+  const navigate = useNavigate();
 
   const current = React.useMemo(
     () => FONT_ITEMS.find((x) => x.key === active)!,
@@ -245,7 +247,7 @@ export default function FontPackSection() {
                 {/* CTA */}
                 <div className="mt-6">
                   <button
-                    onClick={() => window.location.hash = '#all-fonts'}
+                    onClick={() => navigate('/all-fonts')}
                     className="w-full inline-flex items-center justify-center rounded-2xl bg-[#2CA6FF] px-6 py-3 text-sm font-semibold text-black hover:bg-[#168DE4] transition shadow-sm shadow-black/10"
                   >
                     See Available Fonts

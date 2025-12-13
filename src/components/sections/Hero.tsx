@@ -1,7 +1,10 @@
 import HeroOrnaments from "../decorative/HeroOrnaments";
+import { useNavigate } from "react-router-dom";
 import studentWritingImage from "/StudentWritingOnLens.png";
 
 export default function Hero() {
+  const navigate = useNavigate();
+
   return (
     <section
       role="banner"
@@ -52,7 +55,7 @@ export default function Hero() {
                 {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <button
-                    onClick={() => window.location.href = '/#pricing'}
+                    onClick={() => navigate('/#pricing')}
                     className="bg-[#2CA6FF] hover:bg-[#168DE4] text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#2CA6FF] focus:ring-offset-2 focus:ring-offset-white"
                     aria-label="View pricing and licensing options"
                   >
@@ -60,7 +63,7 @@ export default function Hero() {
                   </button>
 
                   <button
-                    onClick={() => window.location.hash = '#download'}
+                    onClick={() => navigate('/#download')}
                     className="bg-transparent border-2 border-[#8BD889] text-[#218738] hover:bg-[#F5FFF5] font-semibold py-3 px-6 rounded-full transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#8BD889] focus:ring-offset-2 focus:ring-offset-white"
                     aria-label="Download trial font"
                   >

@@ -1,13 +1,11 @@
 import { motion } from "framer-motion";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from '../layout/Header';
 import Footer from '../layout/Footer';
 
 export default function HowWeHelpPage() {
-  const handleBackToHome = () => {
-    window.location.hash = '';
-    window.location.reload();
-  };
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Handle scrolling to specific sections based on hash immediately
@@ -28,7 +26,7 @@ export default function HowWeHelpPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <button
-              onClick={handleBackToHome}
+              onClick={() => navigate('/')}
               className="flex items-center gap-2 text-sm font-medium text-black/70 hover:text-black transition"
             >
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -328,7 +326,7 @@ export default function HowWeHelpPage() {
                 Join thousands of South African educators who trust Edu-Aid fonts for consistent handwriting instruction.
               </p>
               <button
-                onClick={() => window.location.hash = '#download'}
+                onClick={() => navigate('/#download')}
                 className="inline-flex items-center justify-center rounded-full bg-[#1F9C93] px-8 py-3 text-lg font-medium text-white shadow-sm hover:bg-[#17867F] transition-all duration-200"
               >
                 Try Trial Font
