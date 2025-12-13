@@ -4,6 +4,18 @@ import React, { useMemo } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import Footer from "../layout/Footer";
 
+// Import font images
+import fullFontImage from "/fonts/Full-Font.png";
+import numbersImage from "/fonts/Numbers.png";
+import fontThinImage from "/fonts/Font-Thin.png";
+import dottedImage from "/fonts/Dotted.png";
+import hollowImage from "/fonts/Hollow.png";
+import dottedHollowImage from "/fonts/Dotted-Hollow.png";
+import dottedArrowsImage from "/fonts/Dotted-Arrows.png";
+import hollowArrowsImage from "/fonts/Hollow-Arrows.png";
+import dottedArrowsLinesImage from "/fonts/Dotted-Arrows-Lines.png";
+import fontLinesImage from "/fonts/Font-Lines.png";
+
 type FontItem = {
   name: string;
   description: string;
@@ -61,79 +73,79 @@ export default function AllFontsPage() {
       name: "Complete Edu-Aid Font Family",
       description:
         "All derivatives follow this core structure with letters and numbers.",
-      fonts: [
-        {
-          name: "Full Alphabet & Numbers",
-          description:
-            "Complete character set — all derivatives are based on these forms.",
-          images: ["/fonts/Full-Font.png", "/fonts/Numbers.png"],
-          grade: "Grades R–3",
-          type: "Core Structure",
-        },
-      ],
+        fonts: [
+          {
+            name: "Full Alphabet & Numbers",
+            description:
+              "Complete character set — all derivatives are based on these forms.",
+            images: [fullFontImage, numbersImage],
+            grade: "Grades R–3",
+            type: "Core Structure",
+          },
+        ],
     },
     {
       name: "Font Variants",
       description:
         "Specialized handwriting practice fonts for different learning stages.",
-      fonts: [
-        {
-          name: "Solid Print Font",
-          description: "Clean, clear letterforms for everyday classroom use.",
-          images: ["/fonts/Font-Thin.png"],
-          grade: "Grades R–3",
-          type: "Print",
-        },
-        {
-          name: "Dotted Tracing Font",
-          description: "Dotted outlines for guided tracing practice.",
-          images: ["/fonts/Dotted.png"],
-          grade: "Grades R–3",
-          type: "Tracing",
-        },
-        {
-          name: "Hollow Tracing Font",
-          description: "Hollow letterforms for intermediate tracing.",
-          images: ["/fonts/Hollow.png"],
-          grade: "Grades R–3",
-          type: "Tracing",
-        },
-        {
-          name: "Dotted Hollow Font",
-          description: "Combined dotted and hollow for advanced practice.",
-          images: ["/fonts/Dotted-Hollow.png"],
-          grade: "Grades R–3",
-          type: "Advanced Tracing",
-        },
-        {
-          name: "Guided Arrows Font",
-          description: "Arrow cues showing correct stroke direction.",
-          images: ["/fonts/Dotted-Arrows.png"],
-          grade: "Grades R–3",
-          type: "Guided",
-        },
-        {
-          name: "Hollow Arrows Font",
-          description: "Hollow letters with directional arrows.",
-          images: ["/fonts/Hollow-Arrows.png"],
-          grade: "Grades R–3",
-          type: "Guided",
-        },
-        {
-          name: "Dotted Arrows & Lines",
-          description: "Complete guidance with arrows and baseline.",
-          images: ["/fonts/Dotted-Arrows-Lines.png"],
-          grade: "Grades R–3",
-          type: "Complete Guidance",
-        },
-        {
-          name: "Font Lines",
-          description: "Baseline guides for proper letter positioning.",
-          images: ["/fonts/Font-Lines.png"],
-          grade: "Grades R–3",
-          type: "Positioning",
-        },
-      ],
+        fonts: [
+          {
+            name: "Solid Print Font",
+            description: "Clean, clear letterforms for everyday classroom use.",
+            images: [fontThinImage],
+            grade: "Grades R–3",
+            type: "Print",
+          },
+          {
+            name: "Dotted Tracing Font",
+            description: "Dotted outlines for guided tracing practice.",
+            images: [dottedImage],
+            grade: "Grades R–3",
+            type: "Tracing",
+          },
+          {
+            name: "Hollow Tracing Font",
+            description: "Hollow letterforms for intermediate tracing.",
+            images: [hollowImage],
+            grade: "Grades R–3",
+            type: "Tracing",
+          },
+          {
+            name: "Dotted Hollow Font",
+            description: "Combined dotted and hollow for advanced practice.",
+            images: [dottedHollowImage],
+            grade: "Grades R–3",
+            type: "Advanced Tracing",
+          },
+          {
+            name: "Guided Arrows Font",
+            description: "Arrow cues showing correct stroke direction.",
+            images: [dottedArrowsImage],
+            grade: "Grades R–3",
+            type: "Guided",
+          },
+          {
+            name: "Hollow Arrows Font",
+            description: "Hollow letters with directional arrows.",
+            images: [hollowArrowsImage],
+            grade: "Grades R–3",
+            type: "Guided",
+          },
+          {
+            name: "Dotted Arrows & Lines",
+            description: "Complete guidance with arrows and baseline.",
+            images: [dottedArrowsLinesImage],
+            grade: "Grades R–3",
+            type: "Complete Guidance",
+          },
+          {
+            name: "Font Lines",
+            description: "Baseline guides for proper letter positioning.",
+            images: [fontLinesImage],
+            grade: "Grades R–3",
+            type: "Positioning",
+          },
+        ],
     },
   ];
 
