@@ -4,24 +4,29 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/EduAid/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Fonts loaded asynchronously to prevent render blocking -->
+
+    <!-- DNS prefetch and preconnect for external resources -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Preload critical font weights -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,600;0,700;1,400&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+    <!-- Fallback for browsers that don't support preload -->
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,600;0,700;1,400&display=swap"></noscript>
+
+    <!-- Preload LCP image for better performance -->
+    <link rel="preload" as="image" href="/EduAid/StudentWritingOnLens.webp" fetchpriority="high">
+
     <title>edu</title>
-    <script type="module" crossorigin src="/EduAid/assets/index-DMwIMg7M.js"></script>
+    <script type="module" crossorigin src="/EduAid/assets/index-BSiD4QtK.js"></script>
+    <link rel="modulepreload" crossorigin href="/EduAid/assets/vendor-D2-WvKvI.js">
+    <link rel="modulepreload" crossorigin href="/EduAid/assets/ui-6bcAXb44.js">
     <link rel="stylesheet" crossorigin href="/EduAid/assets/index-BeqQIT6G.css">
   </head>
   <body>
     <div id="root"></div>
-
-    <!-- Load Google Fonts asynchronously to prevent render blocking -->
-    <script>
-      // Load fonts after page load to prevent render blocking
-      window.addEventListener('load', function() {
-        const link = document.createElement('link');
-        link.href = 'https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap';
-        link.rel = 'stylesheet';
-        document.head.appendChild(link);
-      });
-    </script>
   </body>
 </html>
