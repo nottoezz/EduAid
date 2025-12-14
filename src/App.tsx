@@ -5,8 +5,8 @@ import FontDownloadPage from './components/pages/FontDownloadPage';
 import HowWeHelpPage from './components/pages/HowWeHelpPage';
 import AllFontsPage from './components/pages/AllFontsPage';
 
-// Component to handle scrolling to sections on the home page
-function ScrollToSection() {
+// Component to handle scrolling behavior
+function ScrollHandler() {
   const location = useLocation();
 
   useEffect(() => {
@@ -30,6 +30,9 @@ function ScrollToSection() {
           }
         }
       });
+    } else if (!location.hash) {
+      // Scroll to top when navigating to a new page (no hash)
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     }
   }, [location]);
 
@@ -39,7 +42,7 @@ function ScrollToSection() {
 function AppContent() {
   return (
     <>
-      <ScrollToSection />
+      <ScrollHandler />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/download" element={<FontDownloadPage />} />

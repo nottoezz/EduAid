@@ -111,7 +111,7 @@ export default function WhyFontMattersSection() {
               <img
                 src={abcIncorrectImage}
                 alt="Incorrect font example - generic font with wrong letter shapes"
-                className="w-full h-auto rounded-xl max-w-xs mx-auto"
+                className="w-full h-32 object-contain rounded-xl mx-auto"
               />
             </div>
 
@@ -128,7 +128,7 @@ export default function WhyFontMattersSection() {
               <img
                 src={abcEduImage}
                 alt="Edu-Aid font - SA-approved letter shapes for early writers"
-                className="w-full h-auto rounded-xl max-w-xs mx-auto"
+                className="w-full h-32 object-contain rounded-xl mx-auto"
               />
             </div>
 
