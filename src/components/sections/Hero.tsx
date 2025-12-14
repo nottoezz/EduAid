@@ -8,7 +8,7 @@ export default function Hero() {
   return (
     <section
       role="banner"
-      className="bg-[#fef4e6] pt-24 md:pt-24 pb-32 md:pb-40 relative overflow-hidden"
+      className="bg-[#fef4e6] pt-12 md:pt-24 pb-32 md:pb-40 relative overflow-hidden"
       aria-labelledby="hero-heading"
     >
       <HeroOrnaments />
@@ -22,10 +22,10 @@ export default function Hero() {
       <div className="container mx-auto px-4 max-w-8xl relative ">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left Column - Text Content */}
-          <div className="text-center order-2 lg:order-1">
+          <div className="text-center order-2 lg:order-1 relative">
 
             {/* Main content card */}
-            <div className="relative w-full max-w-full z-10 ml-4 lg:ml-32">
+            <div className="relative w-full max-w-full z-10 mx-auto lg:ml-32 md:mt-0 -mt-24">
               {/* Card background with gradient */}
               <div className="relative bg-white/95 backdrop-blur-sm rounded-[32px] p-8 md:p-10 lg:p-12 shadow-[0_18px_40px_rgba(0,0,0,0.05)] border border-[#E8DFD2]">
                 {/* Accent line */}
