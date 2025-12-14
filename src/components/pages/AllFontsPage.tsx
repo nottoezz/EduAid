@@ -3,6 +3,7 @@
 import { useMemo } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "react-router-dom";
+import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 
 // Import font images
@@ -162,42 +163,11 @@ export default function AllFontsPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#fef4e6] text-slate-900">
-      {/* Header */}
-      <header className="fixed top-0 z-50 w-full bg-[#fef4e6]/90 backdrop-blur-md border-b border-black/5">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
-            <Link
-              to="/"
-              className="flex items-center gap-2 text-sm font-medium text-black/70 hover:text-black transition"
-            >
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              Back to Home
-            </Link>
-
-            <div className="relative text-center leading-none">
-              <span className="text-xl sm:text-2xl font-black text-[#16130F] tracking-tight">
-                EDU-FONT
-              </span>
-              <span className="absolute -top-1 -right-4 text-[10px] font-bold text-[#00827A]">
-                ™
-              </span>
-            </div>
-
-            <Link
-              to="/#pricing"
-              className="hidden sm:inline-flex items-center justify-center rounded-2xl bg-[#2CA6FF] px-4 py-2 text-sm font-semibold text-black hover:opacity-95 transition shadow-sm shadow-black/10"
-            >
-              View Pricing
-            </Link>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-[#fef4e6] text-slate-900 overflow-x-hidden pt-24">
+      <Header />
 
       {/* Main */}
-      <main className="pt-24 pb-16">
+      <main className="pb-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           {/* Hero */}
           <motion.section

@@ -1,5 +1,5 @@
-import { useNavigate } from "react-router-dom";
-import logo from "/logo.png";
+import Header from "../layout/Header";
+import Footer from "../layout/Footer";
 
 // Function to handle PDF link clicks to avoid React Router interception
 const handlePdfClick = (filename: string, e: React.MouseEvent) => {
@@ -15,8 +15,6 @@ const handlePdfClick = (filename: string, e: React.MouseEvent) => {
 };
 
 export default function FontDownloadPage() {
-  const navigate = useNavigate();
-
   const handleDownload = () => {
     const link = document.createElement('a');
     link.href = '/downloads/Edu-Aid Trial Grade 1 Font.ttf';
@@ -27,27 +25,11 @@ export default function FontDownloadPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fef4e6] text-slate-900">
-      {/* Header */}
-      <header className="fixed top-0 z-50 w-full bg-[#fef4e6]/95 backdrop-blur-sm border-b border-black/5">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
-            <button
-              onClick={() => navigate('/')}
-              className="flex items-center gap-2 text-sm font-medium text-black/70 hover:text-black transition"
-            >
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              Back to Home
-            </button>
-            <img src={logo} alt="Edu-Aid" className="h-8 w-auto" />
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-[#fef4e6] text-slate-900 overflow-x-hidden pt-24">
+      <Header />
 
       {/* Main Content */}
-      <div className="pt-24 pb-16">
+      <div className="pb-16">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             {/* Icon */}
@@ -118,6 +100,8 @@ export default function FontDownloadPage() {
           </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }

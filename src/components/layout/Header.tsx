@@ -1,51 +1,153 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
-type NavItem = { label: string; href: string; note?: string; isPdf?: boolean };
-type NavGroup = { title: string; items: NavItem[] };
+// Import images for navbar placeholders
+import fontPreviewImage from "/fonts/Full-Font.png";
+import StudentWriting from "/StudentWritingOnLens.png";
+import TeachersImage from "/WUE-Teachers.png";
+import TherapistImage from "/WUE-Therapist.png";
+import FontSolid from "/ABC-solid.png";
+import FontDotted from "/ABC-dotted.png";
+import DownloadFont from "/ABC-edu.png";
+import LicenseInfo from "/TeacherCorrectFont.png";
 
-// Function to handle PDF link clicks to avoid React Router interception
-const handlePdfClick = (filename: string, e: React.MouseEvent) => {
-  e.preventDefault();
-  e.stopPropagation();
+/* ---------------------------------------------
+ Types
+--------------------------------------------- */
 
-  // Construct the correct URL - Vite serves public files from root
-  const baseUrl = import.meta.env.BASE_URL || '/';
-  const pdfUrl = `${baseUrl}${filename}`.replace(/\/\//g, '/'); // Remove double slashes
-  
-  // Use window.open for reliable PDF opening
-  window.open(pdfUrl, '_blank', 'noopener,noreferrer');
+type Section = {
+  label: string;
+  href: string;
+  note?: string;
 };
+
+type Page = {
+  id: string;
+  label: string;
+  href: string;
+  note?: string;
+  sections?: Section[];
+  imageHints?: string[];
+  images?: string[];
+};
+
+type Resource = {
+  label: string;
+  href: string;
+  note?: string;
+};
+
+/* ---------------------------------------------
+ Utils
+--------------------------------------------- */
 
 function cx(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ");
 }
 
+const handlePdfClick = (filename: string, e: React.MouseEvent) => {
+  e.preventDefault();
+  e.stopPropagation();
+  const base = import.meta.env.BASE_URL || "/";
+  window.open(`${base}${filename}`.replace(/\/\//g, "/"), "_blank", "noopener");
+};
+
+/* ---------------------------------------------
+ Config
+--------------------------------------------- */
+
+const PAGES: Page[] = [
+  {
+    id: "home",
+    label: "Home",
+    href: "/",
+    note: "Overview & features",
+    sections: [
+      { label: "Font Pack", href: "/#fonts" },
+      { label: "See it in Action", href: "/#why" },
+      { label: "Pricing & Licenses", href: "/#pricing" },
+      { label: "FAQ & Support", href: "/#faq" },
+    ],
+    imageHints: ["Font previews", "Student writing"],
+    images: [fontPreviewImage, StudentWriting],
+  },
+  {
+    id: "help",
+    label: "How We Help",
+    href: "/help",
+    note: "Teachers • Therapists • Schools",
+    sections: [
+      { label: "Teachers", href: "/help#teachers" },
+      { label: "Therapists", href: "/help#therapists" },
+      { label: "Schools", href: "/help#schools" },
+      { label: "Parents", href: "/help#parents" },
+    ],
+    imageHints: ["Teacher resources", "Therapy material"],
+    images: [TeachersImage, TherapistImage],
+  },
+  {
+    id: "fonts",
+    label: "All Fonts",
+    href: "/all-fonts",
+    note: "Full catalogue",
+    sections: [],
+    imageHints: ["Font grid", "Style variants"],
+    images: [FontSolid, FontDotted],
+  },
+  {
+    id: "download",
+    label: "Trial Download",
+    href: "/download",
+    note: "Sample font",
+    sections: [],
+    imageHints: ["Download UI", "License info"],
+    images: [DownloadFont, LicenseInfo],
+  },
+];
+
+const RESOURCES: Resource[] = [
+  { label: "License PDF", href: "Edu‑font-License.pdf" },
+  { label: "Sample Worksheet", href: "sample-worksheet.pdf" },
+  { label: "Licensing Guide", href: "licensing-guide.pdf" },
+  { label: "Installation Guide", href: "font-installation.pdf" },
+];
+
+/* ---------------------------------------------
+ Component
+--------------------------------------------- */
+
 export default function Header() {
   const reduce = useReducedMotion();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [open, setOpen] = useState<null | "explore" | "mobile">(null);
-
+  const [open, setOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [activePage, setActivePage] = useState(PAGES[0]);
   const headerRef = useRef<HTMLElement | null>(null);
 
+  /* Scroll */
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 90);
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setIsScrolled(window.scrollY > 90);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // close popovers on escape / click outside
+  /* Close on outside click / esc */
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(null);
+      if (e.key === "Escape") {
+        setOpen(false);
+        setMobileOpen(false);
+      }
     };
     const onClick = (e: MouseEvent) => {
-      if (!headerRef.current) return;
-      if (!headerRef.current.contains(e.target as Node)) setOpen(null);
+      if (!headerRef.current?.contains(e.target as Node)) {
+        setOpen(false);
+        setMobileOpen(false);
+      }
     };
     window.addEventListener("keydown", onKey);
     window.addEventListener("mousedown", onClick);
@@ -55,421 +157,274 @@ export default function Header() {
     };
   }, []);
 
-  const groups = useMemo<NavGroup[]>(
-    () => [
-      {
-        title: "On this page",
-        items: [
-          { label: "Font Pack", href: "/#fonts", note: "Print / Tracing / Guided" },
-          { label: "See it in Action", href: "/#why", note: "Worksheet examples" },
-          { label: "Pricing & Licenses", href: "/#pricing", note: "Teacher / School / Commercial" },
-          { label: "FAQ & Support", href: "/#faq", note: "Answers + contact" },
-        ],
-      },
-      {
-        title: "Pages",
-        items: [
-          { label: "How We Help", href: "/help", note: "Teachers • Therapists • Schools • Parents" },
-          { label: "All Available Fonts", href: "/all-fonts", note: "Full catalog + variants" },
-          { label: "Trial Download", href: "/download", note: "Get a sample font" },
-        ],
-      },
-      {
-        title: "Resources",
-        items: [
-          { label: "License PDF", href: "Edu‑font-License.pdf", note: "Terms & usage", isPdf: true },
-          { label: "Sample Worksheet", href: "sample-worksheet.pdf", note: "Classroom-ready example", isPdf: true },
-          { label: "Licensing Guide", href: "licensing-guide.pdf", note: "Detailed breakdown", isPdf: true },
-          { label: "Installation Guide", href: "font-installation.pdf", note: "Windows / Mac", isPdf: true },
-        ],
-      },
-    ],
-    []
-  );
-
-  const primaryNav: NavItem[] = useMemo(
-    () => [
-      { label: "Font Pack", href: "/#fonts" },
-      { label: "See it in Action", href: "/#why" },
-      { label: "Pricing", href: "/#pricing" },
-      { label: "Contact", href: "mailto:schoolfonts@gmail.com" },
-    ],
-    []
-  );
-
-  const v = useMemo(() => {
-    const ease = [0.22, 1, 0.36, 1] as const;
-    return {
-      pop: {
-        hidden: { opacity: 0, y: 8, scale: 0.99 },
-        show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.22, ease } },
-        exit: { opacity: 0, y: 8, scale: 0.99, transition: { duration: 0.15, ease } },
-      },
-      sheet: {
-        hidden: { opacity: 0, y: -8 },
-        show: { opacity: 1, y: 0, transition: { duration: 0.18, ease } },
-        exit: { opacity: 0, y: -8, transition: { duration: 0.12, ease } },
-      },
-    };
-  }, []);
+  const v = {
+    hidden: { opacity: 0, y: -8 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: reduce ? 0 : 0.22, ease: [0.22, 1, 0.36, 1] as const },
+    },
+    exit: {
+      opacity: 0,
+      y: -8,
+      transition: { duration: reduce ? 0 : 0.15 },
+    },
+  };
 
   return (
     <header
-      ref={headerRef as any}
+      ref={headerRef}
+      onMouseLeave={() => setOpen(false)}
       className={cx(
-        "fixed top-0 left-0 right-0 z-50 text-[#16130F]",
-        "transition-[background,box-shadow,border-radius,margin,transform] duration-700 ease-out",
-        isScrolled
-          ? "mx-3 sm:mx-4 mt-3 sm:mt-4"
-          : "mx-0 mt-0"
+        "fixed inset-x-0 top-0 z-50 transition-all duration-700",
+        isScrolled ? "mx-4 mt-4" : "mx-0 mt-0"
       )}
     >
       <div
         className={cx(
           "relative",
           isScrolled
-            ? "rounded-2xl bg-white/70 backdrop-blur-xl shadow-[0_18px_45px_rgba(0,0,0,0.10)] border border-black/5"
-            : "bg-[#fef4e6]/95 backdrop-blur-sm border-b border-black/5"
+            ? "rounded-2xl bg-white/70 backdrop-blur-xl shadow-xl border border-black/5"
+            : "bg-[#fef4e6]/95 border-b border-black/5"
         )}
       >
-        {/* subtle top hairline sheen */}
-        <div
-          aria-hidden="true"
-          className={cx(
-            "pointer-events-none absolute inset-x-0 top-0 h-px",
-            isScrolled ? "bg-white/60" : "bg-white/40"
-          )}
-        />
+        {/* Top bar */}
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          <Link to="/" className="font-black text-xl tracking-tight">
+            EDU-FONT<span className="text-[#00827A] text-xs ml-1">™</span>
+          </Link>
 
-        <div className="px-4 sm:px-6 py-4">
-          <div className="flex items-center justify-between max-w-7xl mx-auto">
-            {/* Brand */}
-            <Link to="/" className="flex items-center gap-3 group">
-              <div className="relative leading-none">
-                <span className="text-xl sm:text-2xl font-black tracking-tight">
-                  EDU-FONT
-                </span>
-                <span className="absolute -top-1 -right-4 text-[10px] font-bold text-[#00827A]">
-                  ™
-                </span>
-              </div>
+          {/* Desktop pages */}
+          <nav
+            className="hidden lg:flex items-center gap-1"
+            onMouseEnter={() => setOpen(true)}
+          >
+            {PAGES.map((p) => (
+              <Link
+                key={p.id}
+                to={p.href}
+                onMouseEnter={() => setActivePage(p)}
+                className="px-4 py-2 rounded-xl text-sm font-semibold hover:bg-white/70"
+              >
+                {p.label}
+              </Link>
+            ))}
+          </nav>
 
-              <span className="hidden md:inline text-xs text-black/45 group-hover:text-black/60 transition">
-                CAPS-aligned letter formation
-              </span>
+          {/* Right CTAs */}
+          <div className="hidden lg:flex gap-2">
+            <Link
+              to="/#pricing"
+              className="px-4 py-2 rounded-xl bg-[#2CA6FF] text-sm font-semibold"
+            >
+              Pricing
             </Link>
-
-            {/* Desktop nav */}
-            <nav className="hidden lg:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
-              {/* Explore (mega panel) */}
-              <div
-                className="relative"
-                onMouseEnter={() => setOpen("explore")}
-                onMouseLeave={() => setOpen(null)}
-              >
-                <button
-                  type="button"
-                  className={cx(
-                    "px-4 py-2 rounded-xl text-sm font-semibold transition",
-                    "hover:bg-white/70 hover:shadow-sm",
-                    open === "explore" ? "bg-white/70 shadow-sm" : "bg-transparent"
-                  )}
-                  aria-haspopup="dialog"
-                  aria-expanded={open === "explore"}
-                >
-                  Explore
-                  <span className="ml-2 text-black/40">▾</span>
-                </button>
-
-                <AnimatePresence>
-                  {open === "explore" && (
-                    <motion.div
-                      variants={v.pop}
-                      initial="hidden"
-                      animate="show"
-                      exit="exit"
-                      className="absolute left-0 mt-3 w-[720px] rounded-3xl border border-black/10 bg-white backdrop-blur-xl shadow-[0_18px_45px_rgba(0,0,0,0.10)] overflow-hidden"
-                      role="dialog"
-                      aria-label="Explore navigation"
-                    >
-                      <div className="grid grid-cols-3 gap-0">
-                        {groups.map((g) => (
-                          <div key={g.title} className="p-5">
-                            <div className="text-[11px] uppercase tracking-[0.22em] text-black/45 font-bold">
-                              {g.title}
-                            </div>
-
-                            <div className="mt-3 space-y-1">
-                              {g.items.map((it) => {
-                                // Use Link for internal routes, anchor for external/PDF links or hash links
-                                const isInternalRoute = it.href.startsWith('/') && !it.href.includes('.') && !it.href.includes('#');
-
-                                if (isInternalRoute) {
-                                  return (
-                                    <Link
-                                      key={it.href + it.label}
-                                      to={it.href}
-                                      className="block rounded-2xl px-3 py-2 hover:bg-black/5 transition"
-                                    >
-                                      <div className="text-sm font-semibold text-[#16130F]">
-                                        {it.label}
-                                      </div>
-                                      {it.note && (
-                                        <div className="text-[11px] text-black/45 mt-0.5">
-                                          {it.note}
-                                        </div>
-                                      )}
-                                    </Link>
-                                  );
-                                } else {
-                                  // Special handling for PDF links to avoid React Router interception
-                                  if (it.isPdf) {
-                                    return (
-                                      <button
-                                        key={it.href + it.label}
-                                        onClick={(e) => handlePdfClick(it.href, e)}
-                                        className="block rounded-2xl px-3 py-2 hover:bg-black/5 transition text-left w-full"
-                                        type="button"
-                                      >
-                                        <div className="text-sm font-semibold text-[#16130F]">
-                                          {it.label}
-                                        </div>
-                                        {it.note && (
-                                          <div className="text-[11px] text-black/45 mt-0.5">
-                                            {it.note}
-                                          </div>
-                                        )}
-                                      </button>
-                                    );
-                                  } else {
-                                    return (
-                                      <a
-                                        key={it.href + it.label}
-                                        href={it.href}
-                                        className="block rounded-2xl px-3 py-2 hover:bg-black/5 transition"
-                                        {...(it.href.includes('.pdf') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                                      >
-                                        <div className="text-sm font-semibold text-[#16130F]">
-                                          {it.label}
-                                        </div>
-                                        {it.note && (
-                                          <div className="text-[11px] text-black/45 mt-0.5">
-                                            {it.note}
-                                          </div>
-                                        )}
-                                      </a>
-                                    );
-                                  }
-                                }
-                              })}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-
-                      <div className="flex items-center justify-between px-5 py-4 border-t border-black/5 bg-[#fef4e6]/60">
-                        <div className="text-xs text-black/55">
-                          Need help choosing?{" "}
-                          <Link
-                            to="/help"
-                            className="font-semibold text-[#00827A] hover:underline"
-                          >
-                            See how we help
-                          </Link>
-                          .
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Link
-                            to="/all-fonts"
-                            className="rounded-2xl bg-white/70 border border-black/10 px-4 py-2 text-xs font-semibold hover:bg-white transition"
-                          >
-                            View all fonts
-                          </Link>
-                          <Link
-                            to="/#pricing"
-                            className="rounded-2xl bg-[#2CA6FF] px-4 py-2 text-xs font-semibold text-black hover:opacity-95 transition shadow-sm shadow-black/10"
-                          >
-                            Pricing
-                          </Link>
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-
-              {/* Primary anchors (simple + fast) */}
-              {primaryNav.map((item) => {
-                // Use Link for hash links, anchor for external links like mailto
-                const isHashLink = item.href.includes('#');
-
-                if (isHashLink) {
-                  return (
-                    <Link
-                      key={item.href}
-                      to={item.href}
-                      className={cx(
-                        "px-4 py-2 rounded-xl text-sm font-semibold transition",
-                        isScrolled
-                          ? "hover:bg-[#fef4e6]/60 hover:text-[#00827A]"
-                          : "hover:bg-white/60 hover:text-[#00827A]"
-                      )}
-                    >
-                      {item.label}
-                    </Link>
-                  );
-                } else {
-                  return (
-                    <a
-                      key={item.href}
-                      href={item.href}
-                      className={cx(
-                        "px-4 py-2 rounded-xl text-sm font-semibold transition",
-                        isScrolled
-                          ? "hover:bg-[#fef4e6]/60 hover:text-[#00827A]"
-                          : "hover:bg-white/60 hover:text-[#00827A]"
-                      )}
-                    >
-                      {item.label}
-                    </a>
-                  );
-                }
-              })}
-            </nav>
-
-            {/* Right CTAs */}
-            <div className="flex items-center gap-2 sm:gap-3">
-              <Link
-                to="/all-fonts"
-                className="hidden sm:inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-[#16130F] bg-white/70 backdrop-blur-sm border border-black/10 rounded-xl hover:bg-white hover:shadow-sm transition"
-              >
-                All Fonts
-              </Link>
-
-              <Link
-                to="/#pricing"
-                className="hidden sm:inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-[#16130F] bg-white/80 backdrop-blur-sm border border-[#E8DFD2] rounded-xl hover:bg-white hover:shadow-sm transition"
-              >
-                Get Font
-              </Link>
-
-              <a
-                href="mailto:schoolfonts@gmail.com"
-                className="hidden sm:inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-white bg-[#00827A] rounded-xl hover:bg-[#006B5E] hover:shadow-lg transition"
-              >
-                Get in Touch
-              </a>
-
-              {/* Mobile button */}
-              <button
-                type="button"
-                onClick={() => setOpen(open === "mobile" ? null : "mobile")}
-                className="lg:hidden inline-flex items-center justify-center rounded-xl border border-black/10 bg-white/70 px-3 py-2 text-sm font-semibold text-black/70 hover:bg-white transition"
-                aria-expanded={open === "mobile"}
-                aria-label="Open menu"
-              >
-                <span className="mr-2">Menu</span>
-                <span className="text-black/40">☰</span>
-              </button>
-            </div>
+            <a
+              href="mailto:schoolfonts@gmail.com"
+              className="px-4 py-2 rounded-xl bg-[#00827A] text-white text-sm font-semibold"
+            >
+              Contact
+            </a>
           </div>
 
-          {/* Mobile sheet */}
-          <AnimatePresence>
-            {open === "mobile" && (
-              <motion.div
-                variants={v.sheet}
-                initial="hidden"
-                animate="show"
-                exit="exit"
-                className="lg:hidden mt-4 rounded-3xl border border-black/10 bg-white/75 backdrop-blur-xl shadow-[0_18px_55px_rgba(0,0,0,0.12)] overflow-hidden"
-              >
-                <div className="p-4">
-                  <div className="grid gap-2">
-                    {primaryNav.map((item) => {
-                      // Use Link for hash links, anchor for external links like mailto
-                      const isHashLink = item.href.includes('#');
+          {/* Mobile menu button */}
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="lg:hidden p-2 rounded-xl hover:bg-white/70"
+            aria-label="Toggle menu"
+          >
+            <svg
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              {mobileOpen ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              ) : (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              )}
+            </svg>
+          </button>
+        </div>
 
-                      if (isHashLink) {
-                        return (
-                          <Link
-                            key={item.href}
-                            to={item.href}
-                            onClick={() => setOpen(null)}
-                            className="rounded-2xl px-4 py-3 bg-white/70 border border-black/10 text-sm font-semibold text-[#16130F] hover:bg-white transition"
-                          >
-                            {item.label}
-                          </Link>
-                        );
-                      } else {
-                        return (
-                          <a
-                            key={item.href}
-                            href={item.href}
-                            onClick={() => setOpen(null)}
-                            className="rounded-2xl px-4 py-3 bg-white/70 border border-black/10 text-sm font-semibold text-[#16130F] hover:bg-white transition"
-                          >
-                            {item.label}
-                          </a>
-                        );
-                      }
-                    })}
-                    <Link
-                      to="/help"
-                      onClick={() => setOpen(null)}
-                      className="rounded-2xl px-4 py-3 bg-white/70 border border-black/10 text-sm font-semibold text-[#16130F] hover:bg-white transition"
-                    >
-                      How We Help
-                    </Link>
-                    <Link
-                      to="/all-fonts"
-                      onClick={() => setOpen(null)}
-                      className="rounded-2xl px-4 py-3 bg-white/70 border border-black/10 text-sm font-semibold text-[#16130F] hover:bg-white transition"
-                    >
-                      All Available Fonts
-                    </Link>
-                  </div>
+        {/* Mobile menu */}
+        <AnimatePresence>
+          {mobileOpen && (
+            <motion.div
+              variants={v}
+              initial="hidden"
+              animate="show"
+              exit="exit"
+              className="lg:hidden border-t border-black/5 bg-white/95 backdrop-blur-xl"
+            >
+              <div className="px-6 py-4 space-y-2">
+                {PAGES.map((p) => (
+                  <Link
+                    key={p.id}
+                    to={p.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="block px-4 py-3 rounded-xl hover:bg-black/5 font-semibold"
+                  >
+                    {p.label}
+                  </Link>
+                ))}
+                <div className="pt-2 border-t border-black/5 space-y-2">
+                  <Link
+                    to="/#pricing"
+                    onClick={() => setMobileOpen(false)}
+                    className="block px-4 py-3 rounded-xl bg-[#2CA6FF] text-sm font-semibold text-center"
+                  >
+                    Pricing
+                  </Link>
+                  <a
+                    href="mailto:schoolfonts@gmail.com"
+                    onClick={() => setMobileOpen(false)}
+                    className="block px-4 py-3 rounded-xl bg-[#00827A] text-white text-sm font-semibold text-center"
+                  >
+                    Contact
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-                  <div className="mt-3 grid grid-cols-2 gap-2">
+        {/* Mega panel */}
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              variants={v}
+              initial="hidden"
+              animate="show"
+              exit="exit"
+              role="dialog"
+              className="border-t border-black/5 bg-white backdrop-blur-xl"
+            >
+              <div className="max-w-7xl mx-auto grid grid-cols-12 gap-8 px-6 py-8">
+                {/* Pages */}
+                <div className="col-span-3">
+                  <p className="text-xs uppercase tracking-widest text-black/45 mb-4">
+                    Pages
+                  </p>
+                  {PAGES.map((p) => (
                     <Link
-                      to="/#pricing"
-                      onClick={() => setOpen(null)}
-                      className="inline-flex items-center justify-center rounded-2xl bg-[#2CA6FF] px-4 py-3 text-sm font-semibold text-black hover:opacity-95 transition shadow-sm shadow-black/10"
+                      key={p.id}
+                      to={p.href}
+                      onMouseEnter={() => setActivePage(p)}
+                      onClick={() => setOpen(false)}
+                      className={cx(
+                        "block w-full text-left px-4 py-3 rounded-xl",
+                        activePage.id === p.id
+                          ? "bg-[#00827A]/10"
+                          : "hover:bg-black/5"
+                      )}
                     >
-                      Pricing
+                      <div className="font-semibold">{p.label}</div>
+                      {p.note && (
+                        <div className="text-xs text-black/45">{p.note}</div>
+                      )}
                     </Link>
-                    <Link
-                      to="/#download"
-                      onClick={() => setOpen(null)}
-                      className="inline-flex items-center justify-center rounded-2xl bg-white/70 border border-black/10 px-4 py-3 text-sm font-semibold text-black/70 hover:bg-white transition"
-                    >
-                      Trial Download
-                    </Link>
-                  </div>
+                  ))}
+                </div>
 
-                  <div className="mt-3 text-[11px] text-black/45">
-                    Resources:{" "}
-                    <button
-                      className="font-semibold text-[#00827A] hover:underline"
-                      onClick={(e) => handlePdfClick("Edu‑font-License.pdf", e)}
-                      type="button"
-                    >
-                      License PDF
-                    </button>
-                    {" • "}
-                    <button
-                      className="font-semibold text-[#00827A] hover:underline"
-                      onClick={(e) => handlePdfClick("font-installation.pdf", e)}
-                      type="button"
-                    >
-                      Install Guide
-                    </button>
+                {/* Sections */}
+                <div className="col-span-5">
+                  <p className="text-xs uppercase tracking-widest text-black/45 mb-4">
+                    Sections
+                  </p>
+                  {activePage.sections && activePage.sections.length > 0 ? (
+                    activePage.sections.map((s) => (
+                      <Link
+                        key={s.href}
+                        to={s.href}
+                        onClick={() => setOpen(false)}
+                        className="block px-4 py-3 rounded-xl hover:bg-black/5"
+                      >
+                        <div className="font-semibold">{s.label}</div>
+                        {s.note && (
+                          <div className="text-xs text-black/45">{s.note}</div>
+                        )}
+                      </Link>
+                    ))
+                  ) : (
+                    <div className="px-4 py-3 text-sm text-black/45">
+                      {activePage.id === "fonts" && "Browse our complete font collection"}
+                      {activePage.id === "download" && "Download the trial font and view licensing"}
+                    </div>
+                  )}
+
+                  <div className="mt-6 pt-6 border-t border-black/5">
+                    <p className="text-xs uppercase tracking-widest text-black/45 mb-3">
+                      Resources
+                    </p>
+                    <div className="grid grid-cols-2 gap-2">
+                      {RESOURCES.map((r) => (
+                        <button
+                          key={r.href}
+                          onClick={(e) => handlePdfClick(r.href, e)}
+                          className="text-left px-3 py-2 rounded-xl hover:bg-black/5 text-sm"
+                        >
+                          {r.label}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
+
+                {/* Visual + CTA */}
+                <div className="col-span-4 space-y-4">
+                  <div className="grid grid-cols-2 gap-3">
+                    {(activePage.images || activePage.imageHints || []).slice(0, 2).map((item, index) => (
+                      <div
+                        key={index}
+                        className="aspect-square rounded-2xl border border-black/10 bg-[#fef4e6]/50 overflow-hidden"
+                      >
+                        {activePage.images ? (
+                          <img
+                            src={item}
+                            alt={activePage.imageHints?.[index] || "Preview"}
+                            className="w-full h-full object-contain p-2"
+                          />
+                        ) : (
+                          <div className="w-full h-full border border-dashed border-black/10 bg-[#fef4e6]/50 flex items-center justify-center text-xs text-black/40">
+                            {item}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+
+                  <Link
+                    to="/#pricing"
+                    onClick={() => setOpen(false)}
+                    className="block w-full text-center px-6 py-4 rounded-2xl bg-[#2CA6FF] font-semibold"
+                  >
+                    View Pricing
+                  </Link>
+
+                  <Link
+                    to="/download"
+                    onClick={() => setOpen(false)}
+                    className="block w-full text-center px-6 py-4 rounded-2xl border border-black/10 bg-white"
+                  >
+                    Download Trial
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </header>
   );

@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import Header from '../layout/Header';
 import Footer from '../layout/Footer';
 
@@ -11,49 +10,26 @@ import schoolsImage from '/WUE-Schools.png';
 import homeschoolImage from '/WUE-Homeschool.png';
 
 export default function HowWeHelpPage() {
-  const navigate = useNavigate();
-
   useEffect(() => {
-    // Handle scrolling to specific sections based on hash immediately
+    // Handle scrolling to specific sections based on hash
     const hash = window.location.hash;
-    if (hash && hash.startsWith('#help-')) {
-      const sectionId = hash.substring(6); // Remove '#help-' to get the section name
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'instant', block: 'center' });
-      }
+    if (hash) {
+      const sectionId = hash.substring(1); // Remove '#' to get the section name
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
     }
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#fef4e6] text-slate-900">
-      {/* Header */}
-      <header className="fixed top-0 z-50 w-full bg-[#fef4e6]/95 backdrop-blur-sm border-b border-black/5">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
-            <button
-              onClick={() => navigate('/')}
-              className="flex items-center gap-2 text-sm font-medium text-black/70 hover:text-black transition"
-            >
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              Back to Home
-            </button>
-            <div className="text-center">
-              <span className="text-2xl font-black text-[#16130F] tracking-tight">
-                EDU-FONT
-              </span>
-              <span className="absolute -top-1 -right-6 text-xs font-bold text-[#00827A]">
-                ™
-              </span>
-            </div>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-[#fef4e6] text-slate-900 overflow-x-hidden pt-24">
+      <Header />
 
       {/* Main Content */}
-      <div className="pt-24 pb-16">
+      <div className="pb-16">
         <div className="mx-auto max-w-6xl px-6">
           {/* Hero Section */}
           <div className="text-center mb-16">
