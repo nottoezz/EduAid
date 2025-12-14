@@ -27,7 +27,7 @@ export default function Hero() {
             {/* Main content card */}
             <div className="relative w-full max-w-full z-10 mx-auto lg:ml-32 md:mt-0 -mt-24">
               {/* Card background with gradient */}
-              <div className="relative bg-white/95 backdrop-blur-sm rounded-[32px] p-8 md:p-10 lg:p-12 shadow-[0_18px_40px_rgba(0,0,0,0.05)] border border-[#E8DFD2]">
+              <div className="relative bg-white/95 backdrop-blur-sm rounded-[32px] p-8 md:p-10 lg:p-12 shadow-[0_18px_40px_rgba(0,0,0,0.05)] border border-[#E8DFD2] min-h-[400px]">
                 {/* Accent line */}
                 <div className="w-16 h-1 bg-[#FF5A5F] rounded-full mb-8 mx-auto"></div>
 
@@ -93,15 +93,12 @@ export default function Hero() {
           {/* Right Column - Student Writing Image */}
           <div className="flex justify-center lg:justify-end order-1 lg:order-2">
             <div className="w-full max-w-sm lg:max-w-md">
-              <picture>
-                <source srcSet={studentWritingImage} type="image/webp" />
-                <img
-                  src="/StudentWritingOnLens.png"
-                  alt="Student writing on lens - demonstrating proper handwriting techniques"
-                  className="w-full h-auto rounded-2xl"
-                  fetchPriority="high"
-                />
-              </picture>
+              <img
+                src={studentWritingImage}
+                alt="Student writing on lens - demonstrating proper handwriting techniques"
+                className="w-full h-auto rounded-2xl"
+                fetchPriority="high"
+              />
             </div>
           </div>
         </div>

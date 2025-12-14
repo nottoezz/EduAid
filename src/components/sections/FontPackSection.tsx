@@ -290,15 +290,12 @@ export default function FontPackSection() {
               )}
 
               <div className="flex items-center justify-center min-h-[240px]">
-                <picture>
-                  <source srcSet={current.previewSrc} type="image/webp" />
-                  <img
-                    src={current.previewSrc.replace('.webp', '.png')}
-                    alt={current.previewAlt}
-                    className="w-full h-auto max-h-[260px] object-contain"
-                    loading="lazy"
-                  />
-                </picture>
+                <img
+                  src={current.previewSrc}
+                  alt={current.previewAlt}
+                  className="w-full h-auto max-h-[260px] object-contain"
+                  loading="lazy"
+                />
               </div>
             </div>
 

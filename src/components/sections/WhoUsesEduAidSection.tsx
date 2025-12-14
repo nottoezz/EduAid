@@ -177,15 +177,12 @@ export default function WhoUsesEduAidSection() {
 
                     {/* Mobile Image */}
                     <div className="mb-4 aspect-video w-full rounded-2xl bg-white border border-black/10 shadow-lg overflow-hidden">
-                      <picture>
-                        <source srcSet={imageSrc} type="image/webp" />
-                        <img
-                          src={imageSrc.replace('.webp', '.png')}
-                          alt={`${persona.label} using Edu-Aid fonts`}
-                          className="w-full h-full object-cover"
-                          loading="lazy"
-                        />
-                      </picture>
+                      <img
+                        src={imageSrc}
+                        alt={`${persona.label} using Edu-Aid fonts`}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
                     </div>
 
                     {/* Mobile Description */}
@@ -237,15 +234,12 @@ export default function WhoUsesEduAidSection() {
 
                       {/* Image */}
                       <div className={`shrink-0 w-72 h-48 rounded-2xl bg-white border border-black/10 shadow-lg overflow-hidden ${isEven ? 'order-2' : 'order-1'}`}>
-                        <picture>
-                          <source srcSet={imageSrc} type="image/webp" />
-                          <img
-                            src={imageSrc.replace('.webp', '.png')}
-                            alt={`${persona.label} using Edu-Aid fonts`}
-                            className="w-full h-full object-cover"
-                            loading="lazy"
-                          />
-                        </picture>
+                        <img
+                          src={imageSrc}
+                          alt={`${persona.label} using Edu-Aid fonts`}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
                       </div>
                     </motion.div>
                   </div>
