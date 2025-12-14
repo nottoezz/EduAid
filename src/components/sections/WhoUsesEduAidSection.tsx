@@ -144,175 +144,107 @@ export default function WhoUsesEduAidSection() {
           </div>
         </div>
 
-        {/* Personas - Staggered Layout */}
-        <div className="space-y-20">
-          {/* Persona 1: Combined Card on Left */}
-          <div className="flex justify-start -ml-8">
-            <motion.div
-              whileHover={{ y: -4, scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 260, damping: 22 }}
-              className={`flex gap-6 max-w-4xl rounded-3xl ${toneStyles(personas[0].tone).border} bg-white/80 p-8 shadow-sm shadow-black/5 backdrop-blur`}
-            >
-              {/* Text Content */}
-              <div className="flex-1 min-w-0">
-                {/* Icon and Label */}
-                <div className="mb-4 flex items-center gap-3">
-                  <div className={`flex h-12 w-12 items-center justify-center rounded-full ${toneStyles(personas[0].tone).icon}`}>
-                    <PersonaIcon icon={personas[0].icon} />
-                  </div>
-                  <h3 className="text-xl font-semibold text-[#16130F]">{personas[0].label}</h3>
+        {/* Personas - Responsive Card Layout */}
+        <div className="space-y-8 md:space-y-12">
+          {personas.map((persona, index) => {
+            const isEven = index % 2 === 0;
+            const imageSrc = index === 0 ? wueTeachersImage :
+                            index === 1 ? wueTherapistImage :
+                            index === 2 ? wueSchoolsImage : wueHomeschoolImage;
+
+            return (
+              <motion.div
+                key={persona.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="mx-auto max-w-6xl"
+              >
+                {/* Mobile: Vertical Stack */}
+                <div className="block md:hidden">
+                  <motion.div
+                    whileHover={{ y: -2 }}
+                    className={`rounded-3xl ${toneStyles(persona.tone).border} bg-white/90 p-6 shadow-sm shadow-black/5 backdrop-blur border`}
+                  >
+                    {/* Mobile Header */}
+                    <div className="mb-4 flex items-center gap-3">
+                      <div className={`flex h-10 w-10 items-center justify-center rounded-full ${toneStyles(persona.tone).icon}`}>
+                        <PersonaIcon icon={persona.icon} />
+                      </div>
+                      <h3 className="text-lg font-semibold text-[#16130F]">{persona.label}</h3>
+                    </div>
+
+                    {/* Mobile Image */}
+                    <div className="mb-4 aspect-video w-full rounded-2xl bg-white border border-black/10 shadow-lg overflow-hidden">
+                      <img
+                        src={imageSrc}
+                        alt={`${persona.label} using Edu-Aid fonts`}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+
+                    {/* Mobile Description */}
+                    <p className="mb-4 text-sm text-[#6B7280] leading-relaxed">
+                      {persona.description}
+                    </p>
+
+                    {/* Mobile CTA */}
+                    <button
+                      onClick={() => navigate(`/help#${persona.id}`)}
+                      className={`text-sm hover:underline font-medium ${toneStyles(persona.tone).accent}`}
+                    >
+                      {persona.cta}
+                    </button>
+                  </motion.div>
                 </div>
 
-                {/* Description */}
-                <p className="mb-6 flex-1 text-base text-[#6B7280] leading-relaxed">
-                  {personas[0].description}
-                </p>
+                {/* Desktop: Horizontal Layout */}
+                <div className="hidden md:block">
+                  <div className={`flex ${isEven ? 'justify-start' : 'justify-end'}`}>
+                    <motion.div
+                      whileHover={{ y: -4, scale: 1.02 }}
+                      transition={{ type: "spring", stiffness: 260, damping: 22 }}
+                      className={`flex gap-8 max-w-5xl rounded-3xl ${toneStyles(persona.tone).border} bg-white/80 p-8 shadow-sm shadow-black/5 backdrop-blur`}
+                    >
+                      {/* Text Content */}
+                      <div className={`flex-1 min-w-0 ${isEven ? 'order-1' : 'order-2'}`}>
+                        {/* Icon and Label */}
+                        <div className="mb-4 flex items-center gap-3">
+                          <div className={`flex h-12 w-12 items-center justify-center rounded-full ${toneStyles(persona.tone).icon}`}>
+                            <PersonaIcon icon={persona.icon} />
+                          </div>
+                          <h3 className="text-xl font-semibold text-[#16130F]">{persona.label}</h3>
+                        </div>
 
-                {/* CTA */}
-                <button
-                  onClick={() => navigate(`/help#help-${personas[0].id}`)}
-                  className={`text-left text-base hover:underline font-medium ${toneStyles(personas[0].tone).accent}`}
-                >
-                  {personas[0].cta}
-                </button>
-              </div>
+                        {/* Description */}
+                        <p className="mb-6 flex-1 text-base text-[#6B7280] leading-relaxed">
+                          {persona.description}
+                        </p>
 
-              {/* Image */}
-              <div className="flex-shrink-0 w-80 h-64 rounded-2xl bg-white border border-black/10 shadow-lg overflow-hidden">
-                <img
-                  src={wueTeachersImage}
-                  alt="Foundation Phase Teachers using Edu-Aid fonts in classroom"
-                  className="w-full h-full object-contain"
-                />
-              </div>
-            </motion.div>
-          </div>
+                        {/* CTA */}
+                        <button
+                          onClick={() => navigate(`/help#${persona.id}`)}
+                          className={`text-left text-base hover:underline font-medium ${toneStyles(persona.tone).accent}`}
+                        >
+                          {persona.cta}
+                        </button>
+                      </div>
 
-          {/* Persona 2: Combined Card on Right */}
-          <div className="flex justify-end -mr-8">
-            <motion.div
-              whileHover={{ y: -4, scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 260, damping: 22 }}
-              className={`flex gap-6 max-w-4xl rounded-3xl ${toneStyles(personas[0].tone).border} bg-white/80 p-8 shadow-sm shadow-black/5 backdrop-blur`}
-            >
-              {/* Image */}
-              <div className="flex-shrink-0 w-80 h-64 rounded-2xl bg-white border border-black/10 shadow-lg overflow-hidden">
-                <img
-                  src={wueTherapistImage}
-                  alt="Remedial and occupational therapists using Edu-Aid fonts"
-                  className="w-full h-full object-contain"
-                />
-              </div>
-
-              {/* Text Content */}
-              <div className="flex-1 min-w-0">
-                {/* Icon and Label */}
-                <div className="mb-4 flex items-center gap-3">
-                  <div className={`flex h-12 w-12 items-center justify-center rounded-full ${toneStyles(personas[0].tone).icon}`}>
-                    <PersonaIcon icon={personas[1].icon} />
+                      {/* Image */}
+                      <div className={`flex-shrink-0 w-72 h-48 rounded-2xl bg-white border border-black/10 shadow-lg overflow-hidden ${isEven ? 'order-2' : 'order-1'}`}>
+                        <img
+                          src={imageSrc}
+                          alt={`${persona.label} using Edu-Aid fonts`}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    </motion.div>
                   </div>
-                  <h3 className="text-xl font-semibold text-[#16130F]">{personas[1].label}</h3>
                 </div>
-
-                {/* Description */}
-                <p className="mb-6 flex-1 text-base text-[#6B7280] leading-relaxed">
-                  {personas[1].description}
-                </p>
-
-                {/* CTA */}
-                <button
-                  onClick={() => navigate(`/help#help-${personas[1].id}`)}
-                  className={`text-left text-base hover:underline font-medium ${toneStyles(personas[0].tone).accent}`}
-                >
-                  {personas[1].cta}
-                </button>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Persona 3: Combined Card on Left */}
-          <div className="flex justify-start -ml-8">
-            <motion.div
-              whileHover={{ y: -4, scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 260, damping: 22 }}
-              className={`flex gap-6 max-w-4xl rounded-3xl ${toneStyles(personas[0].tone).border} bg-white/80 p-8 shadow-sm shadow-black/5 backdrop-blur`}
-            >
-              {/* Text Content */}
-              <div className="flex-1 min-w-0">
-                {/* Icon and Label */}
-                <div className="mb-4 flex items-center gap-3">
-                  <div className={`flex h-12 w-12 items-center justify-center rounded-full ${toneStyles(personas[0].tone).icon}`}>
-                    <PersonaIcon icon={personas[2].icon} />
-                  </div>
-                  <h3 className="text-xl font-semibold text-[#16130F]">{personas[2].label}</h3>
-                </div>
-
-                {/* Description */}
-                <p className="mb-6 flex-1 text-base text-[#6B7280] leading-relaxed">
-                  {personas[2].description}
-                </p>
-
-                {/* CTA */}
-                <button
-                  onClick={() => navigate(`/help#help-${personas[2].id}`)}
-                  className={`text-left text-base hover:underline font-medium ${toneStyles(personas[0].tone).accent}`}
-                >
-                  {personas[2].cta}
-                </button>
-              </div>
-
-              {/* Image */}
-              <div className="flex-shrink-0 w-80 h-64 rounded-2xl bg-white border border-black/10 shadow-lg overflow-hidden">
-                <img
-                  src={wueSchoolsImage}
-                  alt="Schools and districts implementing Edu-Aid fonts across classrooms"
-                  className="w-full h-full object-contain"
-                />
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Persona 4: Combined Card on Right */}
-          <div className="flex justify-end -mr-8">
-            <motion.div
-              whileHover={{ y: -4, scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 260, damping: 22 }}
-              className={`flex gap-6 max-w-4xl rounded-3xl ${toneStyles(personas[0].tone).border} bg-white/80 p-8 shadow-sm shadow-black/5 backdrop-blur`}
-            >
-              {/* Image */}
-              <div className="flex-shrink-0 w-80 h-64 rounded-2xl bg-white border border-black/10 shadow-lg overflow-hidden">
-                <img
-                  src={wueHomeschoolImage}
-                  alt="Parents and homeschoolers using Edu-Aid fonts at home"
-                  className="w-full h-full object-contain"
-                />
-              </div>
-
-              {/* Text Content */}
-              <div className="flex-1 min-w-0">
-                {/* Icon and Label */}
-                <div className="mb-4 flex items-center gap-3">
-                  <div className={`flex h-12 w-12 items-center justify-center rounded-full ${toneStyles(personas[0].tone).icon}`}>
-                    <PersonaIcon icon={personas[3].icon} />
-                  </div>
-                  <h3 className="text-xl font-semibold text-[#16130F]">{personas[3].label}</h3>
-                </div>
-
-                {/* Description */}
-                <p className="mb-6 flex-1 text-base text-[#6B7280] leading-relaxed">
-                  {personas[3].description}
-                </p>
-
-                {/* CTA */}
-                <button
-                  onClick={() => navigate(`/help#help-${personas[3].id}`)}
-                  className={`text-left text-base hover:underline font-medium ${toneStyles(personas[0].tone).accent}`}
-                >
-                  {personas[3].cta}
-                </button>
-              </div>
-            </motion.div>
-          </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
