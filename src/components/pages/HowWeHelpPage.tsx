@@ -4,10 +4,10 @@ import Header from '../layout/Header';
 import Footer from '../layout/Footer';
 
 // Import images as modules
-import teachersImage from '/WUE-Teachers.png';
-import therapistImage from '/WUE-Therapist.png';
-import schoolsImage from '/WUE-Schools.png';
-import homeschoolImage from '/WUE-Homeschool.png';
+import teachersImage from '/WUE-Teachers.webp';
+import therapistImage from '/WUE-Therapist.webp';
+import schoolsImage from '/WUE-Schools.webp';
+import homeschoolImage from '/WUE-Homeschool.webp';
 
 export default function HowWeHelpPage() {
   useEffect(() => {
@@ -102,11 +102,15 @@ export default function HowWeHelpPage() {
                 </div>
 
                 <div className="bg-[#FFF8EF] rounded-2xl p-6">
-                  <img
-                    src={teachersImage}
-                    alt="Foundation Phase Teachers using Edu-Aid fonts in classroom"
-                    className="w-full h-auto rounded-xl shadow-sm"
-                  />
+                  <picture>
+                    <source srcSet={teachersImage} type="image/webp" />
+                    <img
+                      src="/WUE-Teachers.png"
+                      alt="Foundation Phase Teachers using Edu-Aid fonts in classroom"
+                      className="w-full h-auto rounded-xl shadow-sm"
+                      loading="lazy"
+                    />
+                  </picture>
                 </div>
               </div>
             </div>
@@ -162,11 +166,15 @@ export default function HowWeHelpPage() {
                 </div>
 
                 <div className="bg-[#FFF8EF] rounded-2xl p-6">
-                  <img
-                    src={therapistImage}
-                    alt="Remedial and occupational therapists using Edu-Aid fonts"
-                    className="w-full h-auto rounded-xl shadow-sm"
-                  />
+                  <picture>
+                    <source srcSet={therapistImage} type="image/webp" />
+                    <img
+                      src="/WUE-Therapist.png"
+                      alt="Remedial and occupational therapists using Edu-Aid fonts"
+                      className="w-full h-auto rounded-xl shadow-sm"
+                      loading="lazy"
+                    />
+                  </picture>
                 </div>
               </div>
             </div>
@@ -222,11 +230,15 @@ export default function HowWeHelpPage() {
                 </div>
 
                 <div className="bg-[#FFF8EF] rounded-2xl p-6">
-                  <img
-                    src={schoolsImage}
-                    alt="Schools and districts implementing Edu-Aid fonts across classrooms"
-                    className="w-full h-auto rounded-xl shadow-sm"
-                  />
+                  <picture>
+                    <source srcSet={schoolsImage} type="image/webp" />
+                    <img
+                      src="/WUE-Schools.png"
+                      alt="Schools and districts implementing Edu-Aid fonts across classrooms"
+                      className="w-full h-auto rounded-xl shadow-sm"
+                      loading="lazy"
+                    />
+                  </picture>
                 </div>
               </div>
             </div>
@@ -282,11 +294,15 @@ export default function HowWeHelpPage() {
                 </div>
 
                 <div className="bg-[#FFF8EF] rounded-2xl p-6">
-                  <img
-                    src={homeschoolImage}
-                    alt="Parents and homeschoolers using Edu-Aid fonts at home"
-                    className="w-full h-auto rounded-xl shadow-sm"
-                  />
+                  <picture>
+                    <source srcSet={homeschoolImage} type="image/webp" />
+                    <img
+                      src="/WUE-Homeschool.png"
+                      alt="Parents and homeschoolers using Edu-Aid fonts at home"
+                      className="w-full h-auto rounded-xl shadow-sm"
+                      loading="lazy"
+                    />
+                  </picture>
                 </div>
               </div>
             </div>

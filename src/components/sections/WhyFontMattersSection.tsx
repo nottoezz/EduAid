@@ -1,5 +1,5 @@
-import abcIncorrectImage from '/ABC-Incorect.png';
-import abcEduImage from '/ABC-edu.png';
+import abcIncorrectImage from '/ABC-Incorect.webp';
+import abcEduImage from '/ABC-edu.webp';
 
 export default function WhyFontMattersSection() {
   return (
@@ -108,11 +108,14 @@ export default function WhyFontMattersSection() {
                   incorrect sample font
                 </div>
               </div>
-              <img
-                src={abcIncorrectImage}
-                alt="Incorrect font example - generic font with wrong letter shapes"
-                className="w-full h-auto rounded-xl max-w-xs mx-auto"
-              />
+              <picture>
+                <source srcSet={abcIncorrectImage} type="image/webp" />
+                <img
+                  src="/ABC-Incorect.png"
+                  alt="Incorrect font example - generic font with wrong letter shapes"
+                  className="w-full h-auto rounded-xl max-w-xs mx-auto"
+                />
+              </picture>
             </div>
 
             {/* Edu-Aid Font Image */}
@@ -125,11 +128,14 @@ export default function WhyFontMattersSection() {
                   correct edu font
                 </div>
               </div>
-              <img
-                src={abcEduImage}
-                alt="Edu-Aid font - SA-approved letter shapes for early writers"
-                className="w-full h-auto rounded-xl max-w-xs mx-auto"
-              />
+              <picture>
+                <source srcSet={abcEduImage} type="image/webp" />
+                <img
+                  src="/ABC-edu.png"
+                  alt="Edu-Aid font - SA-approved letter shapes for early writers"
+                  className="w-full h-auto rounded-xl max-w-xs mx-auto"
+                />
+              </picture>
             </div>
 
             {/* Edu-Aid fonts include */}

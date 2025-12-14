@@ -5,9 +5,9 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import FontPackOrnaments from "../decorative/FontPackOrnaments";
 
-import abcSolidImage from "/ABC-solid.png";
-import abcDottedImage from "/ABC-dotted.png";
-import abcDottedArrowsImage from "/ABC-dotted-arrows.png";
+import abcSolidImage from "/ABC-solid.webp";
+import abcDottedImage from "/ABC-dotted.webp";
+import abcDottedArrowsImage from "/ABC-dotted-arrows.webp";
 
 type FontKey = "print" | "tracing" | "guided";
 
@@ -290,12 +290,15 @@ export default function FontPackSection() {
               )}
 
               <div className="flex items-center justify-center min-h-[240px]">
-                <img
-                  src={current.previewSrc}
-                  alt={current.previewAlt}
-                  className="w-full h-auto max-h-[260px] object-contain"
-                  loading="lazy"
-                />
+                <picture>
+                  <source srcSet={current.previewSrc} type="image/webp" />
+                  <img
+                    src={current.previewSrc.replace('.webp', '.png')}
+                    alt={current.previewAlt}
+                    className="w-full h-auto max-h-[260px] object-contain"
+                    loading="lazy"
+                  />
+                </picture>
               </div>
             </div>
 

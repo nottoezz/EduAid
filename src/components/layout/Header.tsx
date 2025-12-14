@@ -6,12 +6,12 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 // Import images for navbar placeholders
 import fontPreviewImage from "/fonts/Full-Font.png";
-import StudentWriting from "/StudentWritingOnLens.png";
-import TeachersImage from "/WUE-Teachers.png";
-import TherapistImage from "/WUE-Therapist.png";
-import FontSolid from "/ABC-solid.png";
-import FontDotted from "/ABC-dotted.png";
-import DownloadFont from "/ABC-edu.png";
+import StudentWriting from "/StudentWritingOnLens.webp";
+import TeachersImage from "/WUE-Teachers.webp";
+import TherapistImage from "/WUE-Therapist.webp";
+import FontSolid from "/ABC-solid.webp";
+import FontDotted from "/ABC-dotted.webp";
+import DownloadFont from "/ABC-edu.webp";
 import LicenseInfo from "/TeacherCorrectFont.png";
 
 /* ---------------------------------------------

@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import WhoUsesEduAidOrnaments from "../decorative/WhoUsesEduAidOrnaments";
-import wueTeachersImage from '/WUE-Teachers.png';
-import wueTherapistImage from '/WUE-Therapist.png';
-import wueSchoolsImage from '/WUE-Schools.png';
-import wueHomeschoolImage from '/WUE-Homeschool.png';
+import wueTeachersImage from '/WUE-Teachers.webp';
+import wueTherapistImage from '/WUE-Therapist.webp';
+import wueSchoolsImage from '/WUE-Schools.webp';
+import wueHomeschoolImage from '/WUE-Homeschool.webp';
 
 type Persona = {
   id: string;
@@ -177,11 +177,15 @@ export default function WhoUsesEduAidSection() {
 
                     {/* Mobile Image */}
                     <div className="mb-4 aspect-video w-full rounded-2xl bg-white border border-black/10 shadow-lg overflow-hidden">
-                      <img
-                        src={imageSrc}
-                        alt={`${persona.label} using Edu-Aid fonts`}
-                        className="w-full h-full object-cover"
-                      />
+                      <picture>
+                        <source srcSet={imageSrc} type="image/webp" />
+                        <img
+                          src={imageSrc.replace('.webp', '.png')}
+                          alt={`${persona.label} using Edu-Aid fonts`}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                      </picture>
                     </div>
 
                     {/* Mobile Description */}
@@ -232,12 +236,16 @@ export default function WhoUsesEduAidSection() {
                       </div>
 
                       {/* Image */}
-                      <div className={`flex-shrink-0 w-72 h-48 rounded-2xl bg-white border border-black/10 shadow-lg overflow-hidden ${isEven ? 'order-2' : 'order-1'}`}>
-                        <img
-                          src={imageSrc}
-                          alt={`${persona.label} using Edu-Aid fonts`}
-                          className="w-full h-full object-cover"
-                        />
+                      <div className={`shrink-0 w-72 h-48 rounded-2xl bg-white border border-black/10 shadow-lg overflow-hidden ${isEven ? 'order-2' : 'order-1'}`}>
+                        <picture>
+                          <source srcSet={imageSrc} type="image/webp" />
+                          <img
+                            src={imageSrc.replace('.webp', '.png')}
+                            alt={`${persona.label} using Edu-Aid fonts`}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                          />
+                        </picture>
                       </div>
                     </motion.div>
                   </div>

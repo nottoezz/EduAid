@@ -1,6 +1,6 @@
 import HeroOrnaments from "../decorative/HeroOrnaments";
 import { useNavigate } from "react-router-dom";
-import studentWritingImage from "/StudentWritingOnLens.png";
+import studentWritingImage from "/StudentWritingOnLens.webp";
 
 export default function Hero() {
   const navigate = useNavigate();
@@ -93,11 +93,15 @@ export default function Hero() {
           {/* Right Column - Student Writing Image */}
           <div className="flex justify-center lg:justify-end order-1 lg:order-2">
             <div className="w-full max-w-sm lg:max-w-md">
-              <img
-                src={studentWritingImage}
-                alt="Student writing on lens - demonstrating proper handwriting techniques"
-                className="w-full h-auto rounded-2xl"
-              />
+              <picture>
+                <source srcSet={studentWritingImage} type="image/webp" />
+                <img
+                  src="/StudentWritingOnLens.png"
+                  alt="Student writing on lens - demonstrating proper handwriting techniques"
+                  className="w-full h-auto rounded-2xl"
+                  fetchPriority="high"
+                />
+              </picture>
             </div>
           </div>
         </div>
