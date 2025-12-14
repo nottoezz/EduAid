@@ -34,7 +34,6 @@ export default function Hero() {
                 <h1
                   id="hero-heading"
                   className="text-4xl md:text-5xl font-black text-[#152835] leading-tight mb-6"
-                  style={{ fontFamily: '"Inter Tight", sans-serif' }}
                 >
                   Don't Let{" "}
                   <span className="bg-[#FF8C88] px-2 py-1 rounded-md">
