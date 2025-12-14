@@ -50,7 +50,7 @@ const personas: Persona[] = [
   },
 ];
 
-function toneStyles(tone: Persona["tone"]) {
+function toneStyles(_tone: Persona["tone"]) {
   // Only peach tone is used, but keeping structure for potential future use
       return {
         card: "bg-[#FFF1EE]",         // soft peach

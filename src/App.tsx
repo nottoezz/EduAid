@@ -17,12 +17,19 @@ function ScrollToSection() {
                       location.pathname === '/EduAid/';
 
     if (isHomePage && location.hash) {
-      setTimeout(() => {
+      // Use requestAnimationFrame for better performance and to avoid forced reflow
+      requestAnimationFrame(() => {
         const element = document.getElementById(location.hash.substring(1));
         if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // Check if element is in viewport before scrolling to avoid unnecessary layout
+          const rect = element.getBoundingClientRect();
+          const isVisible = rect.top >= 0 && rect.top <= window.innerHeight;
+
+          if (!isVisible) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
         }
-      }, 100);
+      });
     }
   }, [location]);
 
@@ -45,7 +52,7 @@ function AppContent() {
 
 export default function App() {
   // Use basename for GitHub Pages deployment
-  const basename = process.env.NODE_ENV === 'production' ? '/EduAid' : '';
+  const basename = import.meta.env.PROD ? '/EduAid' : '';
 
   return (
     <Router basename={basename}>

@@ -54,15 +54,15 @@ export default function FontDownloadPage() {
                   <h3 className="text-xl font-semibold text-[#16130F]">What's included:</h3>
                   <ul className="mt-4 space-y-3 text-black/75">
                     <li className="flex items-start gap-3">
-                      <span className="mt-1 h-2 w-2 rounded-full bg-[#8BD889] flex-shrink-0" />
+                      <span className="mt-1 h-2 w-2 rounded-full bg-[#8BD889] shrink-0" />
                       <span>Complete A-Z uppercase and lowercase letters</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="mt-1 h-2 w-2 rounded-full bg-[#8BD889] flex-shrink-0" />
+                      <span className="mt-1 h-2 w-2 rounded-full bg-[#8BD889] shrink-0" />
                       <span>CAPS Foundation Phase letter shapes</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="mt-1 h-2 w-2 rounded-full bg-[#8BD889] flex-shrink-0" />
+                      <span className="mt-1 h-2 w-2 rounded-full bg-[#8BD889] shrink-0" />
                       <span>Suitable for worksheets, presentations, and digital materials</span>
                     </li>
                   </ul>

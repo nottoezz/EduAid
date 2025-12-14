@@ -1,6 +1,4 @@
-"use client";
-
-import React from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import FontPackOrnaments from "../decorative/FontPackOrnaments";
@@ -69,16 +67,16 @@ function cx(...classes: Array<string | false | undefined | null>) {
 }
 
 export default function FontPackSection() {
-  const [active, setActive] = React.useState<FontKey>("print");
+  const [active, setActive] = useState<FontKey>("print");
   const reduce = useReducedMotion();
   const navigate = useNavigate();
 
-  const current = React.useMemo(
+  const current = useMemo(
     () => FONT_ITEMS.find((x) => x.key === active)!,
     [active]
   );
 
-  const v = React.useMemo(() => {
+  const v = useMemo(() => {
     return {
       wrap: {
         hidden: { opacity: 0 },
