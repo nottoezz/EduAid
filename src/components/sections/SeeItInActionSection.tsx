@@ -196,12 +196,12 @@ export default function SeeItInActionSection() {
 
   return (
     <>
-      <section className="relative bg-[#fef4e6] py-32 md:py-40">
+      <section className="relative bg-[#fef4e6] md:pt-40 pb-32 md:pb-40">
         <SeeItInActionOrnaments />
         <div className="relative mx-auto max-w-screen-xl px-4 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             {/* Left: stacked card carousel */}
-            <div className="relative flex h-96 items-center justify-center overflow-hidden sm:h-[28rem] lg:h-[32rem]">
+            <div className="relative flex h-[28rem] items-center justify-center overflow-hidden sm:h-[32rem] lg:h-[36rem] lg:order-1">
               {orderedSlides.map((slide, index) => {
                 let offset = index - currentIndex;
                 if (offset > total / 2) offset -= total;
@@ -292,7 +292,7 @@ export default function SeeItInActionSection() {
             </div>
 
             {/* Right: explanatory text */}
-            <div className="flex justify-center items-center h-96 sm:h-[28rem] lg:h-[32rem]">
+            <div className="flex justify-center items-center h-[28rem] sm:h-[32rem] lg:h-[36rem] lg:order-2 relative z-10 -mt-16 md:mt-0">
               <div className="rounded-3xl backdrop-blur-sm border border-white/30 shadow-lg p-8 md:p-10 max-w-lg w-full">
                 <div className="space-y-6">
                   <h2 className="text-4xl font-semibold text-black md:text-5xl">
