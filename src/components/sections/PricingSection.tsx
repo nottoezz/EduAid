@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { useMemo, useState } from "react";
 
 // Function to handle PDF link clicks to avoid React Router interception
 const handlePdfClick = (filename: string, e: React.MouseEvent) => {
@@ -7,57 +6,162 @@ const handlePdfClick = (filename: string, e: React.MouseEvent) => {
   e.stopPropagation();
 
   // Construct the correct URL - Vite serves public files from root
-  const baseUrl = import.meta.env.BASE_URL || '/';
-  const pdfUrl = `${baseUrl}${filename}`.replace(/\/\//g, '/'); // Remove double slashes
-  
+  const baseUrl = import.meta.env.BASE_URL || "/";
+  const pdfUrl = `${baseUrl}${filename}`.replace(/\/\//g, "/"); // Remove double slashes
+
   // Use window.open for reliable PDF opening
-  window.open(pdfUrl, '_blank', 'noopener,noreferrer');
+  window.open(pdfUrl, "_blank", "noopener,noreferrer");
 };
 
 type Licence = "individual" | "school" | "commercial";
-type Billing = "monthly" | "yearly";
 
 // Replace this with your real checkout
-const startCheckout = (payload: { licence: Licence; billing?: Billing }) => {
+const startCheckout = (payload: { licence: Licence }) => {
   console.log("Starting checkout:", payload);
 };
 
 function CheckIcon() {
   return (
     <div className="mt-0.5 shrink-0 w-5 h-5 rounded-full bg-[#00827A] flex items-center justify-center">
-      <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+      <svg
+        className="w-3 h-3 text-white"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M5 13l4 4L19 7"
+        />
       </svg>
     </div>
   );
 }
 
+function PriceBlock({
+  eyebrow,
+  price,
+  sub,
+  highlight = false,
+}: {
+  eyebrow?: string;
+  price: string;
+  sub: string;
+  highlight?: boolean;
+}) {
+  return (
+    <div
+      className={[
+        "mt-6 rounded-2xl p-6 text-center shadow-sm",
+        highlight
+          ? "border-2 border-[#00827A] bg-white"
+          : "border border-white/40 bg-white/80 backdrop-blur-sm",
+      ].join(" ")}
+    >
+      {eyebrow ? (
+        <div className="mb-2 text-xs font-semibold tracking-wide text-[#00827A] uppercase">
+          {eyebrow}
+        </div>
+      ) : null}
+      <div className="text-4xl md:text-5xl font-black text-[#16130F] leading-none">
+        {price}
+      </div>
+      <div className="mt-2 text-sm text-[#6B7280]">{sub}</div>
+    </div>
+  );
+}
+
+function MetaPills({
+  left,
+  right,
+  tone = "light",
+}: {
+  left: string;
+  right: string;
+  tone?: "light" | "slate";
+}) {
+  const base =
+    "mt-6 flex items-center justify-between rounded-2xl px-4 py-3 text-sm";
+  const styles =
+    tone === "slate"
+      ? "bg-[#F8FAFC] border border-slate-200/60"
+      : "bg-white/60 border border-white/40";
+  return (
+    <div className={`${base} ${styles}`}>
+      <span className="font-semibold text-[#16130F]">{left}</span>
+      <span className="text-[#6B7280]">{right}</span>
+    </div>
+  );
+}
+
+function CardShell({
+  children,
+  featured = false,
+}: {
+  children: React.ReactNode;
+  featured?: boolean;
+}) {
+  return (
+    <div
+      className={[
+        "relative rounded-3xl p-8 shadow-xl flex flex-col min-h-[620px]",
+        featured
+          ? "bg-[#EAF9F7] border-2 border-[#00827A]/30"
+          : "bg-[#EAF9F7] border border-[#00827A]/20",
+      ].join(" ")}
+    >
+      {/* subtle top sheen */}
+      <div className="pointer-events-none absolute inset-0 rounded-3xl bg-linear-to-b from-white/30 to-transparent" />
+      {children}
+    </div>
+  );
+}
+
+function PrimaryButton({
+  children,
+  onClick,
+  variant = "solid",
+}: {
+  children: React.ReactNode;
+  onClick: () => void;
+  variant?: "solid" | "outline";
+}) {
+  const base =
+    "w-full rounded-2xl py-5 font-bold text-lg shadow-lg transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00827A]/40";
+  const styles =
+    variant === "solid"
+      ? "bg-[#00827A] text-white hover:bg-[#006B5E]"
+      : "bg-white/80 text-[#16130F] border border-white/40 hover:bg-white";
+  return (
+    <button onClick={onClick} className={`${base} ${styles}`}>
+      {children}
+    </button>
+  );
+}
+
 export default function PricingSection() {
-  const [billing, setBilling] = useState<Billing>("yearly");
-
-  const individualPrice = useMemo(() => {
-    const yearly = 149;
-    const monthly = 29;
-    const perMonthWhenYearly = (yearly / 12).toFixed(2);
-    return { yearly, monthly, perMonthWhenYearly };
-  }, []);
-
-  const handleCheckout = (licence: Licence, billingOverride?: Billing) => {
+  const handleCheckout = (licence: Licence) => {
     if (licence === "commercial") {
       document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
       return;
     }
-
-    startCheckout({
-      licence,
-      billing: licence === "individual" ? (billingOverride ?? billing) : undefined,
-    });
+    startCheckout({ licence });
   };
 
   return (
-    <section id="pricing" className="relative bg-[#E0F2FE] py-24 md:py-32 overflow-hidden">
+    <section
+      id="pricing"
+      className="relative bg-[#E0F2FE] py-24 md:py-32 overflow-hidden"
+    >
       {/* Top wavy blend line */}
-      <svg className="absolute top-0 left-0 w-full h-16" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
+      <svg
+        className="absolute top-0 left-0 w-full h-16"
+        viewBox="0 0 1200 60"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
         <path d="M0,30 Q100,60 600,30 T1200,30 V0 H0 Z" fill="#fef4e6" />
       </svg>
 
@@ -76,7 +180,8 @@ export default function PricingSection() {
               Pricing & licences
             </h2>
             <p className="mx-auto max-w-3xl text-lg text-[#6B7280] md:text-xl leading-relaxed">
-              Simple options for individual educators and schools. Commercial, app and district licensing is available on request.
+              Simple options for individual educators and schools. Commercial,
+              app and district licensing is available on request.
             </p>
           </div>
         </div>
@@ -90,85 +195,49 @@ export default function PricingSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.35 }}
-              className="bg-white/95 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-white/30 flex flex-col h-[600px]"
             >
-            <div>
-              <h3 className="text-2xl font-extrabold text-[#16130F]">Individual Educator</h3>
-              <p className="mt-2 text-[#6B7280]">
-                For individual teachers and homeschooling families.
-              </p>
-            </div>
+              <CardShell>
+                <div className="relative">
+                  <h3 className="text-2xl font-extrabold text-[#16130F]">
+                    Individual Educator
+                  </h3>
+                  <p className="mt-2 text-[#6B7280]">
+                    For individual teachers and homeschooling families.
+                  </p>
 
-            {/* Pricing: clean two-option selector like your screenshot */}
-            <div className="mt-6 grid grid-cols-2 gap-3">
-              <button
-                onClick={() => setBilling("monthly")}
-                className={`rounded-2xl border-2 p-4 text-left transition-all ${
-                  billing === "monthly"
-                    ? "border-[#00827A] bg-white shadow-sm"
-                    : "border-transparent bg-[#F8FAFC] hover:bg-white/80"
-                }`}
-                aria-pressed={billing === "monthly"}
-              >
-                <div className="text-lg font-black text-[#16130F]">R29</div>
-                <div className="text-sm text-[#6B7280]">per month</div>
-              </button>
+                  <PriceBlock
+                    eyebrow="One-time purchase"
+                    price="R299"
+                    sub="Instant download • Lifetime use"
+                    highlight
+                  />
 
-              <button
-                onClick={() => setBilling("yearly")}
-                className={`relative rounded-2xl border-2 p-4 text-left transition-all ${
-                  billing === "yearly"
-                    ? "border-[#00827A] bg-[#7EDC89]/30 shadow-sm"
-                    : "border-transparent bg-[#F8FAFC] hover:bg-white/80"
-                }`}
-                aria-pressed={billing === "yearly"}
-              >
-                <div className="text-lg font-black text-[#16130F]">R149</div>
-                <div className="text-sm text-[#6B7280]">per year</div>
-                <div className="mt-1 text-xs text-[#006B5E]">
-                  ~R{individualPrice.perMonthWhenYearly}/mo
+                  <MetaPills left="1 educator" right="Home + classroom use" />
+
+                  <ul className="mt-6 space-y-3 text-[#16130F]">
+                    {[
+                      "All Edu-Aid fonts included",
+                      "Print + PDF outputs for your learners",
+                      "Email support",
+                    ].map((feature) => (
+                      <li key={feature} className="flex items-start gap-3">
+                        <CheckIcon />
+                        <span className="leading-relaxed">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="mt-auto pt-8">
+                    <PrimaryButton onClick={() => handleCheckout("individual")}>
+                      Buy Individual — R299 once off
+                    </PrimaryButton>
+                  </div>
                 </div>
-
-                <span className="absolute -top-3 right-3 bg-[#00827A] text-white text-xs font-bold px-3 py-1 rounded-full shadow">
-                  Save ~50%
-                </span>
-              </button>
-            </div>
-
-            {/* Pill row */}
-            <div className="mt-6 flex items-center justify-between rounded-2xl bg-[#F8FAFC] px-4 py-3 text-sm">
-              <span className="font-semibold text-[#16130F]">1 educator</span>
-              <span className="text-[#6B7280]">Home + classroom use</span>
-            </div>
-
-            {/* Features */}
-            <ul className="mt-6 space-y-3 text-[#16130F]">
-              {[
-                "All Edu-Aid fonts included",
-                "Print + PDF outputs for your learners",
-                "Email support",
-              ].map((feature) => (
-                <li key={feature} className="flex items-start gap-3">
-                  <CheckIcon />
-                  <span className="leading-relaxed">{feature}</span>
-                </li>
-              ))}
-            </ul>
-
-            <div className="mt-auto pt-8">
-              <button
-                onClick={() => handleCheckout("individual", billing)}
-                className="w-full rounded-2xl bg-[#00827A] py-5 font-bold text-lg text-white shadow-lg hover:bg-[#006B5E] transition"
-              >
-                {billing === "yearly"
-                  ? "Buy Individual — R149/year"
-                  : "Buy Individual — R29/month"}
-              </button>
-            </div>
+              </CardShell>
             </motion.div>
 
             <p className="mt-3 text-center text-xs text-[#6B7280]">
-              Instant download • Cancel anytime (monthly) • Updates included
+              Instant download • Lifetime access • Updates included
             </p>
           </div>
 
@@ -179,59 +248,58 @@ export default function PricingSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.35, delay: 0.05 }}
-              className="relative bg-[#EAF9F7] rounded-3xl p-8 shadow-xl border border-[#00827A]/20 flex flex-col min-h-[600px]"
             >
-            <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-              <span className="bg-[#00827A] text-white text-xs font-bold px-4 py-2 rounded-full shadow">
-                MOST POPULAR
-              </span>
-            </div>
+              <CardShell featured>
+                {/* badge */}
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
+                  <span className="bg-[#00827A] text-white text-xs font-bold px-4 py-2 rounded-full shadow">
+                    MOST POPULAR
+                  </span>
+                </div>
 
-            <div>
-              <h3 className="text-2xl font-extrabold text-[#16130F]">School licence</h3>
-              <p className="mt-2 text-[#6B7280]">
-                Standardise CAPS-aligned letterforms across your whole school.
-              </p>
-            </div>
+                <div className="relative">
+                  <h3 className="text-2xl font-extrabold text-[#16130F]">
+                    School licence
+                  </h3>
+                  <p className="mt-2 text-[#6B7280]">
+                    Standardise CAPS-aligned letterforms across your whole
+                    school.
+                  </p>
 
-            <div className="mt-8">
-              <div className="text-4xl md:text-5xl font-black text-[#16130F]">R399 / year</div>
-              <p className="mt-2 text-sm text-[#6B7280]">
-                One school • Unlimited educators
-              </p>
-            </div>
+                  <PriceBlock
+                    eyebrow="Annual school licence"
+                    price="R999"
+                    sub="per year • One school • Unlimited educators"
+                    highlight
+                  />
 
-            {/* Pill row */}
-            <div className="mt-6 flex items-center justify-between rounded-2xl bg-white/60 px-4 py-3 text-sm">
-              <span className="font-semibold text-[#16130F]">Unlimited educators</span>
-              <span className="text-[#6B7280]">One school</span>
-            </div>
+                  <MetaPills left="Unlimited educators" right="One school" />
 
-            <ul className="mt-6 space-y-3 text-[#16130F]">
-              {[
-                "All Edu-Aid fonts for your school",
-                "Internal sharing with staff allowed",
-                "Print + digital distribution to enrolled learners",
-              ].map((feature) => (
-                <li key={feature} className="flex items-start gap-3">
-                  <CheckIcon />
-                  <span className="leading-relaxed">{feature}</span>
-                </li>
-              ))}
-            </ul>
+                  <ul className="mt-6 space-y-3 text-[#16130F]">
+                    {[
+                      "All Edu-Aid fonts for your school",
+                      "Internal sharing with staff allowed",
+                      "Print + digital distribution to enrolled learners",
+                    ].map((feature) => (
+                      <li key={feature} className="flex items-start gap-3">
+                        <CheckIcon />
+                        <span className="leading-relaxed">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
 
-            <div className="mt-auto pt-8">
-              <button
-                onClick={() => handleCheckout("school")}
-                className="w-full rounded-2xl bg-[#00827A] py-5 font-bold text-lg text-white shadow-lg hover:bg-[#006B5E] transition"
-              >
-                Buy School licence — R399/year
-              </button>
-            </div>
+                  <div className="mt-auto pt-8">
+                    <PrimaryButton onClick={() => handleCheckout("school")}>
+                      Buy School licence — R999/year
+                    </PrimaryButton>
+                  </div>
+                </div>
+              </CardShell>
             </motion.div>
 
             <p className="mt-3 text-center text-xs text-[#6B7280]">
-              Invoice available • Staff sharing allowed • Learner distribution included
+              Invoice available • Staff sharing allowed • Learner distribution
+              included
             </p>
           </div>
 
@@ -242,49 +310,53 @@ export default function PricingSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.35, delay: 0.1 }}
-              className="bg-white/95 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-white/30 flex flex-col h-[600px]"
             >
-            <div>
-              <h3 className="text-2xl font-extrabold text-[#16130F]">Commercial & District</h3>
-              <p className="mt-2 text-[#6B7280]">
-                Publishers, apps/SaaS, paid products, districts & bulk rollouts.
-              </p>
-            </div>
+              <CardShell>
+                <div className="relative">
+                  <h3 className="text-2xl font-extrabold text-[#16130F]">
+                    Commercial & District
+                  </h3>
+                  <p className="mt-2 text-[#6B7280]">
+                    Publishers, apps/SaaS, paid products, districts & bulk
+                    rollouts.
+                  </p>
 
-            <div className="mt-8">
-              <div className="text-4xl md:text-5xl font-black text-[#16130F]">Contact us</div>
-              <p className="mt-2 text-sm text-[#6B7280]">
-                Custom licensing based on your use case.
-              </p>
-            </div>
+                  <PriceBlock
+                    eyebrow="Custom licensing"
+                    price="Contact us"
+                    sub="Pricing based on your use case"
+                    highlight
+                  />
 
-            {/* Pill row */}
-            <div className="mt-6 flex items-center justify-between rounded-2xl bg-[#F8FAFC] px-4 py-3 text-sm">
-              <span className="font-semibold text-[#16130F]">Publishers + apps</span>
-              <span className="text-[#6B7280]">District / bulk</span>
-            </div>
+                  <MetaPills
+                    left="Publishers + apps"
+                    right="District / bulk"
+                    tone="slate"
+                  />
 
-            <ul className="mt-6 space-y-7 text-[#16130F]">
-              {[
-                "Publishing / paid product licensing",
-                "App & SaaS embedding licenses",
-                "District-wide rollout options",
-              ].map((feature) => (
-                <li key={feature} className="flex items-start gap-3">
-                  <CheckIcon />
-                  <span className="leading-relaxed">{feature}</span>
-                </li>
-              ))}
-            </ul>
+                  <ul className="mt-6 space-y-3 text-[#16130F]">
+                    {[
+                      "Publishing / paid product licensing",
+                      "App & SaaS embedding licenses",
+                      "District-wide rollout options",
+                    ].map((feature) => (
+                      <li key={feature} className="flex items-start gap-3">
+                        <CheckIcon />
+                        <span className="leading-relaxed">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
 
-            <div className="mt-auto pt-8">
-              <button
-                onClick={() => handleCheckout("commercial")}
-                className="w-full rounded-2xl bg-[#00827A] py-5 font-bold text-lg text-white shadow-lg hover:bg-[#006B5E] transition"
-              >
-                Get in touch
-              </button>
-            </div>
+                  <div className="mt-auto pt-8">
+                    <PrimaryButton
+                      onClick={() => handleCheckout("commercial")}
+                      variant="solid"
+                    >
+                      Get in touch
+                    </PrimaryButton>
+                  </div>
+                </div>
+              </CardShell>
             </motion.div>
 
             <p className="mt-3 text-center text-xs text-[#6B7280]">
@@ -306,7 +378,12 @@ export default function PricingSection() {
       </div>
 
       {/* Bottom wavy blend line */}
-      <svg className="absolute bottom-0 left-0 w-full h-16" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
+      <svg
+        className="absolute bottom-0 left-0 w-full h-16"
+        viewBox="0 0 1200 60"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
         <path d="M0,30 Q300,0 600,30 T1200,30 V60 H0 Z" fill="#fef4e6" />
       </svg>
     </section>

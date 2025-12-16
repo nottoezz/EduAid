@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 // Import images for navbar placeholders
-import fontPreviewImage from "/fonts/Full-Font.png";
+import fontPreviewImage from "/fonts/solid/Full-Font.png";
 import StudentWriting from "/StudentWritingOnLens.webp";
 import TeachersImage from "/WUE-Teachers.webp";
 import TherapistImage from "/WUE-Therapist.webp";
