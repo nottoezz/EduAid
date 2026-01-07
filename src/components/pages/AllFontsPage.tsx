@@ -62,6 +62,10 @@ function typePillClasses(type: string) {
       return cx(base, "bg-[#F1F8FF] text-[#124B8A]");
     case "Positioning":
       return cx(base, "bg-[#FFF9E6] text-[#6B4E00]");
+    case "Warning":
+      return cx(base, "bg-amber-100 text-amber-800 border-amber-300");
+    case "Cursive":
+      return cx(base, "bg-purple-100 text-purple-800");
     default:
       return cx(base, "bg-white/70 text-black/60");
   }
@@ -144,6 +148,14 @@ export default function AllFontsPage() {
     },
 
     // CURSIVE (Variants)
+    {
+      name: "⚠️ Important: Cursive Write Font Technical Note",
+      description: "Clean, flowing cursive letterforms for everyday use. Note: Requires manual linking using custom glyphs for semicolons (;). Please ensure proper setup before implementation.",
+      images: [],
+      grade: "",
+      type: "Warning",
+      group: "Cursive",
+    },
     {
       name: "Cursive Write Font",
       description: "Clean, flowing cursive letterforms for everyday use.",
@@ -477,10 +489,46 @@ export default function AllFontsPage() {
                         ? { duration: 0 }
                         : { type: "spring", stiffness: 260, damping: 22 }
                     }
-                    className="rounded-3xl border border-black/10 bg-[#E6F0FF] backdrop-blur shadow-[0_18px_50px_rgba(0,0,0,0.07)]"
+                    className={font.type === "Warning"
+                      ? "rounded-3xl border-2 border-amber-400 bg-amber-50 backdrop-blur shadow-[0_8px_25px_rgba(245,158,11,0.12)]"
+                      : "rounded-3xl border border-black/10 bg-[#E6F0FF] backdrop-blur shadow-[0_18px_50px_rgba(0,0,0,0.07)]"
+                    }
                   >
-                    {/* Desktop row layout */}
-                    <div className="hidden md:grid grid-cols-12 gap-4 p-5 items-center">
+                    {font.type === "Warning" ? (
+                      <>
+                        {/* Custom warning card layout - Desktop */}
+                        <div className="hidden md:block p-6">
+                          <div className="flex items-start gap-3">
+                            <span className="text-2xl mt-1">⚠️</span>
+                            <div className="flex-1">
+                              <h3 className="text-lg font-bold text-amber-800 mb-2">
+                                Technical Note
+                              </h3>
+                              <p className="text-amber-700 leading-relaxed">
+                                {font.description}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        {/* Custom warning card layout - Mobile */}
+                        <div className="md:hidden p-5">
+                          <div className="flex items-start gap-3">
+                            <span className="text-2xl mt-1">⚠️</span>
+                            <div className="flex-1">
+                              <h3 className="text-lg font-bold text-amber-800 mb-2">
+                                Technical Note
+                              </h3>
+                              <p className="text-amber-700 leading-relaxed text-sm">
+                                {font.description}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        {/* Desktop row layout */}
+                        <div className="hidden md:grid grid-cols-12 gap-4 p-5 items-center">
                       <div className="col-span-4 min-w-0">
                         <div className="text-base font-extrabold text-[#16130F] truncate">
                           {font.name}
@@ -491,9 +539,11 @@ export default function AllFontsPage() {
                       </div>
 
                       <div className="col-span-3">
-                        <span className="inline-flex items-center rounded-full px-3 py-1 text-[11px] font-semibold border border-black/10 bg-white/70 text-black/65">
-                          {font.grade}
-                        </span>
+                        {font.grade ? (
+                          <span className="inline-flex items-center rounded-full px-3 py-1 text-[11px] font-semibold border border-black/10 bg-white/70 text-black/65">
+                            {font.grade}
+                          </span>
+                        ) : null}
                       </div>
 
                       <div className="col-span-2">
@@ -528,9 +578,12 @@ export default function AllFontsPage() {
                         </div>
                       </div>
                     </div>
+                      </>
+                    )}
 
                     {/* Mobile card layout */}
-                    <div className="md:hidden p-6">
+                    {font.type !== "Warning" && (
+                      <div className="md:hidden p-6">
                       <div className="flex items-start justify-between gap-3">
                         <div className="min-w-0">
                           <h3 className="text-lg font-extrabold text-[#16130F] leading-tight">
@@ -541,9 +594,11 @@ export default function AllFontsPage() {
                           </p>
 
                           <div className="mt-4 flex flex-wrap gap-2">
-                            <span className="inline-flex items-center rounded-full px-3 py-1 text-[11px] font-semibold border border-black/10 bg-white/70 text-black/65">
-                              {font.grade}
-                            </span>
+                            {font.grade && (
+                              <span className="inline-flex items-center rounded-full px-3 py-1 text-[11px] font-semibold border border-black/10 bg-white/70 text-black/65">
+                                {font.grade}
+                              </span>
+                            )}
                             <span className={typePillClasses(font.type)}>
                               {font.type}
                             </span>
@@ -581,7 +636,8 @@ export default function AllFontsPage() {
                           </div>
                         ))}
                       </div>
-                    </div>
+                      </div>
+                    )}
                   </motion.article>
                 ))}
               </div>

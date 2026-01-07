@@ -25,9 +25,9 @@ if (typeof document !== 'undefined') {
 
 const testimonials = [
   {
-    quote: "I finally have worksheets that match the handwriting we actually use in class. It keeps my whole grade consistent.",
-    author: "Mrs. Naidoo",
-    role: "Foundation Phase Teacher • Cape Town",
+    quote: "I used Edu-Aid fonts in my grade 1 educational app to ensure consistent handwriting practice that matches what kids learn in school.",
+    author: "Mr. Birch",
+    role: "Grade 1 Educational App • Developer",
     color: "#F6B5A8"
   },
   {
@@ -45,10 +45,10 @@ const testimonials = [
 ];
 
 const schools = [
-  { name: "Sunrise Primary", color: "#F6B5A8" },
-  { name: "Greenfield Prep", color: "#D8F3F0" },
-  { name: "Riverpark Academy", color: "#FDE2CF" },
-  { name: "Hopeview Primary", color: "#EADBC4" }
+  { name: "La Montagne Primary School", color: "#F6B5A8" },
+  { name: "Funda Wande", color: "#D8F3F0" },
+  { name: "Mthombothi Studios", color: "#FDE2CF" },
+  { name: "Cambridge university Press & Assessment ", color: "#EADBC4" }
 ];
 
 export default function TrustedByEducatorsSection() {
@@ -114,14 +114,14 @@ export default function TrustedByEducatorsSection() {
         {/* Schools Section */}
         <div className="text-center">
           <h3 className="text-2xl font-bold text-[#16130F] mb-12 max-w-4xl mx-auto">
-            Joining hundreds of South African teachers and schools who care about correct handwriting from the start.
+            Helping South African teachers and schools who care about correct handwriting from the start.
           </h3>
 
           {/* Infinite scrolling school names */}
           <div className="relative overflow-hidden">
             {/* Fade effects on edges */}
-            <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#fef4e6] to-transparent z-10 pointer-events-none"></div>
-            <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#fef4e6] to-transparent z-10 pointer-events-none"></div>
+            <div className="absolute left-0 top-0 bottom-0 w-20 bg-linear-to-r from-[#fef4e6] to-transparent z-10 pointer-events-none"></div>
+            <div className="absolute right-0 top-0 bottom-0 w-20 bg-linear-to-l from-[#fef4e6] to-transparent z-10 pointer-events-none"></div>
 
             <div className="flex animate-scroll">
               {/* First set of schools */}
