@@ -11,6 +11,8 @@ export default function UploadPopPage() {
 
   const [email, setEmail] = useState(initialEmail);
   const [reference, setReference] = useState(initialRef);
+  const [schoolName, setSchoolName] = useState("");
+  const [amount, setAmount] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -33,7 +35,7 @@ export default function UploadPopPage() {
     e.preventDefault();
 
     if (!email || !reference || !file) {
-      alert("Please fill in all fields and select a file.");
+      alert("Please fill in all required fields and select a file.");
       return;
     }
 
@@ -43,6 +45,9 @@ export default function UploadPopPage() {
     // IMPORTANT: When setting up your Tally form, configure it to send email notifications
     // to POP_EMAIL (liam@birch.co.za). Tally will automatically email the form submission
     // including the file attachment to the configured recipient address.
+    // 
+    // Note: You may want separate Tally forms for individual vs school PoP uploads,
+    // or use one form that handles both by checking if schoolName is provided.
     const TALLY_FORM_ENDPOINT = ""; // Add Tally form endpoint with file upload here
 
     try {
@@ -50,6 +55,8 @@ export default function UploadPopPage() {
         const formData = new FormData();
         formData.append("email", email);
         formData.append("reference", reference);
+        if (schoolName) formData.append("schoolName", schoolName);
+        if (amount) formData.append("amount", amount);
         formData.append("proofOfPayment", file);
 
         await fetch(TALLY_FORM_ENDPOINT, {
@@ -126,6 +133,9 @@ export default function UploadPopPage() {
             <p className="text-lg text-[#6B7280]">
               Upload a screenshot or PDF of your payment confirmation
             </p>
+            <p className="text-sm text-[#6B7280] mt-2">
+              For individual purchases and school licences
+            </p>
           </div>
 
           {/* Form */}
@@ -151,13 +161,13 @@ export default function UploadPopPage() {
                 />
               </div>
 
-              {/* Reference */}
+              {/* Reference / Invoice Number */}
               <div>
                 <label
                   htmlFor="reference"
                   className="block text-sm font-semibold text-[#16130F] mb-2"
                 >
-                  Payment Reference <span className="text-red-500">*</span>
+                  Payment Reference / Invoice Number <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -167,11 +177,49 @@ export default function UploadPopPage() {
                   value={reference}
                   onChange={(e) => setReference(e.target.value.toUpperCase())}
                   className="w-full rounded-xl px-4 py-3 border border-white/40 bg-white/80 backdrop-blur-sm text-[#16130F] font-mono focus:outline-none focus:ring-2 focus:ring-[#00827A]/40 focus:border-[#00827A] transition"
-                  placeholder="EDUAID-IND-XXXXX"
+                  placeholder="EDUAID-IND-XXXXX or INV-2026-0012"
                 />
                 <p className="text-xs text-[#6B7280] mt-2">
-                  This should match the reference you used when making the payment
+                  Individual: Use your payment reference (e.g., EDUAID-IND-XXXXX). School: Use your invoice number.
                 </p>
+              </div>
+
+              {/* School Name (Optional - for schools) */}
+              <div>
+                <label
+                  htmlFor="schoolName"
+                  className="block text-sm font-semibold text-[#16130F] mb-2"
+                >
+                  School Name <span className="text-xs text-[#6B7280]">(Optional - for school licences)</span>
+                </label>
+                <input
+                  type="text"
+                  id="schoolName"
+                  name="schoolName"
+                  value={schoolName}
+                  onChange={(e) => setSchoolName(e.target.value)}
+                  className="w-full rounded-xl px-4 py-3 border border-white/40 bg-white/80 backdrop-blur-sm text-[#16130F] focus:outline-none focus:ring-2 focus:ring-[#00827A]/40 focus:border-[#00827A] transition"
+                  placeholder="Your School Name"
+                />
+              </div>
+
+              {/* Amount (Optional) */}
+              <div>
+                <label
+                  htmlFor="amount"
+                  className="block text-sm font-semibold text-[#16130F] mb-2"
+                >
+                  Amount Paid <span className="text-xs text-[#6B7280]">(Optional)</span>
+                </label>
+                <input
+                  type="text"
+                  id="amount"
+                  name="amount"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  className="w-full rounded-xl px-4 py-3 border border-white/40 bg-white/80 backdrop-blur-sm text-[#16130F] focus:outline-none focus:ring-2 focus:ring-[#00827A]/40 focus:border-[#00827A] transition"
+                  placeholder="R299 or R999"
+                />
               </div>
 
               {/* File Upload */}

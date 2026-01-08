@@ -6,6 +6,8 @@ import HowWeHelpPage from './components/pages/HowWeHelpPage';
 import AllFontsPage from './components/pages/AllFontsPage';
 import BuyIndividualPage from './components/pages/BuyIndividualPage';
 import BuyIndividualThanksPage from './components/pages/BuyIndividualThanksPage';
+import BuySchoolPage from './components/pages/BuySchoolPage';
+import BuySchoolThanksPage from './components/pages/BuySchoolThanksPage';
 import UploadPopPage from './components/pages/UploadPopPage';
 
 // Component to handle scrolling behavior
@@ -53,6 +55,8 @@ function AppContent() {
         <Route path="/all-fonts" element={<AllFontsPage />} />
         <Route path="/buy/individual" element={<BuyIndividualPage />} />
         <Route path="/buy/individual/thanks" element={<BuyIndividualThanksPage />} />
+        <Route path="/buy/school" element={<BuySchoolPage />} />
+        <Route path="/buy/school/thanks" element={<BuySchoolThanksPage />} />
         <Route path="/upload-pop" element={<UploadPopPage />} />
       </Routes>
     </>
