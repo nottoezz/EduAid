@@ -31,15 +31,15 @@ const testimonials = [
     color: "#F6B5A8"
   },
   {
-    quote: "Edu-Aid has helped us standardise letter formation from Grade R upwards. New teachers plug in without starting from scratch.",
-    author: "Mr. Jacobs",
-    role: "Head of Department • Public Primary School, Gauteng",
+    quote: "Edu-Aid fonts allow me to create consistent proffesional worksheets for my students. I stand by the don't let bad fonts teach bad habits.",
+    author: "Ms. Levy",
+    role: "Teacher • Private School, Cape Town",
     color: "#D8F3F0"
   },
   {
-    quote: "The clear arrows and trace lines are perfect for OT and remedial sessions. Parents can keep using the same style at home.",
-    author: "Karin S.",
-    role: "Remedial / OT Therapist • Private Practice, Western Cape",
+    quote: "The trace fonts have made teaching handwriting so much easier. Maintaining consistency across my classes has never been easier.",
+    author: "Mrs. Golding",
+    role: "Teacher • Private School, Cape Town",
     color: "#FDE2CF"
   }
 ];

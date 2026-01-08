@@ -38,6 +38,7 @@ type Resource = {
   label: string;
   href: string;
   note?: string;
+  download?: boolean;
 };
 
 /* ---------------------------------------------
@@ -53,6 +54,24 @@ const handlePdfClick = (filename: string, e: React.MouseEvent) => {
   e.stopPropagation();
   const base = import.meta.env.BASE_URL || "/";
   window.open(`${base}${filename}`.replace(/\/\//g, "/"), "_blank", "noopener");
+};
+
+// Function to handle PDF download
+const handlePdfDownload = (filename: string, e: React.MouseEvent) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  // Construct the correct URL - Vite serves public files from root
+  const baseUrl = import.meta.env.BASE_URL || '/';
+  const pdfUrl = `${baseUrl}${filename}`.replace(/\/\//g, '/'); // Remove double slashes
+  
+  // Create a temporary link element to trigger download
+  const link = document.createElement('a');
+  link.href = pdfUrl;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 };
 
 /* ---------------------------------------------
@@ -110,7 +129,7 @@ const PAGES: Page[] = [
 
 const RESOURCES: Resource[] = [
   { label: "License PDF", href: "Edu‑font-License.pdf" },
-  { label: "Sample Worksheet", href: "sample-worksheet.pdf" },
+  { label: "Sample Worksheet", href: "Dots Alphabet worksheet LC+UC.pdf", download: true },
   { label: "Licensing Guide", href: "licensing-guide.pdf" },
   { label: "Installation Guide", href: "font-installation.pdf" },
 ];
@@ -372,7 +391,7 @@ export default function Header() {
                       {RESOURCES.map((r) => (
                         <button
                           key={r.href}
-                          onClick={(e) => handlePdfClick(r.href, e)}
+                          onClick={(e) => r.download ? handlePdfDownload(r.href, e) : handlePdfClick(r.href, e)}
                           className="text-left px-3 py-2 rounded-xl hover:bg-black/5 text-sm"
                         >
                           {r.label}

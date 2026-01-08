@@ -14,6 +14,24 @@ const handlePdfClick = (filename: string, e: React.MouseEvent) => {
   window.open(pdfUrl, '_blank', 'noopener,noreferrer');
 };
 
+// Function to handle PDF download
+const handlePdfDownload = (filename: string, e: React.MouseEvent) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  // Construct the correct URL - Vite serves public files from root
+  const baseUrl = import.meta.env.BASE_URL || '/';
+  const pdfUrl = `${baseUrl}${filename}`.replace(/\/\//g, '/'); // Remove double slashes
+  
+  // Create a temporary link element to trigger download
+  const link = document.createElement('a');
+  link.href = pdfUrl;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
 export default function Footer() {
   return (
     <footer className="relative bg-[#152835] text-white">
@@ -74,11 +92,11 @@ export default function Footer() {
             <h3 className="text-sm font-semibold uppercase tracking-wide">Resources</h3>
             <nav className="flex flex-col space-y-2 text-sm">
               <button
-                onClick={(e) => handlePdfClick("sample-worksheet.pdf", e)}
+                onClick={(e) => handlePdfDownload("Dots Alphabet worksheet LC+UC.pdf", e)}
                 className="text-left text-[#E5EDF4]/80 hover:text-white transition-colors"
                 type="button"
               >
-                Sample Worksheet
+                Trial Worksheet
               </button>
               <Link to="/#testimonials" className="text-[#E5EDF4]/80 hover:text-white transition-colors">
                 Teacher Testimonials
