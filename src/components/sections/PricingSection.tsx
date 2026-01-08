@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 // Function to handle PDF link clicks to avoid React Router interception
 const handlePdfClick = (filename: string, e: React.MouseEvent) => {
@@ -228,9 +229,12 @@ export default function PricingSection() {
                   </ul>
 
                   <div className="mt-auto pt-8">
-                    <PrimaryButton onClick={() => handleCheckout("individual")}>
-                      Buy Individual — R299 once off
-                    </PrimaryButton>
+                    <Link
+                      to="/buy/individual"
+                      className="block w-full rounded-2xl py-5 font-bold text-lg shadow-lg transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00827A]/40 bg-[#00827A] text-white hover:bg-[#006B5E] text-center"
+                    >
+                      Pay via EFT
+                    </Link>
                   </div>
                 </div>
               </CardShell>

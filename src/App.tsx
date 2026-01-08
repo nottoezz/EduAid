@@ -4,6 +4,9 @@ import HomePage from './components/pages/HomePage';
 import FontDownloadPage from './components/pages/FontDownloadPage';
 import HowWeHelpPage from './components/pages/HowWeHelpPage';
 import AllFontsPage from './components/pages/AllFontsPage';
+import BuyIndividualPage from './components/pages/BuyIndividualPage';
+import BuyIndividualThanksPage from './components/pages/BuyIndividualThanksPage';
+import UploadPopPage from './components/pages/UploadPopPage';
 
 // Component to handle scrolling behavior
 function ScrollHandler() {
@@ -48,6 +51,9 @@ function AppContent() {
         <Route path="/download" element={<FontDownloadPage />} />
         <Route path="/help" element={<HowWeHelpPage />} />
         <Route path="/all-fonts" element={<AllFontsPage />} />
+        <Route path="/buy/individual" element={<BuyIndividualPage />} />
+        <Route path="/buy/individual/thanks" element={<BuyIndividualThanksPage />} />
+        <Route path="/upload-pop" element={<UploadPopPage />} />
       </Routes>
     </>
   );
