@@ -37,6 +37,10 @@ export default defineConfig({
   },
   // Optimize dependencies
   optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom', 'framer-motion']
+    include: ['react', 'react-dom', 'react-router-dom', 'framer-motion'],
+    exclude: ['pdfjs-dist']
+  },
+  worker: {
+    format: 'es'
   }
 })

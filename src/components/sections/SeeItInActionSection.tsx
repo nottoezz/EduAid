@@ -1,6 +1,14 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
+import { Document, Page, pdfjs } from "react-pdf";
 import SeeItInActionOrnaments from "../decorative/SeeItInActionOrnaments";
+
+// Configure PDF.js worker for Vite
+// Use public folder worker file which Vite serves at root
+if (typeof window !== "undefined") {
+  const base = import.meta.env.BASE_URL || "/";
+  pdfjs.GlobalWorkerOptions.workerSrc = `${base}pdf.worker.min.mjs`;
+}
 
 type Slide = {
   id: number;
@@ -8,36 +16,33 @@ type Slide = {
   title: string;
   description: string;
   tone: "peach" | "mint" | "cream" | "softOrange";
+  pdf: string;
 };
 
 const slides: Slide[] = [
   {
     id: 1,
-    label: "Tracing",
-    title: "Grade 1 Tracing Worksheet",
-    description: "Big, friendly letters with starting dots and arrows.",
+    label: "Dots",
+    title: "Dots Alphabet Worksheet",
+    description: "Lowercase and uppercase letters with starting dots for tracing practice.",
     tone: "cream",
+    pdf: "/Dots Alphabet worksheet LC+UC.pdf",
   },
   {
     id: 2,
     label: "Arrows",
-    title: "Letter Formation Arrows",
-    description: "Clear step-by-step arrows for correct letter direction.",
+    title: "Dots & Arrows Alphabet Worksheet",
+    description: "Lowercase letters with dots and directional arrows for correct letter formation.",
     tone: "mint",
+    pdf: "/Dots & Arrows Alphabet worksheet LC.pdf",
   },
   {
     id: 3,
     label: "Cursive",
-    title: "Grade 3 Cursive Practice",
-    description: "Joined letters with baseline guides and rhythm lines.",
+    title: "Cursive Alphabet Worksheet",
+    description: "Lowercase cursive letters for flowing, connected handwriting practice.",
     tone: "peach",
-  },
-  {
-    id: 4,
-    label: "Advanced",
-    title: "Advanced Letter Tracing",
-    description: "Complex letter shapes with directional arrows for mastery.",
-    tone: "softOrange",
+    pdf: "/Cursive Alphabet worksheet LC .pdf",
   },
 ];
 
@@ -56,128 +61,58 @@ function toneToBg(tone: Slide["tone"]) {
 }
 
 function WorksheetPreview({ slide }: { slide: Slide }) {
-  switch (slide.label) {
-    case "Tracing":
-      return (
-        <div className="mx-3 mb-3 rounded-2xl border border-dashed border-black/15 bg-white/70 p-3">
-          {/* title bar */}
-          <div className="mb-3 h-2 w-1/3 rounded-full bg-black/10" />
-          {/* big tracing rows */}
-          <div className="space-y-3">
-            {[0, 1, 2].map((row) => (
-              <div
-                key={row}
-                className="flex items-center gap-3 rounded-xl border border-black/10 bg-white/80 px-3 py-2"
-              >
-                {/* start dot */}
-                <div className="h-3 w-3 rounded-full bg-[#f89f7b]" />
-                {/* dashed guide line */}
-                <div className="relative flex-1">
-                  <div className="h-[2px] w-full border-t border-dashed border-black/30" />
-                  {/* ghost letter shape */}
-                  <div className="absolute inset-y-[-6px] left-4 flex items-center">
-                    <div className="h-6 w-6 rounded-lg border border-black/20 bg-black/5" />
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      );
+  const [numPages, setNumPages] = useState<number | null>(null);
+  const [pageNumber] = useState(1);
 
-    case "Arrows":
-      return (
-        <div className="mx-3 mb-3 rounded-2xl border border-dashed border-black/15 bg-white/70 p-3">
-          {/* title bar */}
-          <div className="mb-3 h-2 w-1/2 rounded-full bg-black/10" />
-          <div className="space-y-3">
-            {[0, 1].map((row) => (
-              <div
-                key={row}
-                className="flex items-center gap-3 rounded-xl border border-black/10 bg-white/80 px-3 py-2"
-              >
-                {/* ghost letter shape */}
-                <div className="h-10 w-10 rounded-xl border border-black/20 bg-black/5" />
-                {/* arrow steps */}
-                <div className="flex flex-1 items-center justify-between gap-2">
-                  {[0, 1, 2].map((step) => (
-                    <div
-                      key={step}
-                      className="flex items-center gap-1 text-[10px] text-black/50"
-                    >
-                      <div className="h-4 w-4 rounded-full border border-black/20 bg-white" />
-                      {/* tiny arrow */}
-                      <div className="h-px w-6 bg-black/30" />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      );
-
-    case "Cursive":
-      return (
-        <div className="mx-3 mb-3 rounded-2xl border border-dashed border-black/15 bg-white/70 p-3">
-          {/* title bar */}
-          <div className="mb-3 h-2 w-2/5 rounded-full bg-black/10" />
-          <div className="space-y-3">
-            {[0, 1, 2].map((row) => (
-              <div key={row} className="space-y-1">
-                {/* guideline stack */}
-                <div className="h-px w-full bg-black/10" />
-                <div className="h-px w-full bg-black/5" />
-                <div className="flex items-center gap-1 pt-1">
-                  {/* flowing "joined letters" as pills */}
-                  {[0, 1, 2, 3].map((pill) => (
-                    <div
-                      key={pill}
-                      className="h-4 flex-1 rounded-full bg-black/5"
-                    />
-                  ))}
-                </div>
-                <div className="h-px w-full bg-black/10" />
-              </div>
-            ))}
-          </div>
-        </div>
-      );
-
-    case "Advanced":
-    default:
-      return (
-        <div className="mx-3 mb-3 rounded-2xl border border-dashed border-black/15 bg-white/70 p-3">
-          {/* title bar */}
-          <div className="mb-3 h-2 w-2/5 rounded-full bg-black/10" />
-          <div className="space-y-3">
-            {[0, 1].map((row) => (
-              <div
-                key={row}
-                className="flex items-center gap-2 rounded-xl border border-black/10 bg-white/80 px-3 py-2"
-              >
-                {/* complex letter shape */}
-                <div className="h-12 w-12 rounded-lg border-2 border-black/20 bg-black/5" />
-                {/* multiple directional arrows */}
-                <div className="flex flex-1 items-center justify-between gap-1">
-                  {[0, 1, 2, 3].map((step) => (
-                    <div
-                      key={step}
-                      className="flex flex-col items-center gap-1 text-[8px] text-black/50"
-                    >
-                      <div className="h-3 w-3 rounded-full border border-black/20 bg-white" />
-                      {/* curved arrow */}
-                      <div className="h-px w-4 bg-black/30 rounded-full" />
-                      <div className="h-px w-2 bg-black/30 rounded-full transform rotate-45" />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      );
+  function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
+    setNumPages(numPages);
   }
+
+  return (
+    <div className="mx-3 mb-3 rounded-2xl border border-dashed border-black/15 bg-white/70 overflow-hidden flex-1 flex flex-col min-h-0">
+      <style>{`
+        .pdf-page-container canvas {
+          max-width: 100%;
+          max-height: 100%;
+          width: auto !important;
+          height: auto !important;
+          object-fit: contain;
+        }
+        .pdf-page-container {
+          display: flex;
+          align-items: flex-start;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          padding-top: 8px;
+        }
+      `}</style>
+      <div className="relative w-full flex-1 overflow-hidden pdf-page-container" style={{ position: 'relative' }}>
+        <Document
+          file={slide.pdf}
+          onLoadSuccess={onDocumentLoadSuccess}
+          loading={
+            <div className="flex items-center justify-center h-full min-h-[280px]">
+              <div className="text-sm text-black/40">Loading...</div>
+            </div>
+          }
+          error={
+            <div className="flex items-center justify-center h-full min-h-[280px]">
+              <div className="text-sm text-red-500">Failed to load PDF</div>
+            </div>
+          }
+        >
+          <Page
+            pageNumber={pageNumber}
+            renderTextLayer={false}
+            renderAnnotationLayer={false}
+            width={340}
+          />
+        </Document>
+      </div>
+    </div>
+  );
 }
 
 export default function SeeItInActionSection() {
@@ -241,7 +176,7 @@ export default function SeeItInActionSection() {
                       </p>
                     </div>
 
-                    {/* fake but specific worksheet preview */}
+                    {/* PDF worksheet preview */}
                     <WorksheetPreview slide={slide} />
                   </motion.div>
                 );
